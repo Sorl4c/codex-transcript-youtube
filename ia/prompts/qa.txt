@@ -1,0 +1,23 @@
+Escribe la respuesta en **español**.
+
+Genera exactamente **5 preguntas** numeradas sobre el texto, cada una centrada en un tema distinto, y a continuación la **respuesta correspondiente**.
+
+Formato:
+
+PREGUNTA 1: (texto de la pregunta)  
+RESPUESTA 1: (respuesta clara y concisa)
+
+PREGUNTA 2: …  
+RESPUESTA 2: …
+
+[...]
+
+**Temas a cubrir** (uno por pregunta):  
+1. IA en salud  
+2. IA en educación  
+3. Privacidad y ética de datos  
+4. Impacto en el mercado laboral  
+5. Marcos regulatorios y futuro de la IA
+
+Texto a resumir:  
+{text}

@@ -1,0 +1,265 @@
+"""
+Module for handling the vector database operations.
+
+Provides an abstraction layer for the database, allowing for different
+backend implementations (e.g., SQLite, PostgreSQL).
+"""
+
+# First try to import pysqlite3, which generally has better compatibility
+# with extensions. Fall back to standard sqlite3 if not available.
+try:
+    import pysqlite3 as sqlite3
+    print("Using pysqlite3 module for better extension compatibility")
+except ImportError:
+    import sqlite3
+    print(f"Using standard sqlite3 module, version {sqlite3.sqlite_version}")
+    # Check if the sqlite version is adequate for sqlite-vec
+    import pkg_resources
+    if pkg_resources.parse_version(sqlite3.sqlite_version) < pkg_resources.parse_version("3.41.0"):
+        print("WARNING: Your SQLite version is older than 3.41.0, which may cause issues with sqlite-vec")
+        print("Consider installing pysqlite3-binary: pip install pysqlite3-binary")
+
+from abc import ABC, abstractmethod
+from typing import List, Tuple
+import json
+import sys
+
+from .config import DB_PATH, DB_TABLE_NAME
+
+# Attempt to load the sqlite-vec extension
+try:
+    import sqlite_vec
+except ImportError:
+    print("sqlite-vec not found. Please install it with: pip install sqlite-vec")
+    sqlite_vec = None
+
+class VectorDatabase(ABC):
+    """Abstract base class for a vector database."""
+
+    @abstractmethod
+    def add_documents(self, documents: List[Tuple[str, List[float]]]):
+        """
+        Adds documents and their embeddings to the database.
+
+        Args:
+            documents (List[Tuple[str, List[float]]]): A list of tuples,
+                where each tuple contains the text chunk and its corresponding embedding.
+        """
+        pass
+
+    @abstractmethod
+    def get_document_count(self) -> int:
+        """Returns the total number of documents in the database."""
+        pass
+
+
+def init_sqlite_vec(conn: sqlite3.Connection):
+    """
+    Initializes and registers the sqlite-vec extension for the given connection.
+    This is a more robust way to ensure the extension is loaded.
+    """
+    if not sqlite_vec:
+        raise RuntimeError("sqlite-vec extension is not installed or could not be loaded.")
+    
+    # Enable loading extensions
+    try:
+        conn.enable_load_extension(True)
+        sqlite_vec.load(conn)
+        
+        # Verify that the extension loaded correctly
+        cursor = conn.cursor()
+        try:
+            cursor.execute("SELECT vec_version()")
+            version = cursor.fetchone()[0]
+            print(f"sqlite-vec extension loaded successfully, version: {version}")
+        except sqlite3.OperationalError:
+            print("WARNING: Could not verify sqlite-vec version, but extension loading didn't fail")
+            print("This might indicate an incomplete installation")
+        finally:
+            conn.enable_load_extension(False)
+            
+    except Exception as e:
+        print(f"ERROR: Failed to load sqlite-vec extension: {e}")
+        print("This might be due to:")
+        if sys.platform == 'darwin':
+            print("  - Using macOS system Python (try using Homebrew Python instead)")
+        print("  - Insufficient permissions to load extensions")
+        print("  - Incompatible SQLite version")
+        print("  - Corrupted sqlite-vec installation")
+        print("\nTry: pip install pysqlite3-binary sqlite-vec --force-reinstall")
+        raise
+
+
+class SQLiteVecDatabase(VectorDatabase):
+    """Vector database implementation using SQLite with the sqlite-vec extension."""
+
+    def __init__(self, db_path: str = DB_PATH, table_name: str = DB_TABLE_NAME):
+        """
+        Initializes the SQLiteVecDatabase.
+
+        Args:
+            db_path (str): The path to the SQLite database file.
+            table_name (str): The name of the table to store vectors.
+        """
+        if not sqlite_vec:
+            raise RuntimeError("sqlite-vec extension is not installed or could not be loaded.")
+        
+        self.db_path = db_path
+        self.table_name = table_name
+        self.conn = sqlite3.connect(self.db_path)
+        # The init function handles loading the extension in a robust way
+        init_sqlite_vec(self.conn)
+        print(f"Database connection established to {self.db_path}")
+
+    def _create_table_if_not_exists(self, vector_dim: int):
+        """
+        Creates the vector store table if it doesn't already exist.
+        Uses a regular table with BLOB column for vectors instead of virtual tables.
+
+        Args:
+            vector_dim (int): The dimension of the vectors to be stored.
+        """
+        cursor = self.conn.cursor()
+        # Check if the table already exists
+        cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{self.table_name}'")
+        if cursor.fetchone() is None:
+            print(f"Creating new table '{self.table_name}' with vector dimension {vector_dim}.")
+            
+            # Create a regular table with BLOB column for vectors
+            # This approach is more compatible across sqlite-vec versions
+            cursor.execute(f"""
+                CREATE TABLE {self.table_name} (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    content TEXT NOT NULL,
+                    embedding BLOB NOT NULL
+                )
+            """)
+            
+            # Create an index for faster searches (optional but recommended)
+            cursor.execute(f"""
+                CREATE INDEX idx_{self.table_name}_content ON {self.table_name}(content)
+            """)
+            
+            print(f"Table '{self.table_name}' created successfully as regular table with BLOB vectors.")
+            self.conn.commit()
+        else:
+            print(f"Table '{self.table_name}' already exists.")
+
+    def add_documents(self, documents: List[Tuple[str, List[float]]]):
+        """
+        Adds a batch of documents to the SQLite database.
+
+        This method is optimized for bulk inserts.
+        """
+        if not documents:
+            return
+
+        # Infer vector dimension from the first document
+        vector_dim = len(documents[0][1])
+        self._create_table_if_not_exists(vector_dim)
+
+        cursor = self.conn.cursor()
+        
+        # Prepare data for bulk insert
+        # We store embeddings as JSON strings in a standard way for sqlite-vec
+        data_to_insert = [(json.dumps(embedding), content) for content, embedding in documents]
+        
+        print(f"Inserting {len(data_to_insert)} documents into '{self.table_name}'...")
+        cursor.executemany(
+            f"INSERT INTO {self.table_name} (embedding, content) VALUES (?, ?)",
+            data_to_insert
+        )
+        self.conn.commit()
+        print("Insertion complete.")
+
+    def get_document_count(self) -> int:
+        """Returns the total number of documents in the database."""
+        cursor = self.conn.cursor()
+        try:
+            cursor.execute(f"SELECT COUNT(*) FROM {self.table_name}")
+            count = cursor.fetchone()[0]
+            return count
+        except sqlite3.OperationalError:
+            # This can happen if the table doesn't exist yet
+            return 0
+
+    def search_similar(self, query_embedding: List[float], top_k: int = 5) -> List[Tuple[str, float]]:
+        """
+        Searches for the most similar documents to the query embedding.
+        Uses sqlite-vec functions for efficient vector similarity search.
+
+        Args:
+            query_embedding (List[float]): The query embedding vector.
+            top_k (int): Number of top results to return.
+
+        Returns:
+            List[Tuple[str, float]]: List of (content, similarity_score) tuples.
+        """
+        cursor = self.conn.cursor()
+        
+        try:
+            # Try to use sqlite-vec's vec_distance function for efficient search
+            import struct
+            query_bytes = struct.pack(f'{len(query_embedding)}f', *query_embedding)
+            
+            cursor.execute(f"""
+                SELECT content, vec_distance(embedding, ?) as distance
+                FROM {self.table_name}
+                ORDER BY distance
+                LIMIT ?
+            """, (query_bytes, top_k))
+            
+            results = cursor.fetchall()
+            # Convert distance to similarity (lower distance = higher similarity)
+            return [(content, 1.0 / (1.0 + distance)) for content, distance in results]
+            
+        except sqlite3.OperationalError:
+            # Fallback to manual cosine similarity if vec_distance is not available
+            print("sqlite-vec distance function not available, using manual similarity calculation")
+            cursor.execute(f"SELECT content, embedding FROM {self.table_name}")
+            results = cursor.fetchall()
+            
+            similarities = []
+            for content, embedding_data in results:
+                # Handle both JSON string and bytes formats
+                if isinstance(embedding_data, str):
+                    # Embedding stored as JSON string
+                    import json
+                    stored_embedding = json.loads(embedding_data)
+                else:
+                    # Embedding stored as bytes (legacy format)
+                    import struct
+                    stored_embedding = list(struct.unpack(f'{len(embedding_data)//4}f', embedding_data))
+                
+                # Calculate cosine similarity
+                similarity = self._cosine_similarity(query_embedding, stored_embedding)
+                similarities.append((content, similarity))
+            
+            # Sort by similarity (descending) and return top_k
+            similarities.sort(key=lambda x: x[1], reverse=True)
+            return similarities[:top_k]
+
+    def _cosine_similarity(self, vec1: List[float], vec2: List[float]) -> float:
+        """
+        Calculate cosine similarity between two vectors.
+        """
+        import math
+        
+        # Calculate dot product
+        dot_product = sum(a * b for a, b in zip(vec1, vec2))
+        
+        # Calculate magnitudes
+        magnitude1 = math.sqrt(sum(a * a for a in vec1))
+        magnitude2 = math.sqrt(sum(a * a for a in vec2))
+        
+        # Avoid division by zero
+        if magnitude1 == 0 or magnitude2 == 0:
+            return 0.0
+        
+        return dot_product / (magnitude1 * magnitude2)
+
+    def __del__(self):
+        """Ensures the database connection is closed when the object is destroyed."""
+        if self.conn:
+            self.conn.close()
+            print("Database connection closed.")

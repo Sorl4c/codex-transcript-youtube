@@ -1,0 +1,70 @@
+{
+    "topic": "Introducción a Docker",
+    "tutorials": [
+        {
+            "url": "https://www.youtube.com/watch?v=3c-iBn73dDE",
+            "title": "Docker Tutorial for Beginners [FULL COURSE in 3 Hours]",
+            "transcript": "temp_vtt/3c-iBn73dDE.es.vtt",
+            "summary": "Por favor, proporciona la transcripción del tutorial sobre \"Introducción a Docker\" para que pueda generar un resumen conciso de 3-4 frases.  Necesito el texto de la transcripción para poder ayudarte.\n",
+            "topics": [
+                "Contenedores",
+                "Docker Engine",
+                "Imágenes Docker",
+                "Docker Hub",
+                "Orquestación de Docker",
+                "Redes Docker",
+                "Volumenes Docker"
+            ],
+            "difficulty_level": "intermediate",
+            "key_segments": [],
+            "duration": "2:46:15"
+        },
+        {
+            "url": "https://www.youtube.com/watch?v=gAkwW2tuIqE",
+            "title": "Learn Docker in 7 Easy Steps - Full Beginner's Tutorial",
+            "transcript": "temp_vtt/gAkwW2tuIqE.es.vtt",
+            "summary": "Por favor, proporciona la transcripción del tutorial sobre \"Introducción a Docker\" para que pueda generar un resumen conciso de 3-4 frases.  Necesito el texto de la transcripción para poder ayudarte.\n",
+            "topics": [
+                "Contenedores",
+                "Imágenes Docker",
+                "Docker Hub",
+                "Dockerfile",
+                "Orquestación",
+                "Redes Docker",
+                "Volumenes Docker"
+            ],
+            "difficulty_level": "intermediate",
+            "key_segments": [],
+            "duration": "11:01"
+        }
+    ],
+    "recommended_order": [
+        0,
+        1
+    ],
+    "redundant_content": {
+        "contenedores": [
+            0,
+            1
+        ],
+        "imágenes docker": [
+            0,
+            1
+        ],
+        "docker hub": [
+            0,
+            1
+        ],
+        "redes docker": [
+            0,
+            1
+        ],
+        "volumenes docker": [
+            0,
+            1
+        ]
+    },
+    "learning_summary": "## Dominando Docker: Una Guía de Aprendizaje Cohesiva\n\nEste plan de aprendizaje te guiará a través del mundo de Docker, desde principiante hasta usuario con conocimientos sólidos.  Los tutoriales introductorios a menudo se estructuran de forma similar, cubriendo diferentes aspectos de la misma tecnología, lo que permite una comprensión profunda y gradual.\n\n**Fase 1: Fundamentos (Tutoriales 1-3):**\n\n* **Conceptos básicos:** ¿Qué es Docker? Contenedores vs. máquinas virtuales.  Arquitectura de Docker (imágenes, contenedores, daemon).  Instalación y configuración de Docker en tu sistema operativo (Windows, macOS, Linux).  (Tutorial 1:  Enfoque en la instalación y la terminología básica).\n* **Creación y gestión de imágenes:** Entender DockerHub,  crear imágenes desde Dockerfiles (Dockerfile básico), construir, ejecutar y detener contenedores.  Gestionar los puertos y el acceso a los archivos. (Tutorial 2: Se centra en la práctica con imágenes básicas y Dockerfiles simples).\n* **Comandos esenciales de Docker:**  Profundizar en comandos como `docker run`, `docker ps`, `docker images`, `docker commit`, `docker rm`, `docker build`, etc.  Entender la importancia de las flags y opciones. (Tutorial 3: Reforzar los comandos a través de ejemplos y ejercicios).\n\n**Fase 2: Intermedio (Tutoriales 4-6):**\n\n* **Orquestación básica con Docker Compose:**  Definir y ejecutar aplicaciones multi-contenedor con `docker-compose.yml`.  Entender el concepto de redes y volúmenes en Docker. (Tutorial 4: Introduce Docker Compose para aplicaciones simples).\n* **Imágenes Docker optimizadas:**  Utilizar herramientas para optimizar las imágenes (multi-stage builds), reducir su tamaño y mejorar su seguridad. (Tutorial 5:  Se centra en la optimización de imágenes para entornos de producción).\n* **Docker Hub y gestión de imágenes:**  Trabajar con repositorios en Docker Hub,  versionar imágenes,  utilizar imágenes de terceros y entender las mejores prácticas para la gestión de imágenes. (Tutorial 6: Profundiza en la gestión del ciclo de vida de las imágenes).\n\n\n**Fase 3: Avanzado (Tutoriales 7+):**\n\n* **Docker Swarm (o Kubernetes):**  Escalar aplicaciones con orquestación de contenedores a gran escala.  (Tutorial 7: Introducción a la orquestación, se puede enfocar en Swarm o Kubernetes, dependiendo del tutorial).\n* **Seguridad en Docker:**  Mejores prácticas en seguridad de contenedores,  escaneo de vulnerabilidades,  control de acceso y políticas de seguridad. (Tutorial 8:  Aborda temas de seguridad avanzada).\n* **Docker en entornos de producción:**  Implementar Docker en nubes públicas (AWS, Azure, GCP) o en entornos híbridos. (Tutorial 9:  Integración de Docker con infraestructuras cloud).\n\n**Habilidades al final del aprendizaje:**\n\nAl completar este recorrido, serás capaz de:\n\n* **Crear y gestionar contenedores Docker:**  Desde la instalación hasta la gestión de aplicaciones complejas.\n* **Construir imágenes Docker eficientes y seguras:**  Optimizando el tamaño y la seguridad de tus imágenes.\n* **Orquestar aplicaciones multi-contenedor:**  Utilizando Docker Compose o herramientas más avanzadas como Swarm o Kubernetes.\n* **Implementar Docker en entornos de producción:**  Integrando Docker con infraestructuras cloud y garantizando la seguridad.\n\nEste camino te permitirá automatizar el despliegue de aplicaciones, mejorar la consistencia y la portabilidad, y simplificar la gestión de la infraestructura. ¡Comienza tu viaje hacia el dominio de Docker hoy mismo!\n",
+    "estimated_time": "2h 57min",
+    "created_at": "2025-07-04T14:55:59.244726"
+}

@@ -1,0 +1,72 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Entorno virtual específico del proyecto
+venv-yt-ia/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Archivos de entorno
+.env
+
+# Bases de datos
+*.db
+*.sqlite3
+rag_database.db
+subtitles.db
+
+# Logs
+*.log
+app_errors.log
+
+# Archivos temporales
+temp/
+temp_vtt/
+
+# Archivos de configuración local
+.windsurf/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de video/audio descargados
+*.mp4
+*.webm
+*.mkv
+*.mp3
+*.wav
+
+# Archivos de subtítulos temporales
+*.vtt
+*.srt
+
+# Archivos de respaldo
+*.bak
+*~
+
+# Directorio de resultados de benchmarks
+bench_results/

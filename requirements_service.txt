@@ -1,0 +1,5 @@
+fastapi>=0.100.0
+uvicorn[standard]>=0.20.0
+python-dotenv>=0.21.0
+llama-cpp-python>=0.2.0 # Ensure this matches the main project's version if shared, or specify for server if different features needed
+# pydantic handled by fastapi

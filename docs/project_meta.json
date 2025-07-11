@@ -1,0 +1,313 @@
+{
+  "project_name": "YouTube Subtitle Downloader",
+  "version": "2.7.1",
+  "description": "Herramienta para descargar, procesar, gestionar subtítulos de YouTube y generar resúmenes con IA, con un enfoque actual en la implementación de un sistema RAG.",
+  "last_updated": "2025-07-09 12:45",
+  "status": "En desarrollo - v2.6.2 (RAG + Búsquedas Vectoriales)",
+  "ia_enabled": true,
+  "ia_features": ["Modelos locales (GGUF)", "Gemini API", "LangChain", "API Local Compatible con OpenAI", "CLI funcional", "GUI unificada con panel lateral", "Procesamiento por lotes", "Gestión avanzada de vídeos", "Interfaz responsiva y accesible", "Selección de vídeo mejorada en Videoteca", "RAG Chunking Playground (Tkinter)", "Chunking Semántico basado en estructura natural", "Chunking Agentic con hooks para LLMs", "Sistema modular con patrón Strategy"],
+  "benchmarking_enabled": true,
+  "benchmarking_features": [
+    "Comparación de pipelines (nativo, LangChain, Gemini API)",
+    "Métricas de rendimiento y calidad",
+    "Cálculo de costos para Gemini API",
+    "Informes visuales en Markdown",
+    "Análisis detallado por prompt",
+    "Resumen ejecutivo con promedios"
+  ],
+  
+  "modules": [
+    {
+      "name": "gui_streamlit.py",
+      "purpose": "Interfaz Streamlit moderna para gestión de vídeos con soporte para múltiples modelos de IA.",
+      "dependencies": ["streamlit", "db", "json", "pandas"],
+      "features": [
+        "Sistema RAG avanzado con chunking semántico",
+        "Interfaz gráfica Chunking Playground con 3 paneles",
+        "Panel de búsquedas vectoriales interactivo",
+        "Base de datos vectorial SQLite con sqlite-vec",
+        "Embeddings locales y vía API externa",
+        "Búsquedas semánticas con similitud vectorial",
+        "Benchmarking de estrategias de chunking",
+        "Documentación completa y actualizada",
+        "Interfaz web moderna y responsiva",
+        "Gestión y análisis de vídeos",
+        "Procesamiento por lotes con IA (Gemini, modelos locales)",
+        "Panel de depuración y feedback",
+        "Filtros por canal y búsqueda",
+        "Exportación de datos (JSON, CSV)",
+        "Selección de vídeo mejorada con clic directo en fila"
+      ]
+    },
+    {
+      "name": "gui_unified.py",
+      "purpose": "Interfaz de escritorio legacy basada en tkinter.",
+      "dependencies": ["tkinter", "db", "queue", "threading"],
+      "features": [
+        "Gestión básica de vídeos",
+        "Procesamiento por lotes",
+        "Ordenación por columnas"
+      ]
+    },
+    {
+      "name": "ia/summarize_transcript.py",
+      "purpose": "Script CLI para resumir transcripciones, soporta procesamiento por lotes.",
+      "dependencies": ["requests", "argparse"],
+      "features": [
+        "Procesamiento por lotes",
+        "Exportación a .md/.txt",
+        "Parámetros ajustables (modelo, temperatura, tokens)"
+      ]
+    },
+    {
+      "name": "GUI/gui_db.py",
+      "purpose": "Interfaz gráfica para gestión de vídeos y procesamiento masivo de transcripciones.",
+      "dependencies": ["tkinter", "db", "datetime"],
+      "features": [
+        "Procesamiento por lotes",
+        "Visualización y filtrado avanzado",
+        "Exportación de resultados"
+      ]
+    },
+    {
+      "name": "llm_service/",
+      "purpose": "Microservicio LLM local con API compatible con OpenAI.",
+      "dependencies": ["fastapi", "uvicorn", "pydantic", "python-dotenv", "llama-cpp-python"],
+      "features": [
+        "API REST compatible con OpenAI",
+        "Soporte para múltiples modelos GGUF",
+        "Streaming de respuestas",
+        "Configuración mediante variables de entorno",
+        "Logging centralizado",
+        "Control de concurrencia"
+      ]
+    },
+    {
+      "name": "rag_engine/chunking_playground.py",
+      "purpose": "Herramienta de desarrollo para probar y ajustar parámetros de chunking del sistema RAG.",
+      "dependencies": ["tkinter", "numpy", "rag_engine"],
+      "features": [
+        "Interfaz de 3 paneles: Configuración, Vista de BD y Búsqueda Vectorial",
+        "Selección de estrategias de chunking (caracteres, palabras, semántico, agentic)",
+        "Visualización de chunks con metadatos (Título, Resumen, Contenido, Chars)",
+        "Ventana emergente con detalles completos del chunk",
+        "Búsqueda vectorial interactiva con Top K configurable",
+        "Exportación de chunks a CSV",
+        "Guardado de chunks y embeddings en base de datos vectorial"
+      ]
+    },
+    {
+      "name": "ia/gemini_api.py",
+      "purpose": "Integración con Google Gemini API para generación de resúmenes en la nube.",
+      "dependencies": ["google-generativeai"],
+      "features": [
+        "Soporte para múltiples modelos de Gemini",
+        "Cálculo automático de costos",
+        "Manejo de autenticación",
+        "Gestión de errores y reintentos"
+      ]
+    },
+    {
+      "name": "ia/core.py",
+      "purpose": "Módulo central para el procesamiento de IA.",
+      "dependencies": ["llama-cpp-python (con soporte CUDA)"],
+      "features": [
+        "Carga de modelos GGUF",
+        "Inferencia en GPU",
+        "Gestión de recursos",
+        "Configuración centralizada"
+      ]
+    },
+    {
+      "name": "ia/native_pipeline.py",
+      "purpose": "Implementación del pipeline nativo para inferencia local.",
+      "features": [
+        "Soporte para chunking configurable",
+        "Optimización de rendimiento",
+        "Manejo de contexto amplio"
+      ],
+      "next_steps": [
+        "Integración web del sistema RAG",
+        "Optimización de rendimiento de embeddings",
+        "Expansión de estrategias de chunking",
+        "Mejoras en la interfaz de usuario",
+        "Filtros avanzados en búsquedas vectoriales",
+        "Exportación de resultados de búsqueda"
+      ]
+    },
+    {
+      "name": "main.py",
+      "purpose": "Punto de entrada principal del programa. Maneja la lógica de ejecución y la interfaz de línea de comandos.",
+      "functions": [
+        "is_url() - Verifica si una ruta es una URL",
+        "process_vtt_content() - Convierte contenido VTT a texto plano formateado",
+        "save_output() - Guarda el texto en un archivo de salida",
+        "handle_url() - Procesa una URL de YouTube",
+        "handle_local_file() - Procesa un archivo VTT local",
+        "handle_directory() - Procesa todos los archivos VTT en un directorio",
+        "main() - Función principal que orquesta el proceso de descarga"
+      ]
+    },
+    {
+      "name": "gui.py",
+      "purpose": "Interfaz gráfica de usuario para una mejor experiencia de usuario.",
+      "dependencies": ["tkinter"]
+    },
+    {
+      "name": "downloader.py",
+      "purpose": "Maneja la descarga de subtítulos de YouTube.",
+      "dependencies": ["yt_dlp"]
+    },
+    {
+      "name": "parser.py",
+      "purpose": "Procesa y convierte los subtítulos VTT a formato de texto plano."
+    },
+    {
+      "name": "batch_processor.py",
+      "purpose": "Maneja el procesamiento por lotes de múltiples URLs o archivos."
+    },
+    {
+      "name": "utils.py",
+      "purpose": "Funciones de utilidad compartidas entre módulos."
+    },
+    {
+      "name": "tests/test_parser.py",
+      "purpose": "Pruebas unitarias para el módulo parser.",
+      "type": "test"
+    },
+    {
+      "name": "db.py",
+      "purpose": "Módulo para la gestión de la base de datos SQLite con soporte para pruebas unitarias.",
+      "functions": [
+        "get_db_connection(db_name) - Establece conexión con la base de datos especificada",
+        "init_db(db_name) - Inicializa la base de datos con el esquema necesario",
+        "insert_video(data, db_name) - Inserta o actualiza un video en la base de datos",
+        "get_all_videos(db_name) - Obtiene todos los videos de la base de datos",
+        "get_video_by_id(video_id, db_name) - Obtiene un video por su ID",
+        "filter_videos(by_field, value, db_name) - Filtra videos por campo (título o canal)"
+      ],
+      "dependencies": ["sqlite3"]
+    },
+    {
+      "name": "gui_db.py",
+      "purpose": "Interfaz gráfica para visualizar, buscar y gestionar transcripciones en la base de datos.",
+      "dependencies": ["tkinter", "ttkthemes"],
+      "features": [
+        "Listado de vídeos con ordenación",
+        "Búsqueda por título o canal",
+        "Vista previa de transcripciones",
+        "Exportación de resultados"
+      ]
+    },
+    {
+      "name": "tests/test_db.py",
+      "purpose": "Pruebas unitarias exhaustivas para el módulo de base de datos.",
+      "type": "test",
+      "coverage": [
+        "Inserción y recuperación de vídeos",
+        "Filtrado por diferentes criterios",
+        "Manejo de URLs duplicadas",
+        "Pruebas de integridad de datos"
+      ]
+    }
+  ],
+  
+  "dependencies": [
+    "python>=3.8",
+    "yt-dlp>=2023.3.4",
+    "llama-cpp-python[server]>=0.2.0",
+    "fastapi>=0.68.0",
+    "uvicorn>=0.15.0",
+    "pydantic>=1.8.0",
+    "python-dotenv>=0.19.0",
+    "langchain>=0.1.0",
+    "langchain-community>=0.0.10",
+    {
+      "name": "tkinter",
+      "purpose": "Interfaz gráfica de usuario",
+      "included": true
+    }
+  ],
+  
+  "current_status": {
+    "version": "2.6.2",
+    "release_date": "2025-07-01",
+    "features": [
+      "Modelos locales (GGUF)",
+      "Gemini API",
+      "LangChain",
+      "API Local Compatible con OpenAI",
+      "CLI funcional",
+      "GUI unificada con panel lateral",
+      "Procesamiento por lotes",
+      "Gestión avanzada de vídeos",
+      "Interfaz responsiva y accesible",
+      "Selección de vídeo mejorada en Videoteca",
+      "Sistema RAG avanzado con chunking semántico",
+      "Interfaz gráfica Chunking Playground con 3 paneles",
+      "Panel de búsquedas vectoriales interactivo",
+      "Base de datos vectorial SQLite con sqlite-vec",
+      "Embeddings locales y vía API externa",
+      "Búsquedas semánticas con similitud vectorial"
+    ]
+  },
+  
+  "next_steps": [
+    "Integración web del sistema RAG con la aplicación principal.",
+    "Crear embeddings para todas las transcripciones existentes en la base de datos.",
+    "Filtros avanzados en búsquedas vectoriales (fecha, duración, canal).",
+    "Exportación de resultados de búsqueda a diferentes formatos.",
+    "Optimización de rendimiento de embeddings y consultas.",
+    "Expansión de estrategias de chunking con IA agentic."
+  ],
+  
+  "documentation": {
+    "changelog": "CHANGELOG.md",
+    "requirements": "requirements.txt",
+    "ia_module": "README_IA.md"
+  },
+  
+  "benchmarking_module": {
+    "status": "Estable",
+    "version": "1.0.0",
+    "scripts": [
+      "bench.py - Ejecuta benchmarks de rendimiento",
+      "compare.py - Genera informes comparativos"
+    ],
+    "metrics": [
+      "Tiempo de procesamiento (s)",
+      "Tokens/segundo",
+      "Tokens generados",
+      "Ratio de compresión",
+      "Longitud del resumen",
+      "Riqueza de vocabulario"
+    ]
+  },
+  "ia_module": {
+    "status": "Estable",
+    "version": "1.9.0",
+    "supported_models": ["TinyLlama", "Mistral", "Mixtral", "LLaMA 2", "Gemini API (1.5 Flash, 1.5 Pro)"],
+    "features": [
+      "Resumen de texto con IA (modelos locales GGUF y Gemini API)",
+      "Soporte para múltiples modelos GGUF y detección automática de contexto",
+      "Integración con Gemini API (incl. cálculo de costos y gestión de API key)",
+      "Aceleración GPU con CUDA para modelos locales",
+      "Pipeline nativo optimizado (chunking, parámetros configurables)",
+      "Integración con LangChain",
+      "Sistema de benchmarking avanzado (comparación local vs Gemini, nuevas métricas de calidad/costo)",
+      "Soporte para múltiples idiomas",
+      "Sistema de pruebas unitarias robusto"
+    ],
+    "benchmarking": {
+      "metrics": ["tiempo_carga", "latencia", "tokens_segundo", "compresion", "costo_gemini", "longitud_resumen", "riqueza_vocabulario"],
+      "pipelines": ["nativo", "langchain", "gemini"],
+      "reportes": "Markdown"
+    },
+    "pending_features": [
+      "Mejora en la gestión de memoria para modelos locales",
+      "Soporte para más formatos de salida de resumen",
+      "Integración con más modelos de IA (locales y cloud)",
+      "Implementar microservicio LLM local (OpenAI compatible API)"
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+Escribe la respuesta en **español**.
+
+Divide el texto en **secciones temáticas numeradas** con el formato:
+
+01 – Título del capítulo  
+Resumen del capítulo (1–2 frases)
+
+02 – Título del capítulo  
+Resumen del capítulo (1–2 frases)
+
+[...]
+
+**Asegúrate de mencionar** en alguna sección:  
+– IA en salud  
+– IA en educación  
+– Privacidad y ética de datos  
+– Impacto en el mercado laboral  
+– Marcos regulatorios y IA explicable  
+– Participación ciudadana y geopolítica
+
+Texto a analizar:  
+{text}

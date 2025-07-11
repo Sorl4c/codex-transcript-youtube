@@ -1,0 +1,13 @@
+El sistema RAG (Retrieval-Augmented Generation) es una arquitectura de inteligencia artificial que combina la recuperación de información con la generación de texto. Esta tecnología permite a los modelos de lenguaje acceder a bases de conocimiento externas para proporcionar respuestas más precisas y actualizadas.
+
+Los componentes principales de un sistema RAG incluyen un módulo de recuperación que busca información relevante en una base de datos vectorial, y un módulo de generación que utiliza esta información para crear respuestas coherentes. El proceso de chunking es fundamental en RAG, ya que divide documentos largos en fragmentos más pequeños que pueden ser procesados eficientemente.
+
+El chunking puede realizarse de diferentes maneras: por número de caracteres, por número de palabras, o utilizando técnicas más sofisticadas como la segmentación semántica. El solapamiento entre chunks es importante para mantener el contexto y evitar la pérdida de información en los límites de los fragmentos.
+
+Los embeddings son representaciones vectoriales de texto que capturan el significado semántico de las palabras y frases. Estos vectores permiten realizar búsquedas por similitud semántica, encontrando contenido relevante basado en el significado en lugar de solo coincidencias exactas de palabras.
+
+La base de datos vectorial almacena estos embeddings junto con el texto original, permitiendo búsquedas rápidas y eficientes. SQLite con extensiones como sqlite-vec proporciona una solución robusta para almacenar y consultar vectores en aplicaciones locales.
+
+El ajuste de parámetros como el tamaño del chunk y el solapamiento es crucial para optimizar el rendimiento del sistema RAG. Chunks muy pequeños pueden perder contexto, mientras que chunks muy grandes pueden ser menos precisos en la recuperación. El solapamiento ayuda a mantener la continuidad del contexto entre fragmentos adyacentes.
+
+Las aplicaciones de RAG son diversas: desde asistentes de documentación hasta sistemas de preguntas y respuestas sobre bases de conocimiento específicas. La capacidad de combinar información recuperada con generación de texto natural hace que RAG sea especialmente útil para tareas que requieren tanto precisión factual como fluidez en el lenguaje.

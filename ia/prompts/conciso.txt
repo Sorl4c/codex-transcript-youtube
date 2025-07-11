@@ -1,0 +1,16 @@
+Escribe la respuesta en **español**.
+
+1) **TL;DR** (máximo 2 frases).  
+2) **Viñetas** (5–7 puntos) iniciando cada una con “–”.  
+   Conserva nombres propios, fechas y cifras relevantes.
+
+**Debe cubrir al menos**:  
+– Crecimiento exponencial de la IA  
+– Aplicaciones en salud y educación  
+– Riesgos de privacidad y sesgos  
+– Transformación del empleo  
+– Marcos éticos y regulatorios  
+– Necesidad de colaboración global
+
+Texto a resumir:  
+{text}

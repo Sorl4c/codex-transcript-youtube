@@ -1,0 +1,59 @@
+# NOTES_WIND.txt - Sprint: Local Summarization Pipeline
+
+## ❗ TODOs / Actions Required (Internal)
+
+1.  **Clarify Target Model & Location:**
+    *   **Sprint Goal:** Use `ia/models/llama-3-8b-instruct-q5_k_m.gguf` (or equivalent).
+    *   **Docs Reference:** Primarily `tinyllama.gguf` located in `C:\local\modelos\` (potentially symlinked to `/modelos/` in the project).
+    *   **Action:** Determine the exact model file and its correct path for the new summarization pipeline. Confirm if `llama-3-8b-instruct-q5_k_m.gguf` is available or if an equivalent should be used. Ensure consistency in model paths.
+
+2.  **Update CUDA Compilation Instructions:**
+    *   `README_IA.md` incorrectly lists `CMAKE_ARGS="-DLLAMA_CUBLAS=on"`.
+    *   `GUIA_CUDA_WSL.md` correctly states `LLAMA_CUBLAS` is deprecated and `CMAKE_ARGS="-DLLAMA_CUDA=on"` is the current flag.
+    *   **Action:** Update `README_IA.md` with the correct CUDA compilation flag for `llama-cpp-python`.
+
+3.  **Synchronize Project Version:**
+    *   `project_meta.json` shows `"version": "1.4.0"`.
+    *   `CHANGELOG.md` indicates the latest version is `v1.5.0`.
+    *   **Action:** Update `project_meta.json` to reflect the correct project version (`v1.5.0`).
+
+4.  **Investigate `ia_processor.py`:**
+    *   `README_IA.md` and `project_meta.json` describe `ia_processor.py` as handling "Procesamiento de texto con IA" and potentially "resúmenes".
+    *   The current sprint tasks involve creating new pipeline files (`langchain_pipeline.py`, `native_pipeline.py`) and then refactoring common logic into a new `ia/core.py`.
+    *   **Action:** Analyze `ia_processor.py` to understand its current functionality. Determine if its contents should be leveraged, refactored into `ia/core.py`, or if it serves a different purpose distinct from the new summarization pipeline.
+
+5.  **Correct `README_IA.md` Section Numbering:**
+    *   The document has two sections numbered "6."
+    *   **Action:** Renumber the sections in `README_IA.md` for clarity.
+
+## ❓ Dudas / Clarifications Needed
+
+1.  **Existing Summarization Logic:**
+    *   Do `ia_processor.py`, `README_IA.md`'s mention of "text summarization," or `prompts/summary.txt` imply any pre-existing summarization code?
+    *   **Question:** Is the sprint task to build from scratch, or is there existing summarization logic to integrate, refactor, or replace?
+
+2.  **LangChain Overhead Definition:**
+    *   The sprint states: "Eliminar LangChain si la sobrecarga ≥ 20 %".
+    *   **Question:** What metrics define this 20% overhead (e.g., latency, throughput, RAM usage)? And what is the baseline for comparison (presumably the native llama.cpp/Ollama pipeline)?
+
+3.  **Token Chunking Details:**
+    *   "Chunk ≈ 1000 tokens."
+    *   **Question:** How strictly should the 1000 token limit be enforced? Which tokenizer should be used for counting (e.g., model-specific, tiktoken)?
+
+4.  **Relationship between `ia/core.py` and `ia_processor.py`:**
+    *   If `ia_processor.py` exists and has relevant IA processing utilities, how will the new `ia/core.py` (intended for `chunk_text()`, `summarize_chunk()`, `reduce_summary()`) interact with it?
+    *   **Question:** Will `ia_processor.py` be deprecated, merged into `ia/core.py`, or will they serve distinct purposes?
+
+## ⚠️ Contradicciones Identificadas
+
+1.  **CUDA Compilation Flag:**
+    *   `README_IA.md`: `CMAKE_ARGS="-DLLAMA_CUBLAS=on"`
+    *   `GUIA_CUDA_WSL.md`: `CMAKE_ARGS="-DLLAMA_CUDA=on"` (Correct)
+
+2.  **Project Version:**
+    *   `project_meta.json`: `v1.4.0`
+    *   `CHANGELOG.md`: `v1.5.0` (Likely Correct)
+
+3.  **Model Name and Path for IA Module:**
+    *   **Sprint Requirement:** `ia/models/llama-3-8b-instruct-q5_k_m.gguf`
+    *   **Documentation (`README_IA.md`, `PROJECT_MAP.md`, `GUIA_CUDA_WSL.md`):** Primarily refers to `tinyllama.gguf` located in an external/symlinked directory (`C:\local\modelos\` or `/mnt/c/local/modelos/`). This needs alignment for the sprint tasks.
