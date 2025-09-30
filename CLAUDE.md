@@ -10,11 +10,18 @@ This is a YouTube subtitle downloader and AI-powered video management system. It
 
 ## Key Commands
 
+**Always activate venv first:** `venv-yt-ia\Scripts\activate`
+
 ### Running the Application
 
 ```bash
 # Run the Streamlit web interface (recommended)
 streamlit run gui_streamlit.py
+
+# RAG CLI (Sesión 1 - MVP)
+python -m rag_engine.rag_cli stats
+python -m rag_engine.rag_cli query "Your question here" --top-k 5
+python -m rag_engine.rag_cli ingest transcripts_for_rag/sample.txt --mock
 
 # Run CLI for single video processing
 python main.py <youtube_url>
@@ -47,13 +54,20 @@ python ia/tests/test_core.py
 
 ### Dependencies
 
+**IMPORTANT: Always use the virtual environment!**
+
 ```bash
+# Activate virtual environment (Windows)
+venv-yt-ia\Scripts\activate
+
 # Install all dependencies
 pip install -r requirements.txt
 
-# Install LLM service dependencies
+# Install LLM service dependencies (optional)
 pip install -r requirements_service.txt
 ```
+
+**Note:** The venv was recreated in September 2025 to fix broken symlinks and add RAG dependencies (sentence-transformers, sqlite-vec, scikit-learn).
 
 ## Architecture
 
