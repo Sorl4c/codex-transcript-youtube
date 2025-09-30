@@ -2,7 +2,18 @@
 
 ```mermaid
 mindmap
-  root((YouTube Subtitle\nDownloader v2.7.1))
+  root((YouTube Subtitle\nDownloader v2.8.0))
+    ├── 🔄 Control de Versiones
+    │   ├── 🌐 Repositorio en GitHub
+    │   │   └── 🔗 https://github.com/Sorl4c/codex-transcript-youtube
+    │   ├── 📋 .gitignore optimizado
+    │   │   ├── 🔹 Exclusión de archivos temporales
+    │   │   ├── 🔹 Exclusión de entornos virtuales
+    │   │   └── 🔹 Exclusión de archivos sensibles
+    │   └── 🔄 Flujo de trabajo Git
+    │       ├── 🔹 Rama principal (main)
+    │       └── 🔹 Ramas de características
+    │
     ├── 📦 Módulos Principales
     │   ├── 📄 main.py
     │   │   ├── 🔹 Procesamiento CLI

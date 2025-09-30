@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant Client
+    participant FastAPI
+    participant ModelManager
+    participant Llama
+    Client->>FastAPI: POST /v1/chat/completions
+    FastAPI->>FastAPI: Validar y parsear request
+    FastAPI->>ModelManager: get_model()
+    ModelManager->>Llama: load_model() (si es necesario)
+    FastAPI->>Llama: create_chat_completion()
+    Llama-->>FastAPI: Respuesta (streaming o completa)
+    FastAPI-->>Client: JSON/StreamingResponse
+    Client->>FastAPI: GET /health
+    FastAPI->>ModelManager: get_model()
+    FastAPI-->>Client: Estado del modelo 

@@ -1,0 +1,5 @@
+flowchart TD
+    A[Usuario ingresa query] --> B[EmbedderFactory create_embedder]
+    B --> C[Embedder embed query]
+    C --> D[SQLiteVecDatabase search_similar]
+    D --> E[Resultados relevantes] 

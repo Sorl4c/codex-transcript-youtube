@@ -1,0 +1,12 @@
+flowchart TD
+    A[Usuario carga archivo en GUI] --> B[Selecciona estrategia de chunking]
+    B --> C[TextChunker chunk]
+    C --> D[Chunks generados]
+    D --> E[Embedder embed]
+    E --> F[SQLiteVecDatabase add_documents]
+    F --> G[Base de datos vectorial]
+    G --> H[Usuario realiza busqueda]
+    H --> I[search_similar]
+    I --> J[Resultados mostrados en GUI]
+    B --> K[AgenticTestingGUI test Gemini local]
+    K --> L[Comparacion de resultados y logs] 

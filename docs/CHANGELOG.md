@@ -2,6 +2,31 @@
 
 Este documento registra todos los cambios notables en el proyecto de descarga y procesamiento de subtítulos de YouTube.
 
+## [v2.8.0] - 2025-07-11
+### Mejorado
+- **Sistema de Chunking Avanzado**:
+  - Implementación completa del patrón Strategy para chunking
+  - Nueva estrategia de chunking semántico basado en estructura natural
+  - Integración con LLMs para chunking agentic
+  - Interfaz unificada para múltiples estrategias de chunking
+  - Mejoras en la visualización de metadatos en la GUI
+
+- **Integración con Git y GitHub**:
+  - Configuración inicial del repositorio Git
+  - Archivo .gitignore optimizado para el proyecto
+  - Documentación actualizada en el repositorio remoto
+
+### Corregido
+- **Chunking Agentic**:
+  - Solucionado `KeyError` en el template del prompt que impedía el funcionamiento correcto
+  - Mejorado el manejo de errores y los mensajes de log
+  - Corregido el formato de JSON en el prompt para evitar conflictos con `.format()`
+
+- **Documentación**:
+  - Actualización de versiones y estados en la documentación del proyecto
+  - Mejorada la documentación de las estrategias de chunking
+  - Añadidos ejemplos de uso para cada estrategia
+
 ## [v2.7.1] - 2025-07-10
 ### Mejorado
 - **Visualización de Chunks en `chunking_playground.py`**:

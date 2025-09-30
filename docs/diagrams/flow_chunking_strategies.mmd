@@ -1,0 +1,21 @@
+classDiagram
+    class ChunkingStrategy {
+        +chunk(text, chunk_size, chunk_overlap)
+    }
+    class CharacterChunkingStrategy {
+        +chunk(text, chunk_size, chunk_overlap)
+    }
+    class WordChunkingStrategy {
+        +chunk(text, chunk_size, chunk_overlap)
+    }
+    class SemanticChunkingStrategy {
+        +chunk(text, chunk_size, chunk_overlap)
+    }
+    class AgenticChunkingStrategy {
+        +chunk(text, chunk_size, chunk_overlap)
+        +_get_agentic_function()
+    }
+    ChunkingStrategy <|-- CharacterChunkingStrategy
+    ChunkingStrategy <|-- WordChunkingStrategy
+    ChunkingStrategy <|-- SemanticChunkingStrategy
+    ChunkingStrategy <|-- AgenticChunkingStrategy 

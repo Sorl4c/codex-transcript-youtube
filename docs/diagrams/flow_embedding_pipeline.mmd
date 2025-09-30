@@ -1,0 +1,8 @@
+flowchart TD
+    A[Chunks] --> B[EmbedderFactory create_embedder]
+    B --> C{Local o API}
+    C -- Local --> D[LocalEmbedder embed]
+    C -- API --> E[APIEmbedder embed]
+    D --> F[Embeddings]
+    E --> F
+    F --> G[SQLiteVecDatabase add_documents] 

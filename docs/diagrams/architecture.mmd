@@ -1,0 +1,91 @@
+classDiagram
+    class FastAPI {
+        +create_chat_completion()
+        +health_check()
+    }
+    class ModelManager {
+        +load_model()
+        +get_model()
+        -_llm
+    }
+    class Llama {
+        +create_chat_completion()
+    }
+    class ChatCompletionRequest {
+        model
+        messages
+        temperature
+        top_p
+        max_tokens
+        stream
+    }
+    class ChatCompletionResponse {
+        id
+        object
+        created
+        model
+        choices
+        usage
+    }
+    class ChatMessage {
+        role
+        content
+        name
+    }
+    class Chunk {
+        content
+        metadata: ChunkMetadata
+    }
+    class ChunkMetadata {
+        index
+        char_start_index
+        char_end_index
+        semantic_title
+        summary
+        semantic_overlap
+    }
+    class ChunkingStrategy {
+        +chunk()
+    }
+    class AgenticChunkingStrategy {
+        +chunk()
+        +_get_agentic_function()
+    }
+    class TextChunker {
+        +set_strategy()
+        +chunk()
+    }
+    class Embedder {
+        +embed()
+    }
+    class LocalEmbedder {
+        +embed()
+    }
+    class APIEmbedder {
+        +embed()
+    }
+    class VectorDatabase {
+        +add_documents()
+        +get_document_count()
+    }
+    class SQLiteVecDatabase {
+        +add_documents()
+        +get_document_count()
+        +search_similar()
+    }
+    FastAPI --> ModelManager : uses
+    ModelManager --> Llama : manages
+    FastAPI --> ChatCompletionRequest : receives
+    FastAPI --> ChatCompletionResponse : returns
+    FastAPI --> Llama : calls
+    FastAPI --> Chunk : (via chunking)
+    Chunk --> ChunkMetadata
+    TextChunker --> ChunkingStrategy : uses
+    AgenticChunkingStrategy --> ChunkingStrategy : inherits
+    TextChunker --> AgenticChunkingStrategy : can use
+    TextChunker --> Chunk : creates
+    TextChunker --> Embedder : uses
+    Embedder <|-- LocalEmbedder
+    Embedder <|-- APIEmbedder
+    TextChunker --> VectorDatabase : stores
+    VectorDatabase <|-- SQLiteVecDatabase

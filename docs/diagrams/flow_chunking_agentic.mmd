@@ -1,0 +1,16 @@
+flowchart TD
+    A[Texto de entrada] --> B[TextChunker chunk]
+    B --> C{Estrategia agentic}
+    C -- Si --> D[AgenticChunkingStrategy]
+    D --> E[Construir prompt agentic]
+    E --> F{LLM local o Gemini}
+    F -- Local --> G[Llamada a LLM local]
+    F -- Gemini --> H[Llamada a Gemini API]
+    G --> I[Respuesta LLM]
+    H --> I
+    I --> J[Parsear respuesta]
+    J --> K[Crear objetos Chunk]
+    K --> L[Embedder embed]
+    L --> M[SQLiteVecDatabase add_documents]
+    C -- No --> N[Otra estrategia de chunking]
+    N --> K 

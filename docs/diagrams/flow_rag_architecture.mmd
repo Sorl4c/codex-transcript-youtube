@@ -1,0 +1,13 @@
+flowchart TD
+    A[Texto de entrada] --> B[Chunking varias estrategias]
+    B --> C[Chunks]
+    C --> D[Embedding EmbedderFactory]
+    D --> E[Embeddings]
+    E --> F[SQLiteVecDatabase add_documents]
+    F --> G[Vector DB]
+    G --> H[Retrieval search_similar]
+    H --> I[Resultados relevantes]
+    B --> J[AgenticChunkingStrategy]
+    B --> K[CharacterChunkingStrategy]
+    B --> L[WordChunkingStrategy]
+    B --> M[SemanticChunkingStrategy] 

@@ -1,0 +1,15 @@
+flowchart TD
+    A[Usuario ingresa URL] --> B[handle_url]
+    B --> C[Descarga video 
+    y subtitulos]
+    C --> D[parser.py extrae transcripcion]
+    D --> E[Guarda transcripcion en DB]
+    E --> F[TextChunker chunk]
+    F --> G[Chunks]
+    G --> H[EmbedderFactory create_embedder]
+    H --> I[Embeddings]
+    I --> J[SQLiteVecDatabase add_documents]
+    J --> K[Base de datos vectorial]
+    K --> L[Usuario realiza busqueda]
+    L --> M[search_similar]
+    M --> N[Resultados mostrados] 
