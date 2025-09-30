@@ -53,12 +53,21 @@ class RAGIngestor:
             return {"status": "No chunks generated", "chunks_processed": 0}
         print(f"Text split into {len(chunks)} chunks.")
 
-        # 2. Generate embeddings
-        embeddings = self.embedder.embed(chunks)
+        # 2. Extract text content from Chunk objects
+        # Chunks can be Chunk objects (with .content) or plain strings
+        chunk_texts = []
+        for chunk in chunks:
+            if hasattr(chunk, 'content'):
+                chunk_texts.append(chunk.content)
+            else:
+                chunk_texts.append(str(chunk))
+
+        # 3. Generate embeddings
+        embeddings = self.embedder.embed(chunk_texts)
         print(f"Generated {len(embeddings)} embeddings.")
 
-        # 3. Combine chunks with their embeddings
-        documents = list(zip(chunks, embeddings))
+        # 4. Combine chunk texts with their embeddings
+        documents = list(zip(chunk_texts, embeddings))
 
         # 4. Add to the database
         initial_doc_count = self.database.get_document_count()

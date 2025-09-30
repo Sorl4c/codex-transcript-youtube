@@ -43,8 +43,8 @@ class LocalEmbedder(Embedder):
         Args:
             model_name (str): The name of the sentence-transformer model to use.
         """
-        # The model will now automatically try to use the GPU if available
-        self.model = SentenceTransformer(model_name)
+        # Force CPU to avoid CUDA compatibility issues
+        self.model = SentenceTransformer(model_name, device='cpu')
 
     def embed(self, chunks: List[str]) -> List[List[float]]:
         """Generates embeddings locally."""
