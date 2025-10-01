@@ -12,3 +12,6 @@ pyperclip>=1.8.2
 sentence-transformers>=5.1.0  # Embeddings locales
 sqlite-vec>=0.1.6  # Base de datos vectorial SQLite
 scikit-learn>=1.7.0  # Requerido por sentence-transformers
+
+# RAG dependencies (Sesión 2 - Hybrid Search)
+rank-bm25>=0.2.0  # BM25 keyword search

@@ -26,6 +26,7 @@ from rag_engine.chunker import TextChunker
 from rag_engine.embedder import EmbedderFactory
 from rag_engine.database import SQLiteVecDatabase
 from rag_engine.retriever import SimpleRetriever
+from rag_engine.hybrid_retriever import HybridRetriever
 from rag_engine.config import DB_PATH, CHUNK_SIZE, CHUNK_OVERLAP
 
 
@@ -88,14 +89,21 @@ def cmd_query(args):
     """Handle the query command."""
     question = args.question
     top_k = args.top_k
+    mode = args.mode
 
     print(f"[QUERY] {question}")
+    print(f"[QUERY] Mode: {mode}")
     print(f"[QUERY] Retrieving top {top_k} results...")
     print("-" * 60)
 
     try:
-        retriever = SimpleRetriever()
-        results = retriever.query(question, top_k=top_k)
+        # Use HybridRetriever if mode is not 'vector', otherwise use SimpleRetriever
+        if mode == 'vector':
+            retriever = SimpleRetriever()
+            results = retriever.query(question, top_k=top_k)
+        else:
+            retriever = HybridRetriever()
+            results = retriever.query(question, top_k=top_k, mode=mode)
 
         if not results:
             print("[ERROR] No results found. Make sure you've ingested documents first.")
@@ -108,6 +116,14 @@ def cmd_query(args):
         for i, result in enumerate(results, 1):
             print(f"{'=' * 60}")
             print(f"Result #{i} | Score: {result.score:.4f}")
+
+            # Show provenance for hybrid results
+            if hasattr(result, 'vector_rank') or hasattr(result, 'bm25_rank'):
+                if result.vector_rank:
+                    print(f"  Vector: rank={result.vector_rank}, score={result.vector_score:.4f}")
+                if result.bm25_rank:
+                    print(f"  BM25: rank={result.bm25_rank}, score={result.bm25_score:.4f}")
+
             print(f"{'=' * 60}")
 
             # Show content with nice formatting
@@ -168,8 +184,10 @@ Examples:
   # Ingest with semantic chunking
   python -m rag_engine.rag_cli ingest transcripts_for_rag/sample_transcript.txt --strategy semantico
 
-  # Query the database
-  python -m rag_engine.rag_cli query "What is machine learning?"
+  # Query with different modes
+  python -m rag_engine.rag_cli query "What is machine learning?" --mode vector
+  python -m rag_engine.rag_cli query "ejercicios triceps" --mode keyword
+  python -m rag_engine.rag_cli query "ejercicios para triceps" --mode hybrid
 
   # Get statistics
   python -m rag_engine.rag_cli stats
@@ -200,6 +218,12 @@ Examples:
         type=int,
         default=5,
         help='Number of results to return (default: 5)'
+    )
+    query_parser.add_argument(
+        '--mode',
+        choices=['vector', 'keyword', 'hybrid'],
+        default='vector',
+        help='Search mode: vector (semantic), keyword (BM25), or hybrid (RRF combination) (default: vector)'
     )
 
     # Stats command

@@ -1,0 +1,76 @@
+{
+  "queries": [
+    {
+      "id": 1,
+      "query": "ejercicios para triceps",
+      "description": "Looking for specific triceps exercises",
+      "relevant_keywords": ["ejercicios", "triceps", "press", "extension", "cabeza"]
+    },
+    {
+      "id": 2,
+      "query": "entrenamiento de triceps",
+      "description": "Training program for triceps",
+      "relevant_keywords": ["entrenamiento", "triceps", "series", "volumen", "programacion"]
+    },
+    {
+      "id": 3,
+      "query": "anatomia del triceps",
+      "description": "Triceps anatomy information",
+      "relevant_keywords": ["anatomia", "triceps", "cabeza", "larga", "medial", "lateral"]
+    },
+    {
+      "id": 4,
+      "query": "mejor rutina para brazos",
+      "description": "Best arm workout routine",
+      "relevant_keywords": ["rutina", "brazo", "triceps", "biceps", "volumen"]
+    },
+    {
+      "id": 5,
+      "query": "press frances con barra",
+      "description": "Specific exercise name",
+      "relevant_keywords": ["press", "frances", "barra", "ejercicio"]
+    },
+    {
+      "id": 6,
+      "query": "extension de codo en polea",
+      "description": "Cable triceps extension",
+      "relevant_keywords": ["extension", "codo", "polea", "triceps"]
+    },
+    {
+      "id": 7,
+      "query": "hipertrofia muscular",
+      "description": "Muscle hypertrophy concepts",
+      "relevant_keywords": ["hipertrofia", "muscular", "crecimiento"]
+    },
+    {
+      "id": 8,
+      "query": "cambio climatico",
+      "description": "Climate change information",
+      "relevant_keywords": ["cambio", "climatico", "clima", "temperatura"]
+    },
+    {
+      "id": 9,
+      "query": "inteligencia artificial",
+      "description": "Artificial intelligence concepts",
+      "relevant_keywords": ["inteligencia", "artificial", "ai", "machine learning"]
+    },
+    {
+      "id": 10,
+      "query": "deep learning",
+      "description": "Deep learning and neural networks",
+      "relevant_keywords": ["deep learning", "neural", "network", "aprendizaje"]
+    },
+    {
+      "id": 11,
+      "query": "series y repeticiones",
+      "description": "Sets and reps for training",
+      "relevant_keywords": ["series", "repeticiones", "entrenamiento", "volumen"]
+    },
+    {
+      "id": 12,
+      "query": "cabeza larga del triceps",
+      "description": "Long head of triceps",
+      "relevant_keywords": ["cabeza", "larga", "triceps"]
+    }
+  ]
+}

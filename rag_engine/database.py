@@ -244,19 +244,51 @@ class SQLiteVecDatabase(VectorDatabase):
         Calculate cosine similarity between two vectors.
         """
         import math
-        
+
         # Calculate dot product
         dot_product = sum(a * b for a, b in zip(vec1, vec2))
-        
+
         # Calculate magnitudes
         magnitude1 = math.sqrt(sum(a * a for a in vec1))
         magnitude2 = math.sqrt(sum(a * a for a in vec2))
-        
+
         # Avoid division by zero
         if magnitude1 == 0 or magnitude2 == 0:
             return 0.0
-        
+
         return dot_product / (magnitude1 * magnitude2)
+
+    def get_all_documents(self) -> List[Tuple[int, str]]:
+        """
+        Retrieve all documents from the database.
+
+        Returns:
+            List[Tuple[int, str]]: List of (id, content) tuples
+        """
+        cursor = self.conn.cursor()
+        try:
+            cursor.execute(f"SELECT id, content FROM {self.table_name}")
+            return cursor.fetchall()
+        except sqlite3.OperationalError:
+            return []
+
+    def get_document_by_id(self, doc_id: int) -> str:
+        """
+        Retrieve a specific document by its ID.
+
+        Args:
+            doc_id: Document ID
+
+        Returns:
+            str: Document content, or empty string if not found
+        """
+        cursor = self.conn.cursor()
+        try:
+            cursor.execute(f"SELECT content FROM {self.table_name} WHERE id = ?", (doc_id,))
+            result = cursor.fetchone()
+            return result[0] if result else ""
+        except sqlite3.OperationalError:
+            return ""
 
     def __del__(self):
         """Ensures the database connection is closed when the object is destroyed."""
