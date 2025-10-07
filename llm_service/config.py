@@ -6,9 +6,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Settings:
-    MODEL_PATH: str = os.getenv("MODEL_PATH", "/path/to/your/model.gguf")
+    MODEL_PATH: str = "/mnt/c/local/modelos/qwen2-7b-instruct-q6_k.gguf"
     MODEL_N_CTX: int = int(os.getenv("MODEL_N_CTX", 2048))
-    MODEL_N_GPU_LAYERS: int = int(os.getenv("MODEL_N_GPU_LAYERS", 0)) # 0 for CPU, -1 for all layers on GPU
+    MODEL_N_GPU_LAYERS: int = int(os.getenv("MODEL_N_GPU_LAYERS", -1)) # 0 for CPU, -1 for all layers on GPU
 
     # API settings
     API_HOST: str = os.getenv("API_HOST", "0.0.0.0")

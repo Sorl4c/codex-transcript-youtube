@@ -2,6 +2,24 @@
 Implementación de chunking agentic usando LLMs (Gemini API y LLM local).
 Este módulo proporciona funciones para dividir texto de manera inteligente
 usando modelos de lenguaje, generando chunks con metadatos enriquecidos.
+
+TODO - PROBLEMAS DETECTADOS EN PRUEBAS (2025-10-07):
+==============================================
+
+1. PROBLEMA DE NOMBRES DE FUNCIONES:
+   - Este módulo no exporta la función 'perform_agentic_chunking'
+   - Función real disponible: 'chunk_text_with_gemini'
+   - Esto causa errores en otros módulos que esperan el nombre anterior
+   - ACCIÓN: Buscar referencias a 'perform_agentic_chunking' y actualizarlas
+
+2. ESTADO ACTUAL RAG:
+   - Modelo actualizado a gemini-2.0-flash-exp ✅
+   - RAG CLI funcional (stats y query funcionan) ✅
+   - Base de datos SQLite con sqlite-vec operativa ✅
+   - Tests unitarios pasan (3/3) ✅
+   - Agentic chunking básico funciona ✅
+
+NOTA: Para desarrollo futuro del sistema RAG, ver docs/RAG_DEVELOPMENT_PLAN.md
 """
 
 import os
@@ -40,9 +58,11 @@ Eres un experto en análisis de texto y división inteligente de contenido. Tu t
 INSTRUCCIONES:
 1. Divide el texto en chunks de aproximadamente {chunk_size} caracteres, pero prioriza la coherencia semántica sobre el tamaño exacto.
 2. Cada chunk debe ser una unidad de significado completa (párrafo, sección, idea completa).
-3. Genera un título semántico descriptivo para cada chunk.
-4. Crea un resumen breve (1-2 frases) del contenido de cada chunk.
-5. Identifica overlaps semánticos entre chunks adyacentes cuando sea relevante.
+3. Para CADA chunk, extrae los siguientes metadatos:
+   - title: Título descriptivo y conciso (5-10 palabras máximo)
+   - summary: Resumen breve del contenido (2-3 frases)
+   - keywords: Lista de 5-7 palabras clave más importantes del chunk
+   - semantic_overlap: Descripción breve de cómo se conecta con el chunk anterior (opcional, solo si hay conexión clara)
 
 FORMATO DE RESPUESTA (JSON):
 Responde ÚNICAMENTE con un JSON válido en el siguiente formato:
@@ -50,14 +70,21 @@ Responde ÚNICAMENTE con un JSON válido en el siguiente formato:
 {{
   "chunks": [
     {{
-      "content": "texto del chunk",
-      "semantic_title": "Título descriptivo del chunk",
-      "summary": "Resumen breve del contenido",
-      "semantic_overlap": "Descripción de la conexión con el chunk anterior (opcional)"
+      "content": "texto completo del chunk",
+      "title": "Título descriptivo del chunk",
+      "summary": "Resumen breve y conciso del contenido principal",
+      "keywords": ["palabra1", "palabra2", "palabra3", "palabra4", "palabra5"],
+      "semantic_overlap": "Conexión con chunk anterior (opcional)"
     }}
   ]
 }}
 ```
+
+IMPORTANTE:
+- NO incluyas explicaciones adicionales, SOLO el JSON
+- El campo "content" debe contener el texto COMPLETO del chunk original
+- Los keywords deben ser términos específicos del contenido, no genéricos
+- El título debe capturar la idea principal del chunk
 
 TEXTO A PROCESAR:
 {text}
@@ -86,7 +113,7 @@ def chunk_text_with_gemini(
     chunk_size: int = 1000, 
     chunk_overlap: int = 200,
     api_key: Optional[str] = None,
-    model_name: str = "gemini-1.5-flash-latest"
+    model_name: str = "gemini-2.0-flash-exp"
 ) -> List[Chunk]:
     """
     Realiza chunking agentic usando la API de Google Gemini.
@@ -360,59 +387,70 @@ def _parse_llm_response(response_text: str) -> Dict[str, Any]:
 def _convert_to_chunks(chunks_data: Dict[str, Any], original_text: str) -> List[Chunk]:
     """
     Convierte los datos parseados del LLM en objetos Chunk con metadatos.
-    
+
     Args:
         chunks_data: Datos parseados del LLM
         original_text: Texto original para calcular posiciones
-        
+
     Returns:
         Lista de objetos Chunk
     """
     if "chunks" not in chunks_data:
         raise Exception("Formato de respuesta inválido: falta campo 'chunks'")
-    
+
     chunks = []
     current_pos = 0
-    
+
     for i, chunk_data in enumerate(chunks_data["chunks"]):
         content = chunk_data.get("content", "").strip()
         if not content:
             continue
-        
+
         # Buscar la posición del contenido en el texto original
         start_pos = original_text.find(content, current_pos)
         if start_pos == -1:
             # Si no se encuentra exactamente, usar posición aproximada
             start_pos = current_pos
-        
+
         end_pos = start_pos + len(content)
         current_pos = end_pos
-        
+
+        # Extraer keywords del LLM response
+        keywords = chunk_data.get("keywords", [])
+
+        # Crear additional_metadata con keywords y otros datos
+        additional_metadata = {
+            "generated_by": "agentic_chunking",
+            "timestamp": time.time()
+        }
+
+        # Agregar keywords si existen
+        if keywords:
+            additional_metadata["keywords"] = keywords
+
         # Crear metadatos
+        # Nota: el LLM ahora devuelve "title" en lugar de "semantic_title"
         metadata = ChunkMetadata(
             index=i,
             char_start_index=start_pos,
             char_end_index=end_pos,
-            semantic_title=chunk_data.get("semantic_title"),
+            semantic_title=chunk_data.get("title") or chunk_data.get("semantic_title"),
             summary=chunk_data.get("summary"),
             semantic_overlap=chunk_data.get("semantic_overlap"),
-            additional_metadata={
-                "generated_by": "agentic_chunking",
-                "timestamp": time.time()
-            }
+            additional_metadata=additional_metadata
         )
-        
+
         # Crear chunk
         chunk = Chunk(content=content, metadata=metadata)
         chunks.append(chunk)
-    
+
     # Establecer enlaces entre chunks adyacentes
     for i in range(len(chunks)):
         if i > 0:
             chunks[i].metadata.prev_chunk_id = chunks[i-1].metadata.index
         if i < len(chunks) - 1:
             chunks[i].metadata.next_chunk_id = chunks[i+1].metadata.index
-    
+
     return chunks
 
 def _validate_chunks(chunks: List[Chunk]) -> bool:

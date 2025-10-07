@@ -12,9 +12,9 @@ logger = logging.getLogger(__name__)
 
 # --- Available Gemini Models (for reference) ---
 # Flash Models (faster, lower cost):
-# - models/gemini-1.5-flash
-# - models/gemini-1.5-flash-latest
-# - models/gemini-1.5-flash-002
+# - models/gemini-2.0-flash-exp
+# - models/gemini-1.5-flash (deprecated)
+# - models/gemini-1.5-flash-latest (deprecated)
 # - models/gemini-2.5-flash
 #
 # Pro Models (more powerful, higher cost):
@@ -33,6 +33,10 @@ logger = logging.getLogger(__name__)
 # Pricing for Gemini models (per 1000 tokens)
 # Source: https://ai.google.dev/pricing (accessed 2025-07-08)
 MODEL_PRICING = {
+    "gemini-2.0-flash-exp": {
+        "input": 0.00035, # $0.35 / 1M tokens (estimado)
+        "output": 0.00105 # $1.05 / 1M tokens (estimado)
+    },
     "gemini-1.5-flash": {
         "input": 0.00035, # $0.35 / 1M tokens
         "output": 0.00105 # $1.05 / 1M tokens
@@ -56,7 +60,7 @@ MODEL_PRICING = {
 }
 
 # Default model
-GEMINI_MODEL_NAME = "gemini-1.5-flash-latest"  # Versión más reciente del modelo Flash
+GEMINI_MODEL_NAME = "gemini-2.0-flash-exp"  # Modelo experimental más reciente
 
 def configure_gemini(api_key: str = None) -> bool:
     """Configures the Gemini API with the provided key or from environment variable."""

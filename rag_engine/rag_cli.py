@@ -48,7 +48,10 @@ def cmd_ingest(args):
         # Default to semantic chunking
         strategy = 'semantico'
 
-    print(f"[INGEST] File: {file_path}")
+    # Get absolute path for source tracking
+    abs_file_path = os.path.abspath(file_path)
+
+    print(f"[INGEST] File: {abs_file_path}")
     print(f"[INGEST] Chunking strategy: {strategy}")
     print(f"[INGEST] Chunk size: {CHUNK_SIZE}, overlap: {CHUNK_OVERLAP}")
     print("-" * 60)
@@ -62,11 +65,12 @@ def cmd_ingest(args):
     embedder = EmbedderFactory.create_embedder()
     database = SQLiteVecDatabase(db_path=DB_PATH)
 
-    # Create ingestor and run
+    # Create ingestor and run with source_document tracking
     ingestor = RAGIngestor(
         chunker=chunker,
         embedder=embedder,
-        database=database
+        database=database,
+        source_document=abs_file_path
     )
 
     try:
@@ -74,6 +78,9 @@ def cmd_ingest(args):
         print("\n" + "=" * 60)
         print("[SUCCESS] Ingestion completed!")
         print(f"   Status: {summary.get('status')}")
+        print(f"   Chunking strategy: {summary.get('chunking_strategy', 'unknown')}")
+        print(f"   Source document: {summary.get('source_document', 'N/A')}")
+        print(f"   Source hash: {summary.get('source_hash', 'N/A')[:16]}...")
         print(f"   Chunks processed: {summary.get('chunks_processed', 0)}")
         print(f"   Documents in DB: {summary.get('final_doc_count', 0)}")
         print("=" * 60)

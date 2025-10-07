@@ -6,7 +6,9 @@ to process and store text data for retrieval.
 """
 
 import os
-from typing import Dict, Any
+import hashlib
+import json
+from typing import Dict, Any, Optional
 
 from .chunker import TextChunker
 from .embedder import Embedder, EmbedderFactory
@@ -20,7 +22,8 @@ class RAGIngestor:
         self,
         chunker: TextChunker,
         embedder: Embedder,
-        database: VectorDatabase
+        database: VectorDatabase,
+        source_document: Optional[str] = None
     ):
         """
         Initializes the RAGIngestor with dependency injection.
@@ -29,10 +32,12 @@ class RAGIngestor:
             chunker (TextChunker): An instance of a text chunker.
             embedder (Embedder): An instance of an embedder.
             database (VectorDatabase): An instance of a vector database.
+            source_document (str, optional): Path to source document for tracking.
         """
         self.chunker = chunker
         self.embedder = embedder
         self.database = database
+        self.source_document = source_document
 
     def ingest_text(self, text: str) -> Dict[str, Any]:
         """
@@ -45,7 +50,7 @@ class RAGIngestor:
             Dict[str, Any]: A dictionary summarizing the ingestion process.
         """
         print("--- Starting ingestion process for text ---")
-        
+
         # 1. Chunk the text
         chunks = self.chunker.chunk(text)
         if not chunks:
@@ -54,7 +59,6 @@ class RAGIngestor:
         print(f"Text split into {len(chunks)} chunks.")
 
         # 2. Extract text content from Chunk objects
-        # Chunks can be Chunk objects (with .content) or plain strings
         chunk_texts = []
         for chunk in chunks:
             if hasattr(chunk, 'content'):
@@ -66,17 +70,49 @@ class RAGIngestor:
         embeddings = self.embedder.embed(chunk_texts)
         print(f"Generated {len(embeddings)} embeddings.")
 
-        # 4. Combine chunk texts with their embeddings
-        documents = list(zip(chunk_texts, embeddings))
+        # 4. Prepare metadata for each chunk
+        source_hash = hashlib.md5(text.encode('utf-8')).hexdigest()
+        chunking_strategy = self.chunker.get_current_strategy()
 
-        # 4. Add to the database
+        documents_with_metadata = []
+        for chunk, embedding in zip(chunks, embeddings):
+            # Extract content
+            content = chunk.content if hasattr(chunk, 'content') else str(chunk)
+
+            # Prepare metadata dict
+            metadata = {
+                'source_document': self.source_document,
+                'source_hash': source_hash,
+                'chunking_strategy': chunking_strategy,
+            }
+
+            # Add chunk metadata if available
+            if hasattr(chunk, 'metadata'):
+                m = chunk.metadata
+                metadata['chunk_index'] = m.index
+                metadata['char_start'] = m.char_start_index
+                metadata['char_end'] = m.char_end_index
+                metadata['semantic_title'] = m.semantic_title
+                metadata['semantic_summary'] = m.summary
+                metadata['semantic_overlap'] = m.semantic_overlap
+
+                # Store additional metadata as JSON
+                if m.additional_metadata:
+                    metadata['metadata_json'] = json.dumps(m.additional_metadata)
+
+            documents_with_metadata.append((content, embedding, metadata))
+
+        # 5. Add to the database with metadata
         initial_doc_count = self.database.get_document_count()
-        self.database.add_documents(documents)
+        self.database.add_documents_with_metadata(documents_with_metadata)
         final_doc_count = self.database.get_document_count()
-        
+
         summary = {
             "status": "Success",
             "chunks_processed": len(chunks),
+            "chunking_strategy": chunking_strategy,
+            "source_document": self.source_document,
+            "source_hash": source_hash,
             "initial_doc_count": initial_doc_count,
             "final_doc_count": final_doc_count,
             "new_documents_added": final_doc_count - initial_doc_count

@@ -7,18 +7,18 @@
   ],
   "summary": {
     "vector": {
-      "mean_recall_at_5": 0.8333333333333334,
-      "mean_reciprocal_rank": 0.9583333333333334,
+      "mean_recall_at_5": 0.3666666666666667,
+      "mean_reciprocal_rank": 0.7777777777777778,
       "total_queries": 12
     },
     "keyword": {
-      "mean_recall_at_5": 0.9666666666666667,
+      "mean_recall_at_5": 0.45,
       "mean_reciprocal_rank": 1.0,
       "total_queries": 12
     },
     "hybrid": {
-      "mean_recall_at_5": 0.9333333333333332,
-      "mean_reciprocal_rank": 1.0,
+      "mean_recall_at_5": 0.38333333333333336,
+      "mean_reciprocal_rank": 0.638888888888889,
       "total_queries": 12
     }
   },
@@ -26,199 +26,199 @@
     {
       "mode": "vector",
       "total_queries": 12,
-      "mean_recall_at_5": 0.8333333333333334,
-      "mean_reciprocal_rank": 0.9583333333333334,
+      "mean_recall_at_5": 0.3666666666666667,
+      "mean_reciprocal_rank": 0.7777777777777778,
       "queries": [
         {
           "query_id": 1,
           "query_text": "ejercicios para triceps",
           "mode": "vector",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.4,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 2,
           "total_relevant": 5,
           "results_preview": [
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "Otro detalle también bastante relevante es que el tríceps, donde aplica más fuerza es aproximadament...",
-            "Otro detalle también bastante relevante es que el tríceps, donde aplica más fuerza es aproximadament..."
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            "La mecánica cuántica revolucionó nuestra comprensión del universo a escala atómica y subatómica. Des...",
+            " propiedad permite que las computadoras cuánticas resuelvan ciertos problemas exponencialmente más r...",
+            "La cocina italiana es reconocida mundialmente por su simplicidad y el uso de ingredientes frescos de..."
           ]
         },
         {
           "query_id": 2,
           "query_text": "entrenamiento de triceps",
           "mode": "vector",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.4,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 2,
           "total_relevant": 5,
           "results_preview": [
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "Otro detalle también bastante relevante es que el tríceps, donde aplica más fuerza es aproximadament...",
-            "Otro detalle también bastante relevante es que el tríceps, donde aplica más fuerza es aproximadament..."
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            "La mecánica cuántica revolucionó nuestra comprensión del universo a escala atómica y subatómica. Des...",
+            " propiedad permite que las computadoras cuánticas resuelvan ciertos problemas exponencialmente más r...",
+            "La cocina italiana es reconocida mundialmente por su simplicidad y el uso de ingredientes frescos de..."
           ]
         },
         {
           "query_id": 3,
           "query_text": "anatomia del triceps",
           "mode": "vector",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.4,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 2,
           "total_relevant": 6,
           "results_preview": [
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "Una vez dicho esto, vamos a hacer un pequeño repaso anatómico de cada una de las cabezas del tríceps...",
-            "Una vez dicho esto, vamos a hacer un pequeño repaso anatómico de cada una de las cabezas del tríceps..."
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            "El Renacimiento italiano fue un período de extraordinario florecimiento cultural que comenzó en Flor...",
+            "La mecánica cuántica revolucionó nuestra comprensión del universo a escala atómica y subatómica. Des...",
+            " alrededor de 1440, revolucionó la difusión del conocimiento. La producción masiva de libros hizo qu..."
           ]
         },
         {
           "query_id": 4,
           "query_text": "mejor rutina para brazos",
           "mode": "vector",
-          "recall_at_5": 0.6,
-          "reciprocal_rank": 0.5,
-          "relevant_found": 3,
+          "recall_at_5": 0.2,
+          "reciprocal_rank": 0.3333333333333333,
+          "relevant_found": 1,
           "total_relevant": 5,
           "results_preview": [
-            "Pero el despliegue masivo de energías renovables enfrenta retos considerables. Uno de los principale...",
-            "Y dicho esto, poquito más.\n\nNos vemos en nada y menos.\n\nun gusto estar otra vez por aquí para coment...",
-            "Y dicho esto, poquito más.\n\nNos vemos en nada y menos.\n\nun gusto estar otra vez por aquí para coment...",
-            "Desde una perspectiva laboral, la transición también tiene un impacto directo. Según la Agencia Inte...",
-            "un gusto estar otra vez por aquí para comentarte detallitos, técnicas, hm, cositas sobre el entrenam..."
+            ", planteando preocupaciones sobre sostenibilidad ambiental.\n\nLos desafíos éticos en IA incluyen sesg...",
+            " propiedad permite que las computadoras cuánticas resuelvan ciertos problemas exponencialmente más r...",
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            " Ángel y Leonardo. Este mecenazgo creó un ambiente propicio para la experimentación artística y el d...",
+            "La cocina italiana es reconocida mundialmente por su simplicidad y el uso de ingredientes frescos de..."
           ]
         },
         {
           "query_id": 5,
           "query_text": "press frances con barra",
           "mode": "vector",
-          "recall_at_5": 0.8,
-          "reciprocal_rank": 1.0,
-          "relevant_found": 4,
+          "recall_at_5": 0.0,
+          "reciprocal_rank": 0.0,
+          "relevant_found": 0,
           "total_relevant": 4,
           "results_preview": [
-            "Todos los ejercicios que vengan desde aquí hasta arriba van a aumentar un poquito ese estímulo en es...",
-            "Todos los ejercicios que vengan desde aquí hasta arriba van a aumentar un poquito ese estímulo en es...",
-            "Antes hemos hablado que el punto donde la cabeza larga tiene más capacidad para poder aplicar fuerza...",
-            "En síntesis, la transición energética es una oportunidad histórica para rediseñar el sistema energét...",
-            "Algo crucial que tenés que saber sobre aprender información es que cuando consumís contenido, tanto ..."
+            " alrededor de 1440, revolucionó la difusión del conocimiento. La producción masiva de libros hizo qu...",
+            "El Renacimiento italiano fue un período de extraordinario florecimiento cultural que comenzó en Flor...",
+            "e picante que indica presencia de antioxidantes beneficiosos.\n\nLos tomates San Marzano son considera...",
+            " Ángel y Leonardo. Este mecenazgo creó un ambiente propicio para la experimentación artística y el d...",
+            " propiedad permite que las computadoras cuánticas resuelvan ciertos problemas exponencialmente más r..."
           ]
         },
         {
           "query_id": 6,
           "query_text": "extension de codo en polea",
           "mode": "vector",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.4,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 2,
           "total_relevant": 4,
           "results_preview": [
-            "El cúbito está fijo, así que bueno, importante que lo sepas.\n\nLa cuestión está en lo siguiente.\n\nCua...",
-            "El cúbito está fijo, así que bueno, importante que lo sepas.\n\nLa cuestión está en lo siguiente.\n\nCua...",
-            "Todos los ejercicios que vengan desde aquí hasta arriba van a aumentar un poquito ese estímulo en es...",
-            "Todos los ejercicios que vengan desde aquí hasta arriba van a aumentar un poquito ese estímulo en es...",
-            "Es por eso por lo que ahora te voy a poner un pequeño ejemplo de tres ejercicios que parecen muy sen..."
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            " alrededor de 1440, revolucionó la difusión del conocimiento. La producción masiva de libros hizo qu...",
+            "e picante que indica presencia de antioxidantes beneficiosos.\n\nLos tomates San Marzano son considera...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            "La mecánica cuántica revolucionó nuestra comprensión del universo a escala atómica y subatómica. Des..."
           ]
         },
         {
           "query_id": 7,
           "query_text": "hipertrofia muscular",
           "mode": "vector",
-          "recall_at_5": 0.6,
+          "recall_at_5": 0.4,
           "reciprocal_rank": 1.0,
-          "relevant_found": 3,
+          "relevant_found": 2,
           "total_relevant": 3,
           "results_preview": [
-            "A partir de aquí hay diferentes teorías, es decir, hay estudios, hay personas, hay científicos, divu...",
-            "A partir de aquí hay diferentes teorías, es decir, hay estudios, hay personas, hay científicos, divu...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "Fíjate.\n\nPom, extiende el hombro.\n\nEs por ello por lo que en el JM press o en el press que hemos vis..."
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "El Renacimiento italiano fue un período de extraordinario florecimiento cultural que comenzó en Flor...",
+            "La mecánica cuántica revolucionó nuestra comprensión del universo a escala atómica y subatómica. Des...",
+            "e picante que indica presencia de antioxidantes beneficiosos.\n\nLos tomates San Marzano son considera..."
           ]
         },
         {
           "query_id": 8,
           "query_text": "cambio climatico",
           "mode": "vector",
-          "recall_at_5": 0.4,
-          "reciprocal_rank": 1.0,
-          "relevant_found": 2,
+          "recall_at_5": 0.2,
+          "reciprocal_rank": 0.5,
+          "relevant_found": 1,
           "total_relevant": 4,
           "results_preview": [
-            "Finalmente, la participación ciudadana es un componente vital de esta transición. El cambio de model...",
-            "Tema: Energía y sostenibilidad\nLa transición energética global es uno de los desafíos más complejos ...",
-            "Los gobiernos están comenzando a tomar medidas más concretas. La Unión Europea, por ejemplo, ha lanz...",
-            "En este contexto, el papel de la energía solar ha cobrado especial relevancia. Gracias a la rápida c...",
-            "Aun así, las tensiones geopolíticas pueden obstaculizar el proceso. La dependencia de minerales crít..."
+            ", planteando preocupaciones sobre sostenibilidad ambiental.\n\nLos desafíos éticos en IA incluyen sesg...",
+            "radualmente mientras se remueve constantemente. El azafrán le da su característico color dorado y sa...",
+            "La cocina italiana es reconocida mundialmente por su simplicidad y el uso de ingredientes frescos de...",
+            "e picante que indica presencia de antioxidantes beneficiosos.\n\nLos tomates San Marzano son considera...",
+            "Sin embargo, también existen desafíos importantes. Los modelos pueden presentar sesgos presentes en ..."
           ]
         },
         {
           "query_id": 9,
           "query_text": "inteligencia artificial",
           "mode": "vector",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.6,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 3,
           "total_relevant": 4,
           "results_preview": [
-            "Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural in...",
-            "th representation learning. The learning can be supervised, semi-supervised or unsupervised.Artifici...",
-            "that is based on artificial neural networks with representation learning. The learning can be superv...",
-            "ep learning is a subfield of machine learning that is based on artificial neural networks with repre...",
-            "En muchas ocasiones confundimos el conocimiento que tiene alguien, el uso que le da a esa informació..."
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "La inteligencia artificial ha evolucionado dramáticamente en las últimas décadas. Desde los primeros...",
+            " manera que el estado de una afecta instantáneamente al estado de la otra, independientemente de la ...",
+            " propiedad permite que las computadoras cuánticas resuelvan ciertos problemas exponencialmente más r..."
           ]
         },
         {
           "query_id": 10,
           "query_text": "deep learning",
           "mode": "vector",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.6,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 3,
           "total_relevant": 4,
           "results_preview": [
-            "rning surpassed all previous AI techniques. Deep learning is a subfield of machine learning that is ...",
-            "th representation learning. The learning can be supervised, semi-supervised or unsupervised.Artifici...",
-            "ep learning is a subfield of machine learning that is based on artificial neural networks with repre...",
-            "that is based on artificial neural networks with representation learning. The learning can be superv...",
-            "Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural in..."
+            "La inteligencia artificial ha evolucionado dramáticamente en las últimas décadas. Desde los primeros...",
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            " propiedad permite que las computadoras cuánticas resuelvan ciertos problemas exponencialmente más r...",
+            "Sin embargo, también existen desafíos importantes. Los modelos pueden presentar sesgos presentes en ..."
           ]
         },
         {
           "query_id": 11,
           "query_text": "series y repeticiones",
           "mode": "vector",
-          "recall_at_5": 0.6,
-          "reciprocal_rank": 1.0,
-          "relevant_found": 3,
+          "recall_at_5": 0.4,
+          "reciprocal_rank": 0.5,
+          "relevant_found": 2,
           "total_relevant": 4,
           "results_preview": [
-            "Para mí, un número de series bastante acertado por sesión sería de seis series para el propio trícep...",
-            "Está muy, pero que muy guapo el vídeo y te va a ayudar muchísimo a aclarar un poquito más tus concep...",
-            "Está muy, pero que muy guapo el vídeo y te va a ayudar muchísimo a aclarar un poquito más tus concep...",
-            "Si eres muy pero que muy avanzado y tienes la técnica muy pero que muy impoluta, puedes ir al reir c...",
-            "Si eres muy pero que muy avanzado y tienes la técnica muy pero que muy impoluta, puedes ir al reir c..."
+            "La mecánica cuántica revolucionó nuestra comprensión del universo a escala atómica y subatómica. Des...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            " alrededor de 1440, revolucionó la difusión del conocimiento. La producción masiva de libros hizo qu...",
+            " Ángel y Leonardo. Este mecenazgo creó un ambiente propicio para la experimentación artística y el d...",
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra..."
           ]
         },
         {
           "query_id": 12,
           "query_text": "cabeza larga del triceps",
           "mode": "vector",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.4,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 2,
           "total_relevant": 3,
           "results_preview": [
-            "Otro detalle también bastante relevante es que el tríceps, donde aplica más fuerza es aproximadament...",
-            "Otro detalle también bastante relevante es que el tríceps, donde aplica más fuerza es aproximadament...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc..."
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            "La cocina italiana es reconocida mundialmente por su simplicidad y el uso de ingredientes frescos de...",
+            "e picante que indica presencia de antioxidantes beneficiosos.\n\nLos tomates San Marzano son considera...",
+            " propiedad permite que las computadoras cuánticas resuelvan ciertos problemas exponencialmente más r..."
           ]
         }
       ]
@@ -226,23 +226,23 @@
     {
       "mode": "keyword",
       "total_queries": 12,
-      "mean_recall_at_5": 0.9666666666666667,
+      "mean_recall_at_5": 0.45,
       "mean_reciprocal_rank": 1.0,
       "queries": [
         {
           "query_id": 1,
           "query_text": "ejercicios para triceps",
           "mode": "keyword",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.4,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 2,
           "total_relevant": 5,
           "results_preview": [
-            "Todos los ejercicios que vengan desde aquí hasta arriba van a aumentar un poquito ese estímulo en es...",
-            "Todos los ejercicios que vengan desde aquí hasta arriba van a aumentar un poquito ese estímulo en es...",
-            "Está muy, pero que muy guapo el vídeo y te va a ayudar muchísimo a aclarar un poquito más tus concep...",
-            "Está muy, pero que muy guapo el vídeo y te va a ayudar muchísimo a aclarar un poquito más tus concep...",
-            "Para mí, un número de series bastante acertado por sesión sería de seis series para el propio trícep..."
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            "e picante que indica presencia de antioxidantes beneficiosos.\n\nLos tomates San Marzano son considera...",
+            "La cocina italiana es reconocida mundialmente por su simplicidad y el uso de ingredientes frescos de...",
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ..."
           ]
         },
         {
@@ -254,171 +254,171 @@
           "relevant_found": 5,
           "total_relevant": 5,
           "results_preview": [
-            "Y aquí viene la aplicación práctica. Si notas que se te mueve muchísimo el húmero mientras que estás...",
-            "Así que a vuestra salud.\n\nCódigo Álvaro 10% en vida.\n\nSi hablamos de la programación del entrenamien...",
-            "Así que a vuestra salud.\n\nCódigo Álvaro 10% en vida.\n\nSi hablamos de la programación del entrenamien...",
-            "Está muy, pero que muy guapo el vídeo y te va a ayudar muchísimo a aclarar un poquito más tus concep...",
-            "Está muy, pero que muy guapo el vídeo y te va a ayudar muchísimo a aclarar un poquito más tus concep..."
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            "Sin embargo, también existen desafíos importantes. Los modelos pueden presentar sesgos presentes en ...",
+            "Sin embargo, también existen desafíos importantes. Los modelos pueden presentar sesgos presentes en ...",
+            " de atención permite al modelo enfocarse en las partes relevantes de la entrada, mejorando significa..."
           ]
         },
         {
           "query_id": 3,
           "query_text": "anatomia del triceps",
           "mode": "keyword",
-          "recall_at_5": 0.8,
+          "recall_at_5": 0.4,
           "reciprocal_rank": 1.0,
-          "relevant_found": 4,
+          "relevant_found": 2,
           "total_relevant": 6,
           "results_preview": [
-            "Una vez dicho esto, vamos a hacer un pequeño repaso anatómico de cada una de las cabezas del tríceps...",
-            "Una vez dicho esto, vamos a hacer un pequeño repaso anatómico de cada una de las cabezas del tríceps...",
-            "Una vez dicho esto, vamos a hacer un pequeño repaso anatómico de cada una de las cabezas del tríceps...",
-            " tamaño del chunk y el solapamiento es crucial para optimizar el rendimiento del sistema RAG. Chunks...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc..."
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            " Ángel y Leonardo. Este mecenazgo creó un ambiente propicio para la experimentación artística y el d...",
+            "La mecánica cuántica revolucionó nuestra comprensión del universo a escala atómica y subatómica. Des...",
+            " alrededor de 1440, revolucionó la difusión del conocimiento. La producción masiva de libros hizo qu..."
           ]
         },
         {
           "query_id": 4,
           "query_text": "mejor rutina para brazos",
           "mode": "keyword",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.4,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 2,
           "total_relevant": 5,
           "results_preview": [
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "Ya hemos visto unos cuantos para cada uno de las cabezas del tríceps, pero lo que es muy pero que mu...",
-            "Ya hemos visto unos cuantos para cada uno de las cabezas del tríceps, pero lo que es muy pero que mu..."
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            "e picante que indica presencia de antioxidantes beneficiosos.\n\nLos tomates San Marzano son considera...",
+            "La cocina italiana es reconocida mundialmente por su simplicidad y el uso de ingredientes frescos de...",
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ..."
           ]
         },
         {
           "query_id": 5,
           "query_text": "press frances con barra",
           "mode": "keyword",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.2,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 1,
           "total_relevant": 4,
           "results_preview": [
-            "Todos los ejercicios que vengan desde aquí hasta arriba van a aumentar un poquito ese estímulo en es...",
-            "Todos los ejercicios que vengan desde aquí hasta arriba van a aumentar un poquito ese estímulo en es...",
-            "Antes hemos hablado que el punto donde la cabeza larga tiene más capacidad para poder aplicar fuerza...",
-            "El cúbito está fijo, así que bueno, importante que lo sepas.\n\nLa cuestión está en lo siguiente.\n\nCua...",
-            "El cúbito está fijo, así que bueno, importante que lo sepas.\n\nLa cuestión está en lo siguiente.\n\nCua..."
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "e picante que indica presencia de antioxidantes beneficiosos.\n\nLos tomates San Marzano son considera...",
+            "radualmente mientras se remueve constantemente. El azafrán le da su característico color dorado y sa...",
+            ", planteando preocupaciones sobre sostenibilidad ambiental.\n\nLos desafíos éticos en IA incluyen sesg...",
+            " de atención permite al modelo enfocarse en las partes relevantes de la entrada, mejorando significa..."
           ]
         },
         {
           "query_id": 6,
           "query_text": "extension de codo en polea",
           "mode": "keyword",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.2,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 1,
           "total_relevant": 4,
           "results_preview": [
-            "Y aquí viene la aplicación práctica.\n\nSi notas que se te mueve muchísimo el húmero mientras que está...",
-            "Y aquí viene la aplicación práctica.\n\nSi notas que se te mueve muchísimo el húmero mientras que está...",
-            "Todos los ejercicios que vengan desde aquí hasta arriba van a aumentar un poquito ese estímulo en es...",
-            "Todos los ejercicios que vengan desde aquí hasta arriba van a aumentar un poquito ese estímulo en es...",
-            "Y aquí viene la aplicación práctica. Si notas que se te mueve muchísimo el húmero mientras que estás..."
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            " de atención permite al modelo enfocarse en las partes relevantes de la entrada, mejorando significa...",
+            "La inteligencia artificial ha evolucionado dramáticamente en las últimas décadas. Desde los primeros...",
+            ", planteando preocupaciones sobre sostenibilidad ambiental.\n\nLos desafíos éticos en IA incluyen sesg...",
+            "radualmente mientras se remueve constantemente. El azafrán le da su característico color dorado y sa..."
           ]
         },
         {
           "query_id": 7,
           "query_text": "hipertrofia muscular",
           "mode": "keyword",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.4,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 2,
           "total_relevant": 3,
           "results_preview": [
-            "A partir de aquí hay diferentes teorías, es decir, hay estudios, hay personas, hay científicos, divu...",
-            "A partir de aquí hay diferentes teorías, es decir, hay estudios, hay personas, hay científicos, divu...",
-            "Hay dos conceptos muy importantes de los que se habla mucho en redes sociales y creo que está quedan...",
-            "Si eres muy pero que muy avanzado y tienes la técnica muy pero que muy impoluta, puedes ir al reir c...",
-            "Si eres muy pero que muy avanzado y tienes la técnica muy pero que muy impoluta, puedes ir al reir c..."
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            " alrededor de 1440, revolucionó la difusión del conocimiento. La producción masiva de libros hizo qu...",
+            " de atención permite al modelo enfocarse en las partes relevantes de la entrada, mejorando significa...",
+            " manera que el estado de una afecta instantáneamente al estado de la otra, independientemente de la ..."
           ]
         },
         {
           "query_id": 8,
           "query_text": "cambio climatico",
           "mode": "keyword",
-          "recall_at_5": 0.8,
+          "recall_at_5": 0.2,
           "reciprocal_rank": 1.0,
-          "relevant_found": 4,
+          "relevant_found": 1,
           "total_relevant": 4,
           "results_preview": [
-            "Tema: Energía y sostenibilidad\nLa transición energética global es uno de los desafíos más complejos ...",
-            "Sin embargo, la transición energética no se limita únicamente a un cambio tecnológico. También impli...",
-            "Finalmente, la participación ciudadana es un componente vital de esta transición. El cambio de model...",
-            "Una vez que aprendiste a disfrutar de leer y mejoraste tu capacidad de atención y puedes sostener es...",
-            " tamaño del chunk y el solapamiento es crucial para optimizar el rendimiento del sistema RAG. Chunks..."
+            "La inteligencia artificial ha evolucionado dramáticamente en las últimas décadas. Desde los primeros...",
+            " alrededor de 1440, revolucionó la difusión del conocimiento. La producción masiva de libros hizo qu...",
+            " de atención permite al modelo enfocarse en las partes relevantes de la entrada, mejorando significa...",
+            " manera que el estado de una afecta instantáneamente al estado de la otra, independientemente de la ...",
+            " propiedad permite que las computadoras cuánticas resuelvan ciertos problemas exponencialmente más r..."
           ]
         },
         {
           "query_id": 9,
           "query_text": "inteligencia artificial",
           "mode": "keyword",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.6,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 3,
           "total_relevant": 4,
           "results_preview": [
-            "El sistema RAG (Retrieval-Augmented Generation) es una arquitectura de inteligencia artificial que c...",
-            "that is based on artificial neural networks with representation learning. The learning can be superv...",
-            "En muchas ocasiones confundimos el conocimiento que tiene alguien, el uso que le da a esa informació...",
-            "th representation learning. The learning can be supervised, semi-supervised or unsupervised.Artifici...",
-            "Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural in..."
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "La inteligencia artificial ha evolucionado dramáticamente en las últimas décadas. Desde los primeros...",
+            " alrededor de 1440, revolucionó la difusión del conocimiento. La producción masiva de libros hizo qu...",
+            " de atención permite al modelo enfocarse en las partes relevantes de la entrada, mejorando significa..."
           ]
         },
         {
           "query_id": 10,
           "query_text": "deep learning",
           "mode": "keyword",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.6,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 3,
           "total_relevant": 4,
           "results_preview": [
-            "rning surpassed all previous AI techniques. Deep learning is a subfield of machine learning that is ...",
-            "ep learning is a subfield of machine learning that is based on artificial neural networks with repre...",
-            "th representation learning. The learning can be supervised, semi-supervised or unsupervised.Artifici...",
-            "that is based on artificial neural networks with representation learning. The learning can be superv...",
-            "Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural in..."
+            "La inteligencia artificial ha evolucionado dramáticamente en las últimas décadas. Desde los primeros...",
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            " alrededor de 1440, revolucionó la difusión del conocimiento. La producción masiva de libros hizo qu...",
+            " de atención permite al modelo enfocarse en las partes relevantes de la entrada, mejorando significa..."
           ]
         },
         {
           "query_id": 11,
           "query_text": "series y repeticiones",
           "mode": "keyword",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.6,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 3,
           "total_relevant": 4,
           "results_preview": [
-            "Está muy, pero que muy guapo el vídeo y te va a ayudar muchísimo a aclarar un poquito más tus concep...",
-            "Está muy, pero que muy guapo el vídeo y te va a ayudar muchísimo a aclarar un poquito más tus concep...",
-            "Lo primero y más importante, hay miles de ejercicios que puedo realizar en tu entrenamiento de tríce...",
-            "Lo primero y más importante, hay miles de ejercicios que puedo realizar en tu entrenamiento de tríce...",
-            "Para mí, un número de series bastante acertado por sesión sería de seis series para el propio trícep..."
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            " Ángel y Leonardo. Este mecenazgo creó un ambiente propicio para la experimentación artística y el d...",
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "El Renacimiento italiano fue un período de extraordinario florecimiento cultural que comenzó en Flor..."
           ]
         },
         {
           "query_id": 12,
           "query_text": "cabeza larga del triceps",
           "mode": "keyword",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.4,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 2,
           "total_relevant": 3,
           "results_preview": [
-            "Hay dos conceptos muy importantes de los que se habla mucho en redes sociales y creo que está quedan...",
-            "Hay dos conceptos muy importantes de los que se habla mucho en redes sociales y creo que está quedan...",
-            "Hay dos conceptos muy importantes de los que se habla mucho en redes sociales y creo que está quedan...",
-            "Bueno, pues para ello tenemos que hablar de anatomía. La clave de todo esto y por lo cual te explico...",
-            "El cúbito está fijo, así que bueno, importante que lo sepas.\n\nLa cuestión está en lo siguiente.\n\nCua..."
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            " Ángel y Leonardo. Este mecenazgo creó un ambiente propicio para la experimentación artística y el d...",
+            "La mecánica cuántica revolucionó nuestra comprensión del universo a escala atómica y subatómica. Des...",
+            " alrededor de 1440, revolucionó la difusión del conocimiento. La producción masiva de libros hizo qu..."
           ]
         }
       ]
@@ -426,199 +426,199 @@
     {
       "mode": "hybrid",
       "total_queries": 12,
-      "mean_recall_at_5": 0.9333333333333332,
-      "mean_reciprocal_rank": 1.0,
+      "mean_recall_at_5": 0.38333333333333336,
+      "mean_reciprocal_rank": 0.638888888888889,
       "queries": [
         {
           "query_id": 1,
           "query_text": "ejercicios para triceps",
           "mode": "hybrid",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.4,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 2,
           "total_relevant": 5,
           "results_preview": [
-            "Todos los ejercicios que vengan desde aquí hasta arriba van a aumentar un poquito ese estímulo en es...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "Está muy, pero que muy guapo el vídeo y te va a ayudar muchísimo a aclarar un poquito más tus concep...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "Para mí, un número de series bastante acertado por sesión sería de seis series para el propio trícep..."
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            "e picante que indica presencia de antioxidantes beneficiosos.\n\nLos tomates San Marzano son considera...",
+            "La cocina italiana es reconocida mundialmente por su simplicidad y el uso de ingredientes frescos de...",
+            " propiedad permite que las computadoras cuánticas resuelvan ciertos problemas exponencialmente más r..."
           ]
         },
         {
           "query_id": 2,
           "query_text": "entrenamiento de triceps",
           "mode": "hybrid",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.8,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 4,
           "total_relevant": 5,
           "results_preview": [
-            "Y aquí viene la aplicación práctica.\n\nSi notas que se te mueve muchísimo el húmero mientras que está...",
-            "Otro detalle también bastante relevante es que el tríceps, donde aplica más fuerza es aproximadament...",
-            "Ya hemos visto unos cuantos para cada uno de las cabezas del tríceps, pero lo que es muy pero que mu...",
-            "Lo primero y más importante, hay miles de ejercicios que puedo realizar en tu entrenamiento de tríce...",
-            "Así que a vuestra salud.\n\nCódigo Álvaro 10% en vida.\n\nSi hablamos de la programación del entrenamien..."
+            "Sin embargo, también existen desafíos importantes. Los modelos pueden presentar sesgos presentes en ...",
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            "La mecánica cuántica revolucionó nuestra comprensión del universo a escala atómica y subatómica. Des...",
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ..."
           ]
         },
         {
           "query_id": 3,
           "query_text": "anatomia del triceps",
           "mode": "hybrid",
-          "recall_at_5": 1.0,
-          "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "recall_at_5": 0.4,
+          "reciprocal_rank": 0.3333333333333333,
+          "relevant_found": 2,
           "total_relevant": 6,
           "results_preview": [
-            "Una vez dicho esto, vamos a hacer un pequeño repaso anatómico de cada una de las cabezas del tríceps...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "Y aquí viene la aplicación práctica.\n\nSi notas que se te mueve muchísimo el húmero mientras que está...",
-            "Una vez dicho esto, vamos a hacer un pequeño repaso anatómico de cada una de las cabezas del tríceps...",
-            "Hay dos conceptos muy importantes de los que se habla mucho en redes sociales y creo que está quedan..."
+            "Sin embargo, también existen desafíos importantes. Los modelos pueden presentar sesgos presentes en ...",
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            "La mecánica cuántica revolucionó nuestra comprensión del universo a escala atómica y subatómica. Des..."
           ]
         },
         {
           "query_id": 4,
           "query_text": "mejor rutina para brazos",
           "mode": "hybrid",
-          "recall_at_5": 0.8,
-          "reciprocal_rank": 1.0,
-          "relevant_found": 4,
+          "recall_at_5": 0.2,
+          "reciprocal_rank": 0.5,
+          "relevant_found": 1,
           "total_relevant": 5,
           "results_preview": [
-            "Ya hemos visto unos cuantos para cada uno de las cabezas del tríceps, pero lo que es muy pero que mu...",
-            "Y dicho esto, poquito más.\n\nNos vemos en nada y menos.\n\nun gusto estar otra vez por aquí para coment...",
-            "El tríceps ocupa el 66% del volumen del brazo y aún así hay mucha gente que le da más énfasis al bíc...",
-            "un gusto estar otra vez por aquí para comentarte detallitos, técnicas, hm, cositas sobre el entrenam...",
-            "La realidad es que hay miles de maneras de mejorar cada una de estas habilidades. Yo te voy a dar la..."
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            " propiedad permite que las computadoras cuánticas resuelvan ciertos problemas exponencialmente más r...",
+            "La cocina italiana es reconocida mundialmente por su simplicidad y el uso de ingredientes frescos de...",
+            " Ángel y Leonardo. Este mecenazgo creó un ambiente propicio para la experimentación artística y el d..."
           ]
         },
         {
           "query_id": 5,
           "query_text": "press frances con barra",
           "mode": "hybrid",
-          "recall_at_5": 1.0,
-          "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "recall_at_5": 0.2,
+          "reciprocal_rank": 0.3333333333333333,
+          "relevant_found": 1,
           "total_relevant": 4,
           "results_preview": [
-            "Todos los ejercicios que vengan desde aquí hasta arriba van a aumentar un poquito ese estímulo en es...",
-            "Es por eso por lo que ahora te voy a poner un pequeño ejemplo de tres ejercicios que parecen muy sen...",
-            "Antes hemos hablado que el punto donde la cabeza larga tiene más capacidad para poder aplicar fuerza...",
-            "El cúbito está fijo, así que bueno, importante que lo sepas.\n\nLa cuestión está en lo siguiente.\n\nCua...",
-            "Fíjate.\n\nPom, extiende el hombro.\n\nEs por ello por lo que en el JM press o en el press que hemos vis..."
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "e picante que indica presencia de antioxidantes beneficiosos.\n\nLos tomates San Marzano son considera...",
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "radualmente mientras se remueve constantemente. El azafrán le da su característico color dorado y sa...",
+            " alrededor de 1440, revolucionó la difusión del conocimiento. La producción masiva de libros hizo qu..."
           ]
         },
         {
           "query_id": 6,
           "query_text": "extension de codo en polea",
           "mode": "hybrid",
-          "recall_at_5": 1.0,
-          "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "recall_at_5": 0.2,
+          "reciprocal_rank": 0.3333333333333333,
+          "relevant_found": 1,
           "total_relevant": 4,
           "results_preview": [
-            "Y aquí viene la aplicación práctica.\n\nSi notas que se te mueve muchísimo el húmero mientras que está...",
-            "Todos los ejercicios que vengan desde aquí hasta arriba van a aumentar un poquito ese estímulo en es...",
-            "El cúbito está fijo, así que bueno, importante que lo sepas.\n\nLa cuestión está en lo siguiente.\n\nCua...",
-            "Más o menos, no tanto a lo gordo, sino más bien a lo ancho.\n\nDicho esto, cuando cogemos la polea y n...",
-            "Y aquí viene la aplicación práctica. Si notas que se te mueve muchísimo el húmero mientras que estás..."
+            "Sin embargo, también existen desafíos importantes. Los modelos pueden presentar sesgos presentes en ...",
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "radualmente mientras se remueve constantemente. El azafrán le da su característico color dorado y sa...",
+            " de atención permite al modelo enfocarse en las partes relevantes de la entrada, mejorando significa..."
           ]
         },
         {
           "query_id": 7,
           "query_text": "hipertrofia muscular",
           "mode": "hybrid",
-          "recall_at_5": 1.0,
-          "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "recall_at_5": 0.4,
+          "reciprocal_rank": 0.5,
+          "relevant_found": 2,
           "total_relevant": 3,
           "results_preview": [
-            "A partir de aquí hay diferentes teorías, es decir, hay estudios, hay personas, hay científicos, divu...",
-            "Si hablamos de intensidad, lo primero tenemos que diferenciar dos tipos de ejercicios.\n\nLo primero, ...",
-            "Para ello tenemos que hablar de dos conceptos.\n\nEl primero es la estabilidad.\n\nEsta palabra se ha re...",
-            "Si eres muy pero que muy avanzado y tienes la técnica muy pero que muy impoluta, puedes ir al reir c...",
-            "Más o menos, no tanto a lo gordo, sino más bien a lo ancho.\n\nDicho esto, cuando cogemos la polea y n..."
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "El Renacimiento italiano fue un período de extraordinario florecimiento cultural que comenzó en Flor...",
+            " Ángel y Leonardo. Este mecenazgo creó un ambiente propicio para la experimentación artística y el d..."
           ]
         },
         {
           "query_id": 8,
           "query_text": "cambio climatico",
           "mode": "hybrid",
-          "recall_at_5": 0.6,
-          "reciprocal_rank": 1.0,
-          "relevant_found": 3,
+          "recall_at_5": 0.2,
+          "reciprocal_rank": 0.3333333333333333,
+          "relevant_found": 1,
           "total_relevant": 4,
           "results_preview": [
-            "Tema: Energía y sostenibilidad\nLa transición energética global es uno de los desafíos más complejos ...",
-            "Finalmente, la participación ciudadana es un componente vital de esta transición. El cambio de model...",
-            "A partir de aquí hay diferentes teorías, es decir, hay estudios, hay personas, hay científicos, divu...",
-            "Sin embargo, la transición energética no se limita únicamente a un cambio tecnológico. También impli...",
-            "Ahora estarás pensando, \"Vale, muy bien, muy bonito, ha quedado precioso la explicación, pero ¿por q..."
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            ", planteando preocupaciones sobre sostenibilidad ambiental.\n\nLos desafíos éticos en IA incluyen sesg...",
+            "La inteligencia artificial ha evolucionado dramáticamente en las últimas décadas. Desde los primeros...",
+            " alrededor de 1440, revolucionó la difusión del conocimiento. La producción masiva de libros hizo qu...",
+            "La cocina italiana es reconocida mundialmente por su simplicidad y el uso de ingredientes frescos de..."
           ]
         },
         {
           "query_id": 9,
           "query_text": "inteligencia artificial",
           "mode": "hybrid",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.4,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 2,
           "total_relevant": 4,
           "results_preview": [
-            "that is based on artificial neural networks with representation learning. The learning can be superv...",
-            "Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural in...",
-            "th representation learning. The learning can be supervised, semi-supervised or unsupervised.Artifici...",
-            "En muchas ocasiones confundimos el conocimiento que tiene alguien, el uso que le da a esa informació...",
-            "ep learning is a subfield of machine learning that is based on artificial neural networks with repre..."
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "La inteligencia artificial ha evolucionado dramáticamente en las últimas décadas. Desde los primeros...",
+            " manera que el estado de una afecta instantáneamente al estado de la otra, independientemente de la ...",
+            " propiedad permite que las computadoras cuánticas resuelvan ciertos problemas exponencialmente más r...",
+            " de atención permite al modelo enfocarse en las partes relevantes de la entrada, mejorando significa..."
           ]
         },
         {
           "query_id": 10,
           "query_text": "deep learning",
           "mode": "hybrid",
-          "recall_at_5": 1.0,
+          "recall_at_5": 0.4,
           "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "relevant_found": 2,
           "total_relevant": 4,
           "results_preview": [
-            "rning surpassed all previous AI techniques. Deep learning is a subfield of machine learning that is ...",
-            "th representation learning. The learning can be supervised, semi-supervised or unsupervised.Artifici...",
-            "ep learning is a subfield of machine learning that is based on artificial neural networks with repre...",
-            "that is based on artificial neural networks with representation learning. The learning can be superv...",
-            "Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural in..."
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "La inteligencia artificial ha evolucionado dramáticamente en las últimas décadas. Desde los primeros...",
+            " propiedad permite que las computadoras cuánticas resuelvan ciertos problemas exponencialmente más r...",
+            " alrededor de 1440, revolucionó la difusión del conocimiento. La producción masiva de libros hizo qu...",
+            " de atención permite al modelo enfocarse en las partes relevantes de la entrada, mejorando significa..."
           ]
         },
         {
           "query_id": 11,
           "query_text": "series y repeticiones",
           "mode": "hybrid",
-          "recall_at_5": 0.8,
+          "recall_at_5": 0.6,
           "reciprocal_rank": 1.0,
-          "relevant_found": 4,
+          "relevant_found": 3,
           "total_relevant": 4,
           "results_preview": [
-            "Está muy, pero que muy guapo el vídeo y te va a ayudar muchísimo a aclarar un poquito más tus concep...",
-            "Para mí, un número de series bastante acertado por sesión sería de seis series para el propio trícep...",
-            "Lo primero y más importante, hay miles de ejercicios que puedo realizar en tu entrenamiento de tríce...",
-            "Así que a vuestra salud.\n\nCódigo Álvaro 10% en vida.\n\nSi hablamos de la programación del entrenamien...",
-            "Fíjate.\n\nPom, extiende el hombro.\n\nEs por ello por lo que en el JM press o en el press que hemos vis..."
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "Sin embargo, también existen desafíos importantes. Los modelos pueden presentar sesgos presentes en ...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            " Ángel y Leonardo. Este mecenazgo creó un ambiente propicio para la experimentación artística y el d...",
+            " alrededor de 1440, revolucionó la difusión del conocimiento. La producción masiva de libros hizo qu..."
           ]
         },
         {
           "query_id": 12,
           "query_text": "cabeza larga del triceps",
           "mode": "hybrid",
-          "recall_at_5": 1.0,
-          "reciprocal_rank": 1.0,
-          "relevant_found": 5,
+          "recall_at_5": 0.4,
+          "reciprocal_rank": 0.3333333333333333,
+          "relevant_found": 2,
           "total_relevant": 3,
           "results_preview": [
-            "Hay dos conceptos muy importantes de los que se habla mucho en redes sociales y creo que está quedan...",
-            "Una vez dicho esto, vamos a hacer un pequeño repaso anatómico de cada una de las cabezas del tríceps...",
-            "El cúbito está fijo, así que bueno, importante que lo sepas.\n\nLa cuestión está en lo siguiente.\n\nCua...",
-            "Más o menos, no tanto a lo gordo, sino más bien a lo ancho.\n\nDicho esto, cuando cogemos la polea y n...",
-            "Aparte de ello, trabajarla en ese estiramiento.\n\nEspero que ahora haya quedado claro cuál es la dife..."
+            "Sin embargo, también existen desafíos importantes. Los modelos pueden presentar sesgos presentes en ...",
+            "La inteligencia artificial y el machine learning están revolucionando múltiples industrias. El deep ...",
+            "El entrenamiento de triceps es fundamental para el desarrollo completo de los brazos. El triceps bra...",
+            "Para la hipertrofia muscular del triceps, se recomienda realizar entre 10 y 20 series semanales. El ...",
+            " Ángel y Leonardo. Este mecenazgo creó un ambiente propicio para la experimentación artística y el d..."
           ]
         }
       ]

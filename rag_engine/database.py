@@ -116,6 +116,8 @@ class SQLiteVecDatabase(VectorDatabase):
         Creates the vector store table if it doesn't already exist.
         Uses a regular table with BLOB column for vectors instead of virtual tables.
 
+        Schema v2 includes metadata for chunking strategy tracking and agentic metadata.
+
         Args:
             vector_dim (int): The dimension of the vectors to be stored.
         """
@@ -123,33 +125,79 @@ class SQLiteVecDatabase(VectorDatabase):
         # Check if the table already exists
         cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{self.table_name}'")
         if cursor.fetchone() is None:
-            print(f"Creating new table '{self.table_name}' with vector dimension {vector_dim}.")
-            
-            # Create a regular table with BLOB column for vectors
-            # This approach is more compatible across sqlite-vec versions
+            print(f"Creating new table '{self.table_name}' (schema v2) with vector dimension {vector_dim}.")
+
+            # Create a regular table with BLOB column for vectors + metadata columns
             cursor.execute(f"""
                 CREATE TABLE {self.table_name} (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     content TEXT NOT NULL,
-                    embedding BLOB NOT NULL
+                    source_document TEXT,
+                    source_hash TEXT,
+                    chunking_strategy TEXT NOT NULL DEFAULT 'unknown',
+                    chunk_index INTEGER,
+                    char_start INTEGER,
+                    char_end INTEGER,
+                    semantic_title TEXT,
+                    semantic_summary TEXT,
+                    semantic_overlap TEXT,
+                    embedding BLOB NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    metadata_json TEXT
                 )
             """)
-            
-            # Create an index for faster searches (optional but recommended)
+
+            # Create indices for faster searches
             cursor.execute(f"""
                 CREATE INDEX idx_{self.table_name}_content ON {self.table_name}(content)
             """)
-            
-            print(f"Table '{self.table_name}' created successfully as regular table with BLOB vectors.")
+            cursor.execute(f"""
+                CREATE INDEX idx_{self.table_name}_strategy ON {self.table_name}(chunking_strategy)
+            """)
+            cursor.execute(f"""
+                CREATE INDEX idx_{self.table_name}_source ON {self.table_name}(source_document)
+            """)
+            cursor.execute(f"""
+                CREATE INDEX idx_{self.table_name}_hash ON {self.table_name}(source_hash)
+            """)
+
+            print(f"Table '{self.table_name}' (schema v2) created successfully with metadata columns.")
             self.conn.commit()
         else:
             print(f"Table '{self.table_name}' already exists.")
 
     def add_documents(self, documents: List[Tuple[str, List[float]]]):
         """
-        Adds a batch of documents to the SQLite database.
+        Adds a batch of documents to the SQLite database (legacy method).
 
-        This method is optimized for bulk inserts.
+        This method is for backward compatibility. For new code, use add_documents_with_metadata().
+        """
+        if not documents:
+            return
+
+        # Convert to new format with empty metadata
+        documents_with_metadata = [
+            (content, embedding, {}) for content, embedding in documents
+        ]
+        self.add_documents_with_metadata(documents_with_metadata)
+
+    def add_documents_with_metadata(self, documents: List[Tuple[str, List[float], dict]]):
+        """
+        Adds a batch of documents with metadata to the SQLite database.
+
+        Args:
+            documents: List of tuples (content, embedding, metadata_dict)
+                      metadata_dict can include:
+                      - source_document: str
+                      - source_hash: str
+                      - chunking_strategy: str
+                      - chunk_index: int
+                      - char_start: int
+                      - char_end: int
+                      - semantic_title: str
+                      - semantic_summary: str
+                      - semantic_overlap: str
+                      - metadata_json: str (additional metadata as JSON)
         """
         if not documents:
             return
@@ -159,14 +207,46 @@ class SQLiteVecDatabase(VectorDatabase):
         self._create_table_if_not_exists(vector_dim)
 
         cursor = self.conn.cursor()
-        
+
         # Prepare data for bulk insert
-        # We store embeddings as JSON strings in a standard way for sqlite-vec
-        data_to_insert = [(json.dumps(embedding), content) for content, embedding in documents]
-        
-        print(f"Inserting {len(data_to_insert)} documents into '{self.table_name}'...")
+        data_to_insert = []
+        for content, embedding, metadata in documents:
+            embedding_blob = json.dumps(embedding)
+
+            # Extract metadata fields with defaults
+            source_document = metadata.get('source_document')
+            source_hash = metadata.get('source_hash')
+            chunking_strategy = metadata.get('chunking_strategy', 'unknown')
+            chunk_index = metadata.get('chunk_index')
+            char_start = metadata.get('char_start')
+            char_end = metadata.get('char_end')
+            semantic_title = metadata.get('semantic_title')
+            semantic_summary = metadata.get('semantic_summary')
+            semantic_overlap = metadata.get('semantic_overlap')
+            metadata_json = metadata.get('metadata_json')
+
+            data_to_insert.append((
+                content,
+                source_document,
+                source_hash,
+                chunking_strategy,
+                chunk_index,
+                char_start,
+                char_end,
+                semantic_title,
+                semantic_summary,
+                semantic_overlap,
+                embedding_blob,
+                metadata_json
+            ))
+
+        print(f"Inserting {len(data_to_insert)} documents with metadata into '{self.table_name}'...")
         cursor.executemany(
-            f"INSERT INTO {self.table_name} (embedding, content) VALUES (?, ?)",
+            f"""INSERT INTO {self.table_name}
+                (content, source_document, source_hash, chunking_strategy, chunk_index,
+                 char_start, char_end, semantic_title, semantic_summary, semantic_overlap,
+                 embedding, metadata_json)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             data_to_insert
         )
         self.conn.commit()

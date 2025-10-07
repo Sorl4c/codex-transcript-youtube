@@ -40,7 +40,7 @@ class TestGeminiApi(unittest.TestCase):
         result = summarize_text_gemini(
             text_content=self.sample_text,
             prompt_template=self.sample_prompt,
-            model_name="gemini-1.5-flash",
+            model_name="gemini-2.0-flash-exp",
             api_key=self.api_key
         )
 

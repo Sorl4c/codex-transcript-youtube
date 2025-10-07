@@ -165,7 +165,7 @@ class AgenticTestingGUI:
         ttk.Label(gemini_frame, text="Modelo:").grid(row=0, column=0, sticky=tk.W)
         self.gemini_model_var = tk.StringVar(value="gemini-2.5-pro")
         gemini_combo = ttk.Combobox(gemini_frame, textvariable=self.gemini_model_var, 
-                                   values=["gemini-2.5-pro", "gemini-1.5-flash", "gemini-2.5-flash", "gemini-2.5-flash-lite"])
+                                   values=["gemini-2.5-pro", "gemini-2.0-flash-exp", "gemini-2.5-flash", "gemini-2.5-flash-lite"])
         gemini_combo.grid(row=0, column=1, sticky=tk.EW, padx=(5, 0))
         gemini_frame.columnconfigure(1, weight=1)
         
