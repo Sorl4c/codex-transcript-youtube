@@ -1,0 +1,42 @@
+Introducción práctica a RAG y diseño de interfaces de depuración
+
+Autor: Equipo de Pruebas RAG — 2025-10-07
+
+Resumen:
+Este documento explica de forma concisa qué es Retrieval-Augmented Generation (RAG), cómo se prepara y divide un documento, y qué métricas y visualizaciones son útiles para depurar un sistema RAG.
+
+Contenido (texto):
+
+Retrieval-Augmented Generation (RAG) combina un modelo de lenguaje con una capa de búsqueda sobre documentos externos. El flujo típico consiste en: (1) ingestión del documento, (2) split en chunks, (3) cálculo de embeddings por chunk, (4) guardado en un vector store, (5) ejecución de una búsqueda por similitud devolviendo los top-k chunks, y (6) composición de la prompt final que se envía al LLM para generar la respuesta.
+
+Para pruebas es crítico registrar: tamaño del chunk (tokens o caracteres), overlap entre chunks, modelo de embeddings usado, dimensionalidad, vector store (por ejemplo Chroma, FAISS, Weaviate), y la función de scoring. También es útil guardar ejemplos de consultas y los top-k retornados con sus scores para reproducir fallos.
+
+Buenas prácticas para chunking: usar límites por tokens (p. ej. 500 tokens) con solapamiento moderado (p. ej. 50–100 tokens) para no perder contexto; sanear texto (normalizar saltos, eliminar metadatos ruidosos) antes de partir; y etiquetar metadatos (título, sección, página) por chunk para trazabilidad.
+
+Para depuración visual conviene tener una UI que muestre:
+
+caja de consulta del usuario,
+
+lista de top-k con snippet + score,
+
+contenido completo del chunk seleccionado,
+
+prompt final enviado al LLM (con los chunks incrustados),
+
+respuesta del LLM,
+
+y un panel para ver todos los chunks (p. ej. tabla con id, texto corto, embedding normado, score).
+
+Casos de prueba recomendados:
+
+Preguntas de hecho directo (p. ej. "¿Cuál es la fecha X?") — comprobar que el top-1 contiene la frase literal.
+
+Preguntas de síntesis — comprobar que varios chunks se combinan correctamente.
+
+Preguntas con información contradictoria en distintos chunks — revisar scores y prompt.
+
+Consulta fuera de dominio — verificar fallback/explicación y trazabilidad.
+
+Métricas y logs útiles: latencia de búsqueda, tiempo de generación LLM, distribución de scores (histograma), y porcentaje de tokens del prompt ocupado por retrieved context.
+
+Finalmente, documenta cada experimento (query + topk + prompt + respuesta + versión embeddings + versión LLM) para poder reproducir y comparar.

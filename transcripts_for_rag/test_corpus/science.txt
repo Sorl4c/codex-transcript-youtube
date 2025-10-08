@@ -1,0 +1,11 @@
+La mecánica cuántica revolucionó nuestra comprensión del universo a escala atómica y subatómica. Desarrollada en las primeras décadas del siglo XX, esta teoría describe comportamientos de la materia y la energía que desafían nuestra intuición basada en la experiencia cotidiana del mundo macroscópico.
+
+El principio de incertidumbre de Heisenberg establece que es imposible conocer simultáneamente con precisión absoluta la posición y el momento de una partícula. Esta limitación no es tecnológica sino fundamental de la naturaleza. Cuanto más precisamente medimos una propiedad, menos precisamente podemos conocer la otra. Este principio tiene implicaciones profundas sobre la naturaleza de la realidad.
+
+El entrelazamiento cuántico es un fenómeno donde dos o más partículas se conectan de manera que el estado de una afecta instantáneamente al estado de la otra, independientemente de la distancia que las separe. Einstein lo llamó "acción fantasmal a distancia" porque parecía violar la relatividad, aunque realmente no permite comunicación más rápida que la luz.
+
+La superposición cuántica permite que una partícula exista en múltiples estados simultáneamente hasta que se realiza una medición. El famoso experimento mental del gato de Schrödinger ilustra este concepto: el gato está simultáneamente vivo y muerto hasta que se abre la caja y se observa su estado.
+
+Las computadoras cuánticas aprovechan la superposición y el entrelazamiento para procesar información de manera radicalmente diferente. Mientras un bit clásico es 0 o 1, un qubit puede ser ambos simultáneamente. Esta propiedad permite que las computadoras cuánticas resuelvan ciertos problemas exponencialmente más rápido que las computadoras clásicas.
+
+La criptografía cuántica promete comunicaciones absolutamente seguras. Los protocolos de distribución de claves cuánticas utilizan las leyes de la mecánica cuántica para detectar cualquier intento de interceptar mensajes, ya que la medición de un estado cuántico inevitablemente lo altera. Esta característica hace imposible el espionaje sin ser detectado.

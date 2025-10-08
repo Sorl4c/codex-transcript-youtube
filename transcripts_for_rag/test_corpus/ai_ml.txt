@@ -1,0 +1,11 @@
+La inteligencia artificial ha evolucionado dramáticamente en las últimas décadas. Desde los primeros sistemas expertos en los años 80 hasta los modelos de lenguaje masivos actuales, el campo ha experimentado varias revoluciones tecnológicas que han transformado completamente nuestras capacidades computacionales.
+
+El deep learning representa un cambio de paradigma en cómo las máquinas aprenden de los datos. A diferencia de los enfoques tradicionales de machine learning que requieren ingeniería manual de características, el deep learning puede aprender automáticamente representaciones jerárquicas directamente de los datos crudos mediante redes neuronales profundas.
+
+Los transformers, introducidos en 2017 por Vaswani et al., revolucionaron el procesamiento de lenguaje natural. La arquitectura de atención permite al modelo enfocarse en las partes relevantes de la entrada, mejorando significativamente el rendimiento en tareas como traducción automática, generación de texto y comprensión de lenguaje.
+
+GPT-4 y Claude son ejemplos de modelos de lenguaje grandes entrenados con billones de parámetros. Estos modelos demuestran capacidades emergentes sorprendentes, incluyendo razonamiento complejo, generación de código, análisis matemático y comprensión contextual profunda que no estaban explícitamente programadas.
+
+El entrenamiento de modelos masivos requiere infraestructura computacional avanzada. Se utilizan clusters de GPUs o TPUs con miles de procesadores trabajando en paralelo. El costo computacional y energético de entrenar un modelo como GPT-4 puede alcanzar millones de dólares, planteando preocupaciones sobre sostenibilidad ambiental.
+
+Los desafíos éticos en IA incluyen sesgos algorítmicos, privacidad de datos, transparencia en la toma de decisiones y el impacto en el empleo. Es crucial desarrollar marcos regulatorios que balanceen la innovación con la protección de derechos fundamentales y la mitigación de riesgos potenciales.

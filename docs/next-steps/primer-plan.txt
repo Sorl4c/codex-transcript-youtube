@@ -1,0 +1,135 @@
+# GitHub Issues - Plan de Solución para Problema de DocLing
+
+## Resumen del Problema
+DocLing está instalado (`docling>=2.0.0` en requirements.txt) pero el sistema siempre devuelve "traditional_fallback" en lugar de usar el procesamiento inteligente.
+
+## Issues Propuestas para GitHub
+
+### Issue #1: Corregir manejo de importaciones condicionales en docling_parser.py
+
+**Título:** Fix DocLing conditional import handling causing fallback to traditional processing
+
+**Descripción:**
+El problema actual es que aunque DocLing está instalado correctamente, el sistema siempre usa el fallback tradicional. Esto se debe a un manejo incorrecto de las importaciones condicionales en `rag_engine/docling_parser.py`.
+
+**Problema específico:**
+- `from docling.datamodel.base_models import InputFormat` falla cuando DocLing no está disponible
+- La clase dummy `InputFormat` se crea demasiado tarde
+- La definición de `DocLingParser` ya ha sido parseada y falla con `NameError: name 'InputFormat' is not defined`
+
+**Pasos para reproducir:**
+1. Instalar DocLing: `pip install docling>=2.0.0`
+2. Ejecutar: `python -m rag_engine.rag_cli ingest archivo.md`
+3. Observar que siempre devuelve "traditional_fallback"
+
+**Solución propuesta:**
+Reestructurar el manejo de importaciones para que las clases dummy estén disponibles antes de cualquier definición que las use.
+
+**Etiquetas:** `bug`, `priority-high`, `docling`, `rag`
+
+---
+
+### Issue #2: Mejorar detección y verificación de disponibilidad de DocLing
+
+**Título:** Enhance DocLing availability detection with real functionality testing
+
+**Descripción:**
+La detección actual de DocLing solo verifica la importación, pero no prueba si realmente funciona. Necesitamos una verificación más robusta.
+
+**Problema específico:**
+- `DOCLING_AVAILABLE` se basa solo en importación exitosa
+- No se prueba la creación de objetos o conversión real
+- Falsa detección positiva cuando hay problemas de dependencias
+
+**Solución propuesta:**
+- Añadir función `test_docling_functionality()` que intente crear un parser y procesar un archivo de prueba
+- Verificar no solo importación sino funcionalidad real
+- Añadir logging detallado para diagnóstico
+
+**Etiquetas:** `enhancement`, `docling`, `testing`, `rag`
+
+---
+
+### Issue #3: Implementar mejor sistema de fallback con mensajes claros
+
+**Título:** Improve fallback system with clear error messages and user feedback
+
+**Descripción:**
+Cuando DocLing falla, el usuario no recibe información clara sobre qué pasó o cómo solucionarlo.
+
+**Problema específico:**
+- Mensaje genérico "DocLing parser creation failed"
+- No hay indicación de la causa específica del fallo
+- El usuario no sabe si es un problema de instalación, dependencias, o configuración
+
+**Solución propuesta:**
+- Capturar diferentes tipos de errores específicos
+- Proporcionar mensajes de error más descriptivos
+- Sugerir soluciones específicas según el tipo de error
+- Añadir opción de verbosidad para debugging
+
+**Etiquetas:** `enhancement`, `user-experience`, `error-handling`, `docling`
+
+---
+
+### Issue #4: Añadir tests integrales para integración DocLing
+
+**Título:** Add comprehensive integration tests for DocLing functionality
+
+**Descripción:**
+Actualmente no hay tests que verifiquen que DocLing funciona correctamente con diferentes formatos de archivo.
+
+**Pruebas necesarias:**
+- Test de disponibilidad real de DocLing
+- Test de procesamiento para cada formato soportado (.vtt, .md, .html, .pdf, .docx, .pptx, .xlsx, .csv, .asciidoc, .json)
+- Test de fallback automático cuando DocLing falla
+- Test de rendimiento comparativo DocLing vs tradicional
+
+**Etiquetas:** `test`, `docling`, `integration`, `rag`
+
+---
+
+### Issue #5: Optimizar rendimiento de DocLing para archivos grandes
+
+**Título:** Optimize DocLing performance for large transcript files
+
+**Descripción:**
+DocLing tiene un overhead significativo (~3000x más lento) según documentación. Para archivos grandes de transcripciones esto puede ser problemático.
+
+**Análisis necesario:**
+- Perfilar rendimiento con diferentes tamaños de archivo
+- Identificar cuellos de botella en el procesamiento
+- Explorar opciones de configuración para optimizar
+- Considerar procesamiento por lotes o asíncrono
+
+**Soluciones potenciales:**
+- Añadir umbral de tamaño para decidir usar DocLing
+- Implementar caché para documentos procesados
+- Configuración personalizable de pipeline DocLing
+
+**Etiquetas:** `performance`, `optimization`, `docling`, `rag`
+
+---
+
+## Prioridad de Implementación
+
+1. **Issue #1** (Alta): Corregir importaciones condicionales - problema fundamental
+2. **Issue #2** (Alta): Mejorar detección - necesaria para diagnóstico
+3. **Issue #3** (Media): Mejorar fallback - mejora de experiencia
+4. **Issue #4** (Media): Añadir tests - garantizar calidad
+5. **Issue #5** (Baja): Optimizar rendimiento - mejora incremental
+
+## Notas de Implementación
+
+- Los issues #1 y #2 son dependencies críticas que deben resolverse primero
+- Issue #3 mejora significativamente la experiencia del usuario
+- Issue #4 es importante para garantizar la estabilidad a largo plazo
+- Issue #5 puede abordarse después de que funcione la funcionalidad básica
+
+## Métricas de Éxito
+
+- DocLing debe procesar correctamente al menos 10 formatos de archivo
+- Tiempo de procesamiento debe ser predecible y razonable
+- Mensajes de error deben ser claros y accionables
+- Tests deben cubrir 100% de la funcionalidad DocLing
+- Fallback automático debe funcionar cuando DocLing no está disponible

@@ -2,7 +2,7 @@
 Main orchestrator for the RAG ingestion pipeline.
 
 This module brings together the chunker, embedder, and database components
-to process and store text data for retrieval.
+to process and store text data for retrieval. Supports DocLing preprocessing.
 """
 
 import os
@@ -15,6 +15,21 @@ from .embedder import Embedder, EmbedderFactory
 from .database import VectorDatabase, SQLiteVecDatabase
 from .config import INGESTION_SOURCE_DIR
 
+# DocLing integration
+try:
+    import sys
+    import os
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from parser import vtt_to_plain_text_enhanced, is_docling_available
+    DOCLING_AVAILABLE = is_docling_available()
+except ImportError:
+    try:
+        # Try alternative import path
+        from ..parser import vtt_to_plain_text_enhanced, is_docling_available
+        DOCLING_AVAILABLE = is_docling_available()
+    except ImportError:
+        DOCLING_AVAILABLE = False
+
 class RAGIngestor:
     """Orchestrates the process of chunking, embedding, and storing text data."""
 
@@ -23,7 +38,8 @@ class RAGIngestor:
         chunker: TextChunker,
         embedder: Embedder,
         database: VectorDatabase,
-        source_document: Optional[str] = None
+        source_document: Optional[str] = None,
+        use_docling: bool = True
     ):
         """
         Initializes the RAGIngestor with dependency injection.
@@ -33,11 +49,13 @@ class RAGIngestor:
             embedder (Embedder): An instance of an embedder.
             database (VectorDatabase): An instance of a vector database.
             source_document (str, optional): Path to source document for tracking.
+            use_docling (bool): Whether to use DocLing preprocessing if available.
         """
         self.chunker = chunker
         self.embedder = embedder
         self.database = database
         self.source_document = source_document
+        self.use_docling = use_docling and DOCLING_AVAILABLE
 
     def ingest_text(self, text: str) -> Dict[str, Any]:
         """
@@ -136,6 +154,47 @@ class RAGIngestor:
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
             return self.ingest_text(content)
+        except FileNotFoundError:
+            print(f"Error: File not found at {file_path}")
+            return {"status": "Error", "message": "File not found"}
+        except Exception as e:
+            print(f"An error occurred while reading the file: {e}")
+            return {"status": "Error", "message": str(e)}
+
+    def ingest_from_file_enhanced(self, file_path: str) -> Dict[str, Any]:
+        """
+        Reads a text file with DocLing preprocessing and ingests its content.
+
+        Args:
+            file_path (str): The absolute path to the text file.
+
+        Returns:
+            Dict[str, Any]: A summary of the ingestion process.
+        """
+        print(f"Reading content from file: {file_path}")
+        print(f"DocLing preprocessing: {'Enabled' if self.use_docling else 'Disabled'}")
+
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            # Apply DocLing preprocessing if enabled
+            if self.use_docling:
+                processed_content, preprocessing_metadata = vtt_to_plain_text_enhanced(
+                    content, file_path, use_docling=True
+                )
+                print(f"Preprocessing completed with: {preprocessing_metadata.get('processor', 'unknown')}")
+            else:
+                processed_content = content
+                preprocessing_metadata = {'processor': 'traditional', 'use_docling': False}
+
+            # Store preprocessing metadata for tracking
+            preprocessing_summary = self.ingest_text(processed_content)
+            preprocessing_summary['preprocessing_metadata'] = preprocessing_metadata
+            preprocessing_summary['file_path'] = file_path
+
+            return preprocessing_summary
+
         except FileNotFoundError:
             print(f"Error: File not found at {file_path}")
             return {"status": "Error", "message": "File not found"}

@@ -21,6 +21,7 @@ wheels/
 *.egg
 
 # Entorno virtual específico del proyecto
+.venv/
 venv-yt-ia/
 
 # IDE

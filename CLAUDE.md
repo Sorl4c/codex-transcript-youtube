@@ -8,9 +8,33 @@ This is a YouTube subtitle downloader and AI-powered video management system. It
 
 **Main Repository**: https://github.com/Sorl4c/codex-transcript-youtube
 
+## Activación Rápida
+
+**Windows PowerShell:** `.venv\Scripts\activate.ps1`
+**WSL/Linux:** `source .venv/Scripts/activate`
+
 ## Key Commands
 
-**Always activate venv first:** `venv-yt-ia\Scripts\activate`
+**Always activate venv first:**
+
+📖 **Referencia rápida**: Ver `ACTIVATION_COMMANDS.md` para todos los comandos de activación por sistema operativo.
+
+### Windows (CMD)
+```cmd
+.venv\Scripts\activate.bat
+```
+
+### Windows (PowerShell)
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+### WSL/Git Bash
+```bash
+source .venv/Scripts/activate
+```
+
+*Tip: Usa `cat ACTIVATION_COMMANDS.md` para ver todos los comandos disponibles*
 
 ### Running the Application
 
@@ -22,6 +46,10 @@ streamlit run gui_streamlit.py
 python -m rag_engine.rag_cli stats
 python -m rag_engine.rag_cli query "Your question here" --top-k 5
 python -m rag_engine.rag_cli ingest transcripts_for_rag/sample.txt --mock
+
+# RAG CLI with DocLing (enhanced preprocessing)
+python -m rag_engine.rag_cli ingest transcripts_for_rag/sample.txt  # DocLing enabled by default
+python -m rag_engine.rag_cli ingest transcripts_for_rag/sample.txt --no-docling  # Traditional parsing
 
 # Run CLI for single video processing
 python main.py <youtube_url>
@@ -58,7 +86,7 @@ python ia/tests/test_core.py
 
 ```bash
 # Activate virtual environment (Windows)
-venv-yt-ia\Scripts\activate
+.venv\Scripts\activate
 
 # Install all dependencies
 pip install -r requirements.txt
@@ -67,7 +95,7 @@ pip install -r requirements.txt
 pip install -r requirements_service.txt
 ```
 
-**Note:** The venv was recreated in September 2025 to fix broken symlinks and add RAG dependencies (sentence-transformers, sqlite-vec, scikit-learn).
+**Note:** The venv was recreated in September 2025 to fix broken symlinks and add RAG dependencies (sentence-transformers, sqlite-vec, scikit-learn). Now uses standard `.venv/` naming convention.
 
 ## Architecture
 
@@ -108,9 +136,14 @@ pip install -r requirements_service.txt
 - `schemas.py` - Pydantic models (OpenAI compatible)
 - `config.py` - Service configuration
 
-**RAG System (In Development):**
-- The project is developing a RAG system but it's not currently integrated into main workflows
-- RAG-related code exists in documentation references but not as standalone module
+**RAG System:**
+- **Enhanced RAG pipeline** with DocLing preprocessing (IBM Research)
+- **Hybrid search** with vector + BM25 keyword search
+- **Multiple chunking strategies**: characters, words, semantic, agentic
+- **Local embeddings** using sentence-transformers
+- **SQLite vector database** with sqlite-vec extension
+- **DocLing integration** for intelligent document preprocessing
+- **CLI interface** with flexible options
 
 ### Database Schema
 
@@ -213,7 +246,9 @@ Excluded from git (`.gitignore`):
 
 ## Development Workflow
 
-1. Activate virtual environment (Windows): `venv\Scripts\activate`
+1. **Activate virtual environment:**
+- Ver `ACTIVATION_COMMANDS.md` para comandos específicos por sistema
+- Comandos principales: `.venv\Scripts\activate.bat` (Windows) o `source .venv/Scripts/activate` (WSL)
 2. Make changes to relevant module
 3. Test using Streamlit interface or CLI
 4. Check database with SQLite browser if needed
@@ -235,3 +270,8 @@ Project includes Mermaid diagrams in `docs/PROJECT_MAP.md` showing the complete 
 **Gemini API Errors:** Verify API key in `.env` and check internet connectivity.
 
 **Streaming Response Handling:** The LLM service supports both streaming and non-streaming modes. For streaming, handle Server-Sent Events (SSE) properly.
+
+**Virtual Environment Issues:** Ver `ACTIVATION_COMMANDS.md` para los comandos correctos:
+- Windows (CMD): `.venv\Scripts\activate.bat`
+- Windows (PowerShell): `.venv\Scripts\Activate.ps1`
+- WSL/Git Bash: `source .venv/Scripts/activate`

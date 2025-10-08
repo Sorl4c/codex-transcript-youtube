@@ -48,11 +48,15 @@ def cmd_ingest(args):
         # Default to semantic chunking
         strategy = 'semantico'
 
+    # Determine DocLing usage
+    use_docling = not args.no_docling
+
     # Get absolute path for source tracking
     abs_file_path = os.path.abspath(file_path)
 
     print(f"[INGEST] File: {abs_file_path}")
     print(f"[INGEST] Chunking strategy: {strategy}")
+    print(f"[INGEST] DocLing preprocessing: {'Enabled' if use_docling else 'Disabled'}")
     print(f"[INGEST] Chunk size: {CHUNK_SIZE}, overlap: {CHUNK_OVERLAP}")
     print("-" * 60)
 
@@ -70,17 +74,31 @@ def cmd_ingest(args):
         chunker=chunker,
         embedder=embedder,
         database=database,
-        source_document=abs_file_path
+        source_document=abs_file_path,
+        use_docling=use_docling
     )
 
     try:
-        summary = ingestor.ingest_from_file(file_path)
+        # Use enhanced ingestion if DocLing is enabled, otherwise use traditional
+        if use_docling:
+            summary = ingestor.ingest_from_file_enhanced(file_path)
+        else:
+            summary = ingestor.ingest_from_file(file_path)
+
         print("\n" + "=" * 60)
         print("[SUCCESS] Ingestion completed!")
         print(f"   Status: {summary.get('status')}")
         print(f"   Chunking strategy: {summary.get('chunking_strategy', 'unknown')}")
         print(f"   Source document: {summary.get('source_document', 'N/A')}")
         print(f"   Source hash: {summary.get('source_hash', 'N/A')[:16]}...")
+
+        # Show preprocessing metadata if available
+        if 'preprocessing_metadata' in summary:
+            prep_meta = summary['preprocessing_metadata']
+            print(f"   Preprocessing: {prep_meta.get('processor', 'unknown')}")
+            if prep_meta.get('docling_error'):
+                print(f"   DocLing note: {prep_meta.get('docling_error')}")
+
         print(f"   Chunks processed: {summary.get('chunks_processed', 0)}")
         print(f"   Documents in DB: {summary.get('final_doc_count', 0)}")
         print("=" * 60)
@@ -185,8 +203,14 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Ingest a transcript with mock chunking (fast, no LLM)
+  # Ingest a transcript with DocLing preprocessing (default)
+  python -m rag_engine.rag_cli ingest transcripts_for_rag/sample_transcript.txt
+
+  # Ingest with mock chunking (fast, no LLM)
   python -m rag_engine.rag_cli ingest transcripts_for_rag/sample_transcript.txt --mock
+
+  # Ingest without DocLing (traditional parsing)
+  python -m rag_engine.rag_cli ingest transcripts_for_rag/sample_transcript.txt --no-docling
 
   # Ingest with semantic chunking
   python -m rag_engine.rag_cli ingest transcripts_for_rag/sample_transcript.txt --strategy semantico
@@ -210,6 +234,11 @@ Examples:
         '--mock',
         action='store_true',
         help='Use mock mode (simple chunking, no LLM) for fast testing'
+    )
+    ingest_parser.add_argument(
+        '--no-docling',
+        action='store_true',
+        help='Disable DocLing preprocessing (use traditional parsing)'
     )
     ingest_parser.add_argument(
         '--strategy',

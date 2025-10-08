@@ -1,8 +1,10 @@
 """
 Parser module for processing VTT subtitle files into plain text.
+
+Supports both traditional parsing and enhanced DocLing preprocessing.
 """
 import re
-from typing import Iterator, Optional
+from typing import Iterator, Optional, Dict, Any
 
 def vtt_to_plain_text_stream(vtt_lines_iterator: Iterator[str]) -> Iterator[str]:
     """
@@ -57,8 +59,104 @@ def format_transcription(text: str, title: str = None, url: str = None) -> str:
 
     # Une todas las líneas en un solo bloque de texto separado por espacios.
     cuerpo = " ".join(linea.strip() for linea in text.splitlines() if linea.strip())
-    
+
     # Eliminar espacios múltiples que puedan haber quedado
     cuerpo = re.sub(r'\s+', ' ', cuerpo).strip()
-    
+
     return encabezado + cuerpo
+
+
+# DocLing integration
+try:
+    from rag_engine.docling_parser import DocLingParser, create_docling_parser
+    DOCLING_AVAILABLE = True
+except ImportError:
+    DOCLING_AVAILABLE = False
+
+
+def parse_with_docling(file_path: str, use_docling: bool = True) -> Dict[str, Any]:
+    """
+    Parse file using DocLing if available and enabled.
+
+    Args:
+        file_path: Path to the file to parse
+        use_docling: Whether to use DocLing if available
+
+    Returns:
+        Dictionary with parsing results and metadata
+    """
+    if not use_docling or not DOCLING_AVAILABLE:
+        return {
+            'content': None,
+            'metadata': {
+                'processor': 'traditional',
+                'reason': 'DocLing disabled or unavailable'
+            },
+            'success': False
+        }
+
+    try:
+        parser = create_docling_parser()
+        if parser is None:
+            return {
+                'content': None,
+                'metadata': {
+                    'processor': 'traditional',
+                    'reason': 'DocLing parser creation failed'
+                },
+                'success': False
+            }
+
+        result = parser.parse_file(file_path)
+        return result
+
+    except Exception as e:
+        return {
+            'content': None,
+            'metadata': {
+                'processor': 'traditional',
+                'reason': f'DocLing error: {str(e)}'
+            },
+            'success': False
+        }
+
+
+def vtt_to_plain_text_enhanced(vtt_content: str, file_path: str = None, use_docling: bool = True) -> tuple[str, Dict[str, Any]]:
+    """
+    Enhanced VTT parsing with DocLing support.
+
+    Args:
+        vtt_content: VTT content as string
+        file_path: Optional file path for DocLing processing
+        use_docling: Whether to use DocLing if available
+
+    Returns:
+        Tuple of (plain_text, metadata_dict)
+    """
+    metadata = {'processor': 'traditional', 'use_docling': use_docling}
+
+    # Try DocLing first if enabled and file_path is provided
+    if use_docling and DOCLING_AVAILABLE and file_path:
+        docling_result = parse_with_docling(file_path, use_docling)
+        if docling_result['success']:
+            # DocLing succeeded, return its results
+            metadata.update(docling_result['metadata'])
+            return docling_result['content'], metadata
+        else:
+            # DocLing failed, note the reason and fall back
+            metadata['docling_error'] = docling_result['metadata'].get('reason', 'Unknown error')
+            metadata['processor'] = 'traditional_fallback'
+
+    # Fall back to traditional parsing
+    plain_text = vtt_to_plain_text(vtt_content)
+    return plain_text, metadata
+
+
+def is_docling_available() -> bool:
+    """
+    Check if DocLing is available.
+
+    Returns:
+        True if DocLing is installed and available, False otherwise
+    """
+    return DOCLING_AVAILABLE

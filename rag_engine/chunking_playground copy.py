@@ -182,7 +182,7 @@ class ChunkingPlayground:
         # Configuración Gemini
         ttk.Label(self.gemini_config_frame, text="Modelo:").grid(row=0, column=0, sticky=tk.W)
         self.gemini_model_var = tk.StringVar(value="gemini-2.5-pro")
-        gemini_models = ["gemini-2.5-pro", "gemini-1.5-flash", "gemini-2.5-flash", "gemini-2.5-flash-lite"]
+        gemini_models = ["gemini-2.5-pro", "gemini-2.0-flash-exp", "gemini-2.5-flash", "gemini-2.5-flash-lite"]
         gemini_combo = ttk.Combobox(self.gemini_config_frame, textvariable=self.gemini_model_var, values=gemini_models, state="readonly")
         gemini_combo.grid(row=0, column=1, sticky=tk.EW, padx=(5, 0))
         self.gemini_config_frame.columnconfigure(1, weight=1)

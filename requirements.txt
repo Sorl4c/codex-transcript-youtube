@@ -15,3 +15,6 @@ scikit-learn>=1.7.0  # Requerido por sentence-transformers
 
 # RAG dependencies (Sesión 2 - Hybrid Search)
 rank-bm25>=0.2.0  # BM25 keyword search
+
+# DocLing integration (IBM Research document processing)
+docling>=2.0.0

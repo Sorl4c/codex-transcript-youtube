@@ -86,7 +86,7 @@ def chunk_text_with_gemini(
     chunk_size: int = 1000, 
     chunk_overlap: int = 200,
     api_key: Optional[str] = None,
-    model_name: str = "gemini-1.5-flash-latest"
+    model_name: str = "gemini-2.0-flash-exp"
 ) -> List[Chunk]:
     """
     Realiza chunking agentic usando la API de Google Gemini.

@@ -1,0 +1,21 @@
+{
+  "processing_info": {
+    "input_file": "transcripts_for_rag/markdown_mal_formateado_test.md",
+    "output_file": "transcripts_for_rag/docling\\markdown_mal_formateado_test_docling.json",
+    "processor": "docling",
+    "timestamp": 1759905385.9411025
+  },
+  "metadata": {
+    "source": "transcripts_for_rag/markdown_mal_formateado_test.md",
+    "processor": "docling",
+    "format": "markdown",
+    "docling_metadata": {},
+    "pipeline_info": {}
+  },
+  "content": "# Título sin espacio después\n\n##Subtítulo sin espacio\n\nEste es un párrafo que debería tener formato pero no lo tiene  hay múltiples espacios  aquí y    allá.\n\n- Lista sin espacio *Otro elemento sin espacio\n\n1. Lista numerada incorrecta 2.Segundo elemento sin espacio\n2. Tercero con espacio pero formato incorrecto\n\n```\nesto sigue siendo código?\n\n> Cita sin espacio\n> Siguiente cita\n\n**negrita sin cierre *itálica mezclada\n\n[enlace sin cierre](https://ejemplo.com\n\n---\n\n# Título 2 con formato mixto\n\n##  Espacios extra  antes y después\n\n- Lista correcta\n- Segundo elemento\n\n    - Sangría incorrecta\n    -   Más espacios\n\n| tabla | sin |\n|---|---|\n| celda1 | celda2 |\ncelda3 | celda4 |\n\n---\n\nTexto normal **negrita correcta** y *itálica*.\n\n`código en línea` y más texto.\n\n> Cita bloque correcta\n> Continuación de la cita\n\n1. Lista numerada correcta\n2. Segundo elemento\n3. Tercer elemento con **formato** dentro\n\n---\n\nTexto final con caracteres especiales: áéíóú ñ ¿ ¡\n\n---\n\n## Documentación técnica\n\n```python\ndef funcion_incompleta(\n    parametro1,\n    parametro2\n    # Falta cerrar paréntesis y return\n\nEsto no es código pero parece que sí\n\n---\n\n# Sección final\n\nTexto mezclado con formato **incorrecto* y _formato mezclado_ y más texto.\n\nFin del documento sin línea final\n```",
+  "statistics": {
+    "char_count": 1276,
+    "word_count": 199,
+    "line_count": 75
+  }
+}
