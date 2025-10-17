@@ -1,0 +1,241 @@
+/* Estilos principales del Dashboard IoT */
+
+/* Frame lateral del menú */
+#frame_lateral {
+    background-color: #293567;
+    border: none;
+    border-radius: 0px;
+}
+
+/* Frame principal */
+#frame_principal {
+    background-color: #2B345E;
+    border: none;
+    border-radius: 0px;
+}
+
+/* Botones del menú lateral */
+QPushButton {
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    margin: 2px 8px;
+}
+
+QPushButton:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+QPushButton:pressed {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+QPushButton[selected="true"] {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                stop:0 rgba(99, 102, 241, 0.8),
+                stop:1 rgba(139, 92, 246, 0.8));
+    border-radius: 8px;
+}
+
+/* Título Dashboard */
+#label_titulo {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 20px;
+}
+
+/* Frame de búsqueda */
+#frame_busqueda {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* Campo de búsqueda */
+QLineEdit {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: white;
+    font-size: 14px;
+}
+
+QLineEdit:focus {
+    border: 1px solid rgba(99, 102, 241, 0.8);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Barras de progreso circulares */
+.frame_progress_circular {
+    border-radius: 60px;
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                stop:0 rgba(99, 102, 241, 0.8),
+                stop:1 rgba(139, 92, 246, 0.8));
+}
+
+.frame_progress_inner {
+    background-color: #2B345E;
+    border-radius: 50px;
+}
+
+/* Labels de sensores */
+.label_sensor {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: transparent;
+}
+
+.label_valor {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: transparent;
+}
+
+.label_unidad {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 10px;
+    background-color: transparent;
+}
+
+/* Sliders */
+QSlider::groove:horizontal {
+    border: none;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                stop:0 rgba(99, 102, 241, 1),
+                stop:1 rgba(139, 92, 246, 1));
+    border: none;
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::handle:horizontal:hover {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                stop:0 rgba(99, 102, 241, 0.9),
+                stop:1 rgba(139, 92, 246, 0.9));
+}
+
+/* Tabla de dispositivos */
+QTableWidget {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    gridline-color: rgba(255, 255, 255, 0.05);
+}
+
+QTableWidget::item {
+    padding: 8px;
+    color: white;
+    border: none;
+}
+
+QTableWidget::item:selected {
+    background-color: rgba(99, 102, 241, 0.3);
+}
+
+QHeaderView::section {
+    background-color: rgba(99, 102, 241, 0.2);
+    color: white;
+    padding: 10px;
+    border: none;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+QScrollBar:vertical {
+    background: rgba(255, 255, 255, 0.05);
+    width: 10px;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:vertical {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Calendario */
+QCalendarWidget {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+QCalendarWidget QToolButton {
+    color: white;
+    background-color: transparent;
+    border: none;
+    padding: 5px;
+}
+
+QCalendarWidget QToolButton:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+QCalendarWidget QAbstractItemView:enabled {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.05);
+    selection-background-color: rgba(99, 102, 241, 0.3);
+    selection-color: white;
+}
+
+QCalendarWidget QAbstractItemView:disabled {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Frames contenedores */
+.frame_contenedor {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Labels de títulos */
+.label_titulo_seccion {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+/* Efectos de transición */
+QPushButton {
+    transition: all 0.3s ease;
+}
+
+/* Botones de acción */
+.boton_accion {
+    background-color: rgba(99, 102, 241, 0.8);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.boton_accion:hover {
+    background-color: rgba(99, 102, 241, 1);
+}
+
+.boton_accion:pressed {
+    background-color: rgba(79, 82, 221, 1);
+}

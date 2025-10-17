@@ -1,0 +1,37 @@
+[
+    {
+        "dispositivo": "Sensor Temperatura 1",
+        "ubicacion": "Sala Principal",
+        "estado": "Activo",
+        "bateria": 85,
+        "consumo": 2.3
+    },
+    {
+        "dispositivo": "Sensor Humedad 2",
+        "ubicacion": "Dormitorio",
+        "estado": "Activo",
+        "bateria": 92,
+        "consumo": 1.8
+    },
+    {
+        "dispositivo": "Sensor CO2 3",
+        "ubicacion": "Cocina",
+        "estado": "Advertencia",
+        "bateria": 45,
+        "consumo": 3.1
+    },
+    {
+        "dispositivo": "Sensor Luz 4",
+        "ubicacion": "Balcon",
+        "estado": "Activo",
+        "bateria": 78,
+        "consumo": 1.2
+    },
+    {
+        "dispositivo": "Termostato Principal",
+        "ubicacion": "Sala Principal",
+        "estado": "Critico",
+        "bateria": 15,
+        "consumo": 4.5
+    }
+]

@@ -1,0 +1,38 @@
+{
+    "temperatura": {
+        "valor": 23.5,
+        "unidad": "°C",
+        "min": 18,
+        "max": 35,
+        "alerta": 30
+    },
+    "humedad": {
+        "valor": 65,
+        "unidad": "%",
+        "min": 30,
+        "max": 80,
+        "alerta": 75
+    },
+    "co2": {
+        "valor": 450,
+        "unidad": "ppm",
+        "min": 400,
+        "max": 1000,
+        "alerta": 800
+    },
+    "luz": {
+        "valor": 750,
+        "unidad": "lux",
+        "min": 0,
+        "max": 1000,
+        "alerta": 900
+    },
+    "actividad_horaria": [12, 19, 15, 25, 30, 28, 22, 18, 20, 24, 29, 32],
+    "consumo_dispositivos": {
+        "Sensor Temperatura 1": 2.3,
+        "Sensor Humedad 2": 1.8,
+        "Sensor CO2 3": 3.1,
+        "Sensor Luz 4": 1.2,
+        "Termostato Principal": 4.5
+    }
+}
