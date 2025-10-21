@@ -6,19 +6,27 @@ Supports both traditional parsing and enhanced DocLing preprocessing.
 import re
 from typing import Iterator, Optional, Dict, Any
 
-def vtt_to_plain_text_stream(vtt_lines_iterator: Iterator[str]) -> Iterator[str]:
+def vtt_to_plain_text_stream(vtt_lines_iterator: Iterator[str], remove_timestamps: bool = True) -> Iterator[str]:
     """
     Cleans VTT content from an iterator and yields plain text lines.
     This is memory-efficient as it processes the file line by line.
+
+    TODO: Consider separating filtering responsibilities into distinct classes for better
+    maintainability and extensibility (e.g., TimestampFilter, MetadataFilter, StyleFilter).
+
+    Args:
+        vtt_lines_iterator: Iterator over VTT lines
+        remove_timestamps: If True, removes timestamp lines (default: True for backward compatibility)
     """
     last_line = None
     for line in vtt_lines_iterator:
         line = line.strip()
         
         # Skip metadata, timestamps, style blocks, empty lines, and VTT headers
+        timestamp_condition = '-->' in line if remove_timestamps else False
         if (
             line.startswith('WEBVTT') or
-            '-->' in line or
+            timestamp_condition or
             line.startswith('::cue') or
             line.startswith('STYLE') or
             not line or
@@ -36,13 +44,23 @@ def vtt_to_plain_text_stream(vtt_lines_iterator: Iterator[str]) -> Iterator[str]
             last_line = clean_line
             yield clean_line
 
-def vtt_to_plain_text(vtt_content: str) -> str:
+def vtt_to_plain_text(vtt_content: str, remove_timestamps: bool = True) -> str:
     """
     Cleans VTT content from a string and returns a single plain text string.
     Uses the streaming parser internally for consistent logic.
+
+    TODO: Consider creating a VTTProcessor class that encapsulates different parsing
+    strategies and maintains state for better extensibility.
+
+    Args:
+        vtt_content: VTT content as string
+        remove_timestamps: If True, removes timestamp lines (default: True for backward compatibility)
+
+    Returns:
+        Plain text content with or without timestamps depending on the parameter
     """
     lines_iterator = iter(vtt_content.strip().split('\n'))
-    return "\n".join(vtt_to_plain_text_stream(lines_iterator))
+    return "\n".join(vtt_to_plain_text_stream(lines_iterator, remove_timestamps))
 
 def format_transcription(text: str, title: str = None, url: str = None) -> str:
     """

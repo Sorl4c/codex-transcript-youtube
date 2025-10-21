@@ -1,0 +1,9 @@
+{
+  "fase": "fase_1",
+  "embedder": "all-MiniLM-L6-v2",
+  "dimension": 384,
+  "document_count": 15,
+  "timestamp": "2025-01-18T23:50:00Z",
+  "dataset_path": "second_brain/plan/data/dataset_fase1.json",
+  "status": "completed"
+}

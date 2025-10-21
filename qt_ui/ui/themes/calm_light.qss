@@ -1,0 +1,29 @@
+QWidget {
+    background-color: #F8FAFC;
+    color: #0F172A;
+    font-family: "Inter", "Segoe UI", sans-serif;
+    font-size: 14px;
+}
+
+QFrame#VideoCard {
+    background-color: #EEF2FF;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    border-radius: 16px;
+}
+
+QPushButton {
+    background-color: rgba(37, 99, 235, 0.12);
+    border: none;
+    color: rgba(37, 99, 235, 0.9);
+    padding: 6px 14px;
+    border-radius: 18px;
+    font-weight: 600;
+}
+
+QPushButton:hover {
+    background-color: rgba(37, 99, 235, 0.2);
+}
+
+QPushButton:pressed {
+    background-color: rgba(37, 99, 235, 0.3);
+}

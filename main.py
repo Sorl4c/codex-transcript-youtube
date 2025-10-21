@@ -33,13 +33,10 @@ from db import init_db, insert_video
 
 stats = {"processed": 0, "failed": 0}
 
-def is_url(path):
-    """Check if the given path is a URL."""
-    return urlparse(path).scheme in ('http', 'https')
-
-def process_vtt_content(vtt_content, title=None, url=None):
+def process_vtt_content(vtt_content, title=None, url=None, keep_timestamps=False):
     """Converts VTT content to formatted plain text."""
-    plain_text = vtt_to_plain_text(vtt_content)
+    remove_timestamps = not keep_timestamps
+    plain_text = vtt_to_plain_text(vtt_content, remove_timestamps)
     if not plain_text.strip():
         return None
     return format_transcription(plain_text, title=title, url=url)
@@ -55,7 +52,7 @@ def save_output(text, output_path):
         print(f"[ERROR] No se pudo escribir en el archivo '{output_path}'. {e}")
         stats["failed"] += 1
 
-def handle_url(url, lang, output_file):
+def handle_url(url, lang, output_file, keep_timestamps=False):
     """Handles processing a single YouTube URL."""
     vtt_content, detected_lang, video_metadata = download_vtt(url, lang)
     if not vtt_content:
@@ -63,8 +60,9 @@ def handle_url(url, lang, output_file):
         return
 
     print(f"[INFO] Subtítulos en '{detected_lang}' descargados. Convirtiendo a texto plano...")
-    
-    plain_text = vtt_to_plain_text(vtt_content)
+
+    remove_timestamps = not keep_timestamps
+    plain_text = vtt_to_plain_text(vtt_content, remove_timestamps)
     if not plain_text.strip():
         print("[WARN] El contenido de los subtítulos estaba vacío después de la limpieza.")
         stats["failed"] += 1
@@ -96,8 +94,14 @@ def handle_url(url, lang, output_file):
     
     stats["processed"] += 1
 
-def handle_local_file(file_path, output_path):
-    """Handles processing a single local VTT file using streaming for memory efficiency."""
+def handle_local_file(file_path, output_path, keep_timestamps=False):
+    """Handles processing a single local VTT file using streaming for memory efficiency.
+
+    Args:
+        file_path: Path to the VTT file
+        output_path: Path for the output file
+        keep_timestamps: If True, keeps timestamp lines (default: False)
+    """
     print(f"[INFO] Procesando archivo local: {file_path}")
     
     if not output_path:
@@ -113,7 +117,8 @@ def handle_local_file(file_path, output_path):
             out_file.write(header)
             
             # 2. Stream-process VTT and write the body
-            clean_lines_iterator = vtt_to_plain_text_stream(in_file)
+            remove_timestamps = not keep_timestamps
+            clean_lines_iterator = vtt_to_plain_text_stream(in_file, remove_timestamps)
             
             # Write the first line without a leading space
             first_line = next(clean_lines_iterator, None)
@@ -137,8 +142,14 @@ def handle_local_file(file_path, output_path):
         print(f"[ERROR] No se pudo procesar el archivo '{file_path}': {e}")
         stats["failed"] += 1
 
-def handle_directory(dir_path, output_dir):
-    """Handles processing all VTT files in a directory."""
+def handle_directory(dir_path, output_dir, keep_timestamps=False):
+    """Handles processing all VTT files in a directory.
+
+    Args:
+        dir_path: Directory path containing VTT files
+        output_dir: Output directory for processed files
+        keep_timestamps: If True, keeps timestamp lines (default: False)
+    """
     print(f"[INFO] Procesando directorio: {dir_path}")
     if output_dir and not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -152,7 +163,7 @@ def handle_directory(dir_path, output_dir):
         file_path = os.path.join(dir_path, filename)
         output_filename = os.path.splitext(filename)[0] + '.txt'
         output_path = os.path.join(output_dir or dir_path, output_filename)
-        handle_local_file(file_path, output_path)
+        handle_local_file(file_path, output_path, keep_timestamps)
 
 def main():
     """Main function to orchestrate the download and parsing process."""
@@ -169,6 +180,7 @@ def main():
     parser.add_argument('source', nargs='?', default=None, help='Fuente de datos: URL de YouTube, ruta a archivo .vtt, a carpeta, o a .txt con URLs.')
     parser.add_argument('-o', '--output', help='Ruta de salida (archivo o carpeta). Opcional.')
     parser.add_argument('-l', '--lang', default='es', help='Idioma para subtítulos de YouTube (por defecto: \'es\').')
+    parser.add_argument('--keep-timestamps', action='store_true', help='Mantiene las marcas de tiempo en los subtítulos (por defecto: las elimina).')
     parser.add_argument('--gui', action='store_true', help='Lanza la interfaz gráfica para gestionar la base de datos.')
     parser.add_argument('--streamlit-ui', action='store_true', help='Lanza la nueva interfaz web con Streamlit.')
     parser.add_argument('--view-db', action='store_true', help='Abre el visor de la base de datos de vídeos.')
@@ -222,12 +234,12 @@ def main():
     is_batch_mode = False
 
     if is_url(source):
-        handle_url(source, args.lang, args.output)
+        handle_url(source, args.lang, args.output, args.keep_timestamps)
     elif os.path.isdir(source):
-        handle_directory(source, args.output)
+        handle_directory(source, args.output, args.keep_timestamps)
     elif os.path.isfile(source):
         if source.lower().endswith('.vtt'):
-            handle_local_file(source, args.output)
+            handle_local_file(source, args.output, args.keep_timestamps)
         elif source.lower().endswith('.txt'):
             is_batch_mode = True
             print(f"[INFO] Detectado archivo de URLs: {source}")
@@ -238,7 +250,7 @@ def main():
                     print("[WARN] El archivo de URLs está vacío o no contiene URLs válidas.")
                 else:
                     output_file = args.output or "transcripciones_completas.txt"
-                    process_urls_to_single_file(urls, output_file, args.lang)
+                    process_urls_to_single_file(urls, output_file, args.lang, args.keep_timestamps)
             except Exception as e:
                 print(f"[ERROR] No se pudo leer el archivo de URLs: {e}")
         else:

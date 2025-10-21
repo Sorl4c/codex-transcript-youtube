@@ -114,57 +114,152 @@ class SQLiteVecDatabase(VectorDatabase):
     def _create_table_if_not_exists(self, vector_dim: int):
         """
         Creates the vector store table if it doesn't already exist.
-        Uses a regular table with BLOB column for vectors instead of virtual tables.
+        Uses modern sqlite-vec vec0 virtual tables for optimal performance.
 
-        Schema v2 includes metadata for chunking strategy tracking and agentic metadata.
+        Schema v3 uses vec0 virtual tables with native distance functions.
 
         Args:
             vector_dim (int): The dimension of the vectors to be stored.
         """
         cursor = self.conn.cursor()
-        # Check if the table already exists
-        cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{self.table_name}'")
-        if cursor.fetchone() is None:
-            print(f"Creating new table '{self.table_name}' (schema v2) with vector dimension {vector_dim}.")
 
-            # Create a regular table with BLOB column for vectors + metadata columns
+        # Check if old table exists and migrate if needed
+        cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{self.table_name}'")
+        old_table_exists = cursor.fetchone() is not None
+
+        # Check if new vec0 table exists
+        vec0_table_name = f"{self.table_name}_vec0"
+        cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{vec0_table_name}'")
+        vec0_table_exists = cursor.fetchone() is not None
+
+        if not vec0_table_exists:
+            print(f"Creating new vec0 virtual table '{vec0_table_name}' with vector dimension {vector_dim}.")
+
+            # Create metadata table first
+            metadata_table_name = f"{self.table_name}_metadata"
+            cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{metadata_table_name}'")
+            if cursor.fetchone() is None:
+                cursor.execute(f"""
+                    CREATE TABLE {metadata_table_name} (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        content TEXT NOT NULL,
+                        source_document TEXT,
+                        source_hash TEXT,
+                        chunking_strategy TEXT NOT NULL DEFAULT 'unknown',
+                        chunk_index INTEGER,
+                        char_start INTEGER,
+                        char_end INTEGER,
+                        semantic_title TEXT,
+                        semantic_summary TEXT,
+                        semantic_overlap TEXT,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        metadata_json TEXT
+                    )
+                """)
+
+                # Create indices for metadata table
+                cursor.execute(f"CREATE INDEX idx_{metadata_table_name}_content ON {metadata_table_name}(content)")
+                cursor.execute(f"CREATE INDEX idx_{metadata_table_name}_strategy ON {metadata_table_name}(chunking_strategy)")
+                cursor.execute(f"CREATE INDEX idx_{metadata_table_name}_source ON {metadata_table_name}(source_document)")
+                cursor.execute(f"CREATE INDEX idx_{metadata_table_name}_hash ON {metadata_table_name}(source_hash)")
+
+            # Create vec0 virtual table for vectors
             cursor.execute(f"""
-                CREATE TABLE {self.table_name} (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    content TEXT NOT NULL,
-                    source_document TEXT,
-                    source_hash TEXT,
-                    chunking_strategy TEXT NOT NULL DEFAULT 'unknown',
-                    chunk_index INTEGER,
-                    char_start INTEGER,
-                    char_end INTEGER,
-                    semantic_title TEXT,
-                    semantic_summary TEXT,
-                    semantic_overlap TEXT,
-                    embedding BLOB NOT NULL,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                    metadata_json TEXT
+                CREATE VIRTUAL TABLE {vec0_table_name} USING vec0(
+                    embedding float32[{vector_dim}],
+                    metadata_id INTEGER
                 )
             """)
 
-            # Create indices for faster searches
-            cursor.execute(f"""
-                CREATE INDEX idx_{self.table_name}_content ON {self.table_name}(content)
-            """)
-            cursor.execute(f"""
-                CREATE INDEX idx_{self.table_name}_strategy ON {self.table_name}(chunking_strategy)
-            """)
-            cursor.execute(f"""
-                CREATE INDEX idx_{self.table_name}_source ON {self.table_name}(source_document)
-            """)
-            cursor.execute(f"""
-                CREATE INDEX idx_{self.table_name}_hash ON {self.table_name}(source_hash)
-            """)
+            print(f"Vec0 virtual table '{vec0_table_name}' created successfully.")
 
-            print(f"Table '{self.table_name}' (schema v2) created successfully with metadata columns.")
+            # Migrate data from old table if it exists
+            if old_table_exists:
+                self._migrate_from_old_table(vec0_table_name, metadata_table_name)
+
             self.conn.commit()
         else:
-            print(f"Table '{self.table_name}' already exists.")
+            print(f"Vec0 table '{vec0_table_name}' already exists.")
+
+    def _migrate_from_old_table(self, vec0_table_name: str, metadata_table_name: str):
+        """
+        Migrate data from old table format to new vec0 virtual tables.
+        """
+        cursor = self.conn.cursor()
+
+        try:
+            # Get all data from old table
+            cursor.execute(f"SELECT * FROM {self.table_name}")
+            old_data = cursor.fetchall()
+
+            if not old_data:
+                print("No data to migrate from old table.")
+                return
+
+            print(f"Migrating {len(old_data)} records from old table to new vec0 format...")
+
+            # Get column names from old table
+            cursor.execute(f"PRAGMA table_info({self.table_name})")
+            columns = [row[1] for row in cursor.fetchall()]
+
+            migrated_count = 0
+            for row in old_data:
+                old_record = dict(zip(columns, row))
+
+                # Insert into metadata table
+                cursor.execute(f"""
+                    INSERT INTO {metadata_table_name}
+                    (content, source_document, source_hash, chunking_strategy, chunk_index,
+                     char_start, char_end, semantic_title, semantic_summary, semantic_overlap, metadata_json)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    old_record.get('content'),
+                    old_record.get('source_document'),
+                    old_record.get('source_hash'),
+                    old_record.get('chunking_strategy', 'unknown'),
+                    old_record.get('chunk_index'),
+                    old_record.get('char_start'),
+                    old_record.get('char_end'),
+                    old_record.get('semantic_title'),
+                    old_record.get('semantic_summary'),
+                    old_record.get('semantic_overlap'),
+                    old_record.get('metadata_json')
+                ))
+
+                metadata_id = cursor.lastrowid
+
+                # Parse embedding and insert into vec0 table
+                embedding_str = old_record.get('embedding', '[]')
+                if isinstance(embedding_str, str):
+                    import json
+                    embedding = json.loads(embedding_str)
+                else:
+                    # Handle bytes format (legacy)
+                    import struct
+                    embedding = list(struct.unpack(f'{len(embedding_str)//4}f', embedding_str))
+
+                # Convert to float32 bytes for vec0
+                import struct
+                embedding_bytes = struct.pack(f'{len(embedding)}f', *embedding)
+
+                cursor.execute(f"""
+                    INSERT INTO {vec0_table_name} (embedding, metadata_id)
+                    VALUES (?, ?)
+                """, (embedding_bytes, metadata_id))
+
+                migrated_count += 1
+
+            self.conn.commit()
+            print(f"Successfully migrated {migrated_count} records to vec0 format.")
+
+            # Optionally backup old table
+            cursor.execute(f"ALTER TABLE {self.table_name} RENAME TO {self.table_name}_backup")
+            print(f"Old table renamed to {self.table_name}_backup")
+
+        except Exception as e:
+            print(f"Error during migration: {e}")
+            self.conn.rollback()
+            raise
 
     def add_documents(self, documents: List[Tuple[str, List[float]]]):
         """
@@ -183,7 +278,7 @@ class SQLiteVecDatabase(VectorDatabase):
 
     def add_documents_with_metadata(self, documents: List[Tuple[str, List[float], dict]]):
         """
-        Adds a batch of documents with metadata to the SQLite database.
+        Adds a batch of documents with metadata to the SQLite database using vec0 virtual tables.
 
         Args:
             documents: List of tuples (content, embedding, metadata_dict)
@@ -208,65 +303,71 @@ class SQLiteVecDatabase(VectorDatabase):
 
         cursor = self.conn.cursor()
 
-        # Prepare data for bulk insert
-        data_to_insert = []
+        # Get table names
+        vec0_table_name = f"{self.table_name}_vec0"
+        metadata_table_name = f"{self.table_name}_metadata"
+
+        print(f"Inserting {len(documents)} documents with metadata into new vec0 format...")
+
         for content, embedding, metadata in documents:
-            embedding_blob = json.dumps(embedding)
-
-            # Extract metadata fields with defaults
-            source_document = metadata.get('source_document')
-            source_hash = metadata.get('source_hash')
-            chunking_strategy = metadata.get('chunking_strategy', 'unknown')
-            chunk_index = metadata.get('chunk_index')
-            char_start = metadata.get('char_start')
-            char_end = metadata.get('char_end')
-            semantic_title = metadata.get('semantic_title')
-            semantic_summary = metadata.get('semantic_summary')
-            semantic_overlap = metadata.get('semantic_overlap')
-            metadata_json = metadata.get('metadata_json')
-
-            data_to_insert.append((
+            # Insert into metadata table first
+            cursor.execute(f"""
+                INSERT INTO {metadata_table_name}
+                (content, source_document, source_hash, chunking_strategy, chunk_index,
+                 char_start, char_end, semantic_title, semantic_summary, semantic_overlap, metadata_json)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
                 content,
-                source_document,
-                source_hash,
-                chunking_strategy,
-                chunk_index,
-                char_start,
-                char_end,
-                semantic_title,
-                semantic_summary,
-                semantic_overlap,
-                embedding_blob,
-                metadata_json
+                metadata.get('source_document'),
+                metadata.get('source_hash'),
+                metadata.get('chunking_strategy', 'unknown'),
+                metadata.get('chunk_index'),
+                metadata.get('char_start'),
+                metadata.get('char_end'),
+                metadata.get('semantic_title'),
+                metadata.get('semantic_summary'),
+                metadata.get('semantic_overlap'),
+                metadata.get('metadata_json')
             ))
 
-        print(f"Inserting {len(data_to_insert)} documents with metadata into '{self.table_name}'...")
-        cursor.executemany(
-            f"""INSERT INTO {self.table_name}
-                (content, source_document, source_hash, chunking_strategy, chunk_index,
-                 char_start, char_end, semantic_title, semantic_summary, semantic_overlap,
-                 embedding, metadata_json)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-            data_to_insert
-        )
+            metadata_id = cursor.lastrowid
+
+            # Convert embedding to float32 bytes for vec0
+            import struct
+            embedding_bytes = struct.pack(f'{len(embedding)}f', *embedding)
+
+            # Insert into vec0 table
+            cursor.execute(f"""
+                INSERT INTO {vec0_table_name} (embedding, metadata_id)
+                VALUES (?, ?)
+            """, (embedding_bytes, metadata_id))
+
         self.conn.commit()
-        print("Insertion complete.")
+        print("Insertion complete with vec0 virtual tables.")
 
     def get_document_count(self) -> int:
         """Returns the total number of documents in the database."""
         cursor = self.conn.cursor()
         try:
-            cursor.execute(f"SELECT COUNT(*) FROM {self.table_name}")
+            # Try new vec0 format first
+            metadata_table_name = f"{self.table_name}_metadata"
+            cursor.execute(f"SELECT COUNT(*) FROM {metadata_table_name}")
             count = cursor.fetchone()[0]
             return count
         except sqlite3.OperationalError:
-            # This can happen if the table doesn't exist yet
-            return 0
+            # Fallback to old table format
+            try:
+                cursor.execute(f"SELECT COUNT(*) FROM {self.table_name}")
+                count = cursor.fetchone()[0]
+                return count
+            except sqlite3.OperationalError:
+                # This can happen if the table doesn't exist yet
+                return 0
 
     def search_similar(self, query_embedding: List[float], top_k: int = 5) -> List[Tuple[str, float]]:
         """
         Searches for the most similar documents to the query embedding.
-        Uses sqlite-vec functions for efficient vector similarity search.
+        Uses modern sqlite-vec KNN queries for optimal performance.
 
         Args:
             query_embedding (List[float]): The query embedding vector.
@@ -276,48 +377,89 @@ class SQLiteVecDatabase(VectorDatabase):
             List[Tuple[str, float]]: List of (content, similarity_score) tuples.
         """
         cursor = self.conn.cursor()
-        
+
+        try:
+            # Try new vec0 format with KNN queries
+            vec0_table_name = f"{self.table_name}_vec0"
+            metadata_table_name = f"{self.table_name}_metadata"
+
+            # Convert query embedding to float32 bytes
+            import struct
+            query_bytes = struct.pack(f'{len(query_embedding)}f', *query_embedding)
+
+            # Use KNN query with native distance function
+            cursor.execute(f"""
+                SELECT
+                    m.content,
+                    v.distance
+                FROM {vec0_table_name} v
+                JOIN {metadata_table_name} m ON v.metadata_id = m.id
+                WHERE v.embedding MATCH ?
+                AND k = ?
+            """, (query_bytes, top_k))
+
+            results = cursor.fetchall()
+
+            # Convert distance to similarity (lower distance = higher similarity)
+            similarities = [(content, 1.0 / (1.0 + distance)) for content, distance in results]
+            print(f"Found {len(similarities)} results using native KNN queries")
+            return similarities
+
+        except sqlite3.OperationalError as e:
+            # Fallback to old table format
+            print(f"Vec0 tables not available, falling back to old format: {e}")
+            return self._search_similar_legacy(query_embedding, top_k)
+
+    def _search_similar_legacy(self, query_embedding: List[float], top_k: int = 5) -> List[Tuple[str, float]]:
+        """
+        Legacy search method for old table format.
+        """
+        cursor = self.conn.cursor()
+
         try:
             # Try to use sqlite-vec's vec_distance function for efficient search
             import struct
             query_bytes = struct.pack(f'{len(query_embedding)}f', *query_embedding)
-            
+
             cursor.execute(f"""
                 SELECT content, vec_distance(embedding, ?) as distance
                 FROM {self.table_name}
                 ORDER BY distance
                 LIMIT ?
             """, (query_bytes, top_k))
-            
+
             results = cursor.fetchall()
             # Convert distance to similarity (lower distance = higher similarity)
             return [(content, 1.0 / (1.0 + distance)) for content, distance in results]
-            
+
         except sqlite3.OperationalError:
-            # Fallback to manual cosine similarity if vec_distance is not available
-            print("sqlite-vec distance function not available, using manual similarity calculation")
-            cursor.execute(f"SELECT content, embedding FROM {self.table_name}")
-            results = cursor.fetchall()
-            
-            similarities = []
-            for content, embedding_data in results:
-                # Handle both JSON string and bytes formats
-                if isinstance(embedding_data, str):
-                    # Embedding stored as JSON string
-                    import json
-                    stored_embedding = json.loads(embedding_data)
-                else:
-                    # Embedding stored as bytes (legacy format)
-                    import struct
-                    stored_embedding = list(struct.unpack(f'{len(embedding_data)//4}f', embedding_data))
-                
-                # Calculate cosine similarity
-                similarity = self._cosine_similarity(query_embedding, stored_embedding)
-                similarities.append((content, similarity))
-            
-            # Sort by similarity (descending) and return top_k
-            similarities.sort(key=lambda x: x[1], reverse=True)
-            return similarities[:top_k]
+            # Fallback: Try backup table
+            try:
+                backup_table = f"{self.table_name}_backup"
+                print(f"Trying backup table: {backup_table}")
+                cursor.execute(f"SELECT content, embedding FROM {backup_table}")
+                results = cursor.fetchall()
+
+                similarities = []
+                for content, embedding_data in results:
+                    # Handle both JSON string and bytes formats
+                    if isinstance(embedding_data, str):
+                        import json
+                        stored_embedding = json.loads(embedding_data)
+                    else:
+                        import struct
+                        stored_embedding = list(struct.unpack(f'{len(embedding_data)//4}f', embedding_data))
+
+                    # Calculate cosine similarity
+                    similarity = self._cosine_similarity(query_embedding, stored_embedding)
+                    similarities.append((content, similarity))
+
+                # Sort by similarity (descending) and return top_k
+                similarities.sort(key=lambda x: x[1], reverse=True)
+                return similarities[:top_k]
+            except sqlite3.OperationalError:
+                print("No backup table available. Manual search not possible.")
+                return []
 
     def _cosine_similarity(self, vec1: List[float], vec2: List[float]) -> float:
         """
@@ -347,10 +489,17 @@ class SQLiteVecDatabase(VectorDatabase):
         """
         cursor = self.conn.cursor()
         try:
-            cursor.execute(f"SELECT id, content FROM {self.table_name}")
+            # Try new vec0 format first
+            metadata_table_name = f"{self.table_name}_metadata"
+            cursor.execute(f"SELECT id, content FROM {metadata_table_name}")
             return cursor.fetchall()
         except sqlite3.OperationalError:
-            return []
+            # Fallback to old table format
+            try:
+                cursor.execute(f"SELECT id, content FROM {self.table_name}")
+                return cursor.fetchall()
+            except sqlite3.OperationalError:
+                return []
 
     def get_document_by_id(self, doc_id: int) -> str:
         """
@@ -364,11 +513,19 @@ class SQLiteVecDatabase(VectorDatabase):
         """
         cursor = self.conn.cursor()
         try:
-            cursor.execute(f"SELECT content FROM {self.table_name} WHERE id = ?", (doc_id,))
+            # Try new vec0 format first
+            metadata_table_name = f"{self.table_name}_metadata"
+            cursor.execute(f"SELECT content FROM {metadata_table_name} WHERE id = ?", (doc_id,))
             result = cursor.fetchone()
             return result[0] if result else ""
         except sqlite3.OperationalError:
-            return ""
+            # Fallback to old table format
+            try:
+                cursor.execute(f"SELECT content FROM {self.table_name} WHERE id = ?", (doc_id,))
+                result = cursor.fetchone()
+                return result[0] if result else ""
+            except sqlite3.OperationalError:
+                return ""
 
     def __del__(self):
         """Ensures the database connection is closed when the object is destroyed."""

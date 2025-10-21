@@ -2,10 +2,16 @@ from downloader import download_vtt
 from parser import vtt_to_plain_text, format_transcription
 from db import insert_video
 
-def process_urls_to_single_file(url_list, output_path, lang='es'):
+def process_urls_to_single_file(url_list, output_path, lang='es', keep_timestamps=False):
     """
     Procesa una lista de URLs de YouTube, descarga sus subtítulos,
     y los guarda todos en un solo archivo de texto con encabezados.
+
+    Args:
+        url_list: Lista de URLs de YouTube a procesar
+        output_path: Ruta del archivo de salida
+        lang: Idioma de los subtítulos (default: 'es')
+        keep_timestamps: Si True, mantiene las marcas de tiempo (default: False)
     """
     print(f"[INFO] Iniciando procesamiento por lotes de {len(url_list)} URLs.")
     all_texts = []
@@ -18,7 +24,8 @@ def process_urls_to_single_file(url_list, output_path, lang='es'):
             vtt_content, detected_lang, video_metadata = download_vtt(url, lang)
             
             if vtt_content:
-                plain_text = vtt_to_plain_text(vtt_content)
+                remove_timestamps = not keep_timestamps
+                plain_text = vtt_to_plain_text(vtt_content, remove_timestamps)
 
                 # Formatear el texto ANTES de guardarlo
                 formatted_text = format_transcription(plain_text, title=video_metadata['title'], url=url)

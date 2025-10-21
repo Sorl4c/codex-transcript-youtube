@@ -51,6 +51,9 @@ python -m rag_engine.rag_cli ingest transcripts_for_rag/sample.txt --mock
 python -m rag_engine.rag_cli ingest transcripts_for_rag/sample.txt  # DocLing enabled by default
 python -m rag_engine.rag_cli ingest transcripts_for_rag/sample.txt --no-docling  # Traditional parsing
 
+# RAG + Streamlit Integration (Sesión 3)
+streamlit run gui_streamlit.py  # Incluye nueva pestaña "Búsqueda RAG"
+
 # Run CLI for single video processing
 python main.py <youtube_url>
 
@@ -70,14 +73,16 @@ uvicorn main:app --host 0.0.0.0 --port 8000
 
 ### Testing
 
-No automated test framework is configured. Tests exist in:
+Test framework includes unit and integration tests. Tests exist in:
 - `ia/tests/` - AI module tests
+- `tests/test_rag_streamlit_integration.py` - RAG + Streamlit integration tests
 - Individual test files like `test_parser.py`, `test_db.py`
 
 Run individual tests manually:
 ```bash
 python test_parser.py
 python ia/tests/test_core.py
+python tests/test_rag_streamlit_integration.py
 ```
 
 ### Dependencies
@@ -144,6 +149,7 @@ pip install -r requirements_service.txt
 - **SQLite vector database** with sqlite-vec extension
 - **DocLing integration** for intelligent document preprocessing
 - **CLI interface** with flexible options
+- **Streamlit GUI integration** with search interface and automatic ingestion
 
 ### Database Schema
 
@@ -192,6 +198,10 @@ The `gui_streamlit.py` follows OOP design:
 - Channel-based filtering in analysis view
 - Copy-to-clipboard functionality for transcripts/summaries
 - Video deletion
+- **RAG integration**: Semantic search across ingested transcripts
+- **Automatic RAG ingestion**: Option to ingest transcripts during video processing
+- **Hybrid search modes**: Vector, keyword (BM25), and hybrid search
+- **Real-time RAG statistics**: Track documents, database size, and system status
 
 ## Environment Configuration
 

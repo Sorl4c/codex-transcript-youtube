@@ -1,0 +1,115 @@
+{
+  "generated_at": "2024-10-17",
+  "categories": {
+    "Icon Libraries": [
+      {
+        "name": "PyQt-Fluent-Widgets",
+        "description": "Colección completa de iconos al estilo Microsoft Fluent Design",
+        "rating": 5,
+        "compatibility": "PyQt6/PySide6",
+        "install": "pip install pyqt-fluent-widgets"
+      },
+      {
+        "name": "qtawesome",
+        "description": "Librería de iconos para Qt/PySide basada en Font Awesome",
+        "rating": 4,
+        "compatibility": "PyQt5/PyQt6/PySide2/PySide6",
+        "install": "pip install qtawesome"
+      }
+    ],
+    "Animation & Graphics": [
+      {
+        "name": "pyqtgraph",
+        "description": "Librería gráfica científica con capacidades de animación avanzadas",
+        "rating": 4,
+        "compatibility": "PyQt5/PyQt6/PySide2/PySide6",
+        "install": "pip install pyqtgraph"
+      }
+    ],
+    "Theming & Styling": [
+      {
+        "name": "QDarkStyleSheet",
+        "description": "Hoja de estilos oscura para aplicaciones Qt/PySide",
+        "rating": 4,
+        "compatibility": "PyQt5/PyQt6/PySide2/PySide6",
+        "install": "pip install qdarkstyle"
+      }
+    ],
+    "Component Libraries": [
+      {
+        "name": "SuperQt",
+        "description": "Colección de widgets mejorados y utilidades para Qt",
+        "rating": 5,
+        "compatibility": "PyQt5/PyQt6/PySide2/PySide6",
+        "install": "pip install superqt"
+      },
+      {
+        "name": "PyQtModernUI",
+        "description": "Colección de widgets modernos con efectos visuales",
+        "rating": 3,
+        "compatibility": "PyQt5/PyQt6",
+        "install": "pip install PyQtModernUI"
+      }
+    ],
+    "Charts & Data Viz": [
+      {
+        "name": "PyQt-Charts",
+        "description": "Bindings de Qt Charts para Python",
+        "rating": 4,
+        "compatibility": "PySide6",
+        "install": "pip install PySide6-Charts"
+      }
+    ],
+    "Color & Design": [
+      {
+        "name": "Colour",
+        "description": "Librería de manipulación de colores para Python",
+        "rating": 4,
+        "compatibility": "General Python",
+        "install": "pip install colour"
+      }
+    ],
+    "3D Graphics": [
+      {
+        "name": "PyOpenGL",
+        "description": "Bindings de OpenGL para Python",
+        "rating": 3,
+        "compatibility": "General Python",
+        "install": "pip install PyOpenGL PyOpenGL_accelerate"
+      }
+    ],
+    "Image Processing": [
+      {
+        "name": "Pillow (PIL)",
+        "description": "Librería de procesamiento de imágenes para Python",
+        "rating": 5,
+        "compatibility": "General Python",
+        "install": "pip install Pillow"
+      }
+    ]
+  },
+  "recommendations": {
+    "Modern Desktop Application": [
+      "PyQt-Fluent-Widgets",
+      "SuperQt"
+    ],
+    "Data Visualization Dashboard": [
+      "pyqtgraph",
+      "PyQt-Charts"
+    ],
+    "Dark Mode Application": [
+      "QDarkStyleSheet",
+      "Colour"
+    ],
+    "Prototype with Modern Effects": [
+      "PyQtModernUI"
+    ],
+    "Icon-heavy Application": [
+      "PyQt-Fluent-Widgets",
+      "qtawesome"
+    ],
+    "3D Graphics Application": [
+      "PyOpenGL"
+    ]
+  }
+}

@@ -1,0 +1,77 @@
+.search-bar {
+  position: relative;
+  width: min(420px, 100%);
+  transition: transform var(--transition-snappy);
+}
+
+.search-bar__input {
+  width: 100%;
+  padding: 0.9rem 1.1rem 0.9rem 2.85rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+  background: var(--color-surface-transparent);
+  color: var(--color-text);
+  box-shadow: inset 0 1px 0 rgba(15, 23, 42, 0.06), var(--shadow-sm);
+  backdrop-filter: blur(var(--blur-soft));
+  transition:
+    border var(--transition-default),
+    box-shadow var(--transition-default),
+    background var(--transition-default),
+    transform var(--transition-snappy);
+}
+
+.search-bar__input:focus {
+  outline: none;
+  border-color: color-mix(in srgb, var(--color-primary) 65%, transparent);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--color-primary) 18%, transparent),
+    var(--shadow-md);
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  transform: translateY(-1px);
+}
+
+.search-bar:focus-within {
+  transform: translateY(-1px);
+}
+
+.search-bar__icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.05rem;
+  height: 1.05rem;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  transition: color var(--transition-default);
+}
+
+.search-bar:has(.search-bar__input:focus) .search-bar__icon {
+  color: var(--color-primary-emphasis);
+}
+
+.search-bar__clear {
+  position: absolute;
+  right: 0.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  color: var(--color-text-muted);
+  padding: 0.32rem;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background var(--transition-default),
+    color var(--transition-default),
+    transform var(--transition-snappy);
+}
+
+.search-bar__clear:hover {
+  background: color-mix(in srgb, var(--color-surface-muted) 75%, transparent);
+  color: var(--color-text);
+  transform: translateY(-1px);
+}

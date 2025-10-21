@@ -1,0 +1,58 @@
+[
+  {
+    "id": "vid-001",
+    "title": "Diseñando un pipeline RAG de extremo a extremo",
+    "channel": "DataCraft Latam",
+    "summary": "Revisión de la arquitectura RAG utilizada para indexar transcripciones de YouTube, con énfasis en la selección de chunkers y la capa de evaluación.",
+    "transcript": "Bienvenidos a la sesión de hoy donde vamos a recorrer nuestro pipeline RAG completo. Comenzaremos revisando las fuentes de datos, luego hablaremos del preprocesamiento y finalmente cubriremos la evaluación.",
+    "published_at": "2024-01-15T10:30:00Z",
+    "duration": 1560,
+    "tags": [
+      "rag",
+      "arquitectura"
+    ],
+    "thumbnail_url": ""
+  },
+  {
+    "id": "vid-002",
+    "title": "Mejores prácticas para subtítulos automáticos",
+    "channel": "Productividad IA",
+    "summary": "Comparativa de estrategias para mejorar la calidad de subtítulos generados automáticamente con modelos de voz a texto.",
+    "transcript": "En este video te mostraré tres estrategias para limpiar subtítulos automáticos: normalizar puntuación, corregir tiempos y aplicar filtros contextuales.",
+    "published_at": "2023-12-05T18:12:00Z",
+    "duration": 1245,
+    "tags": [
+      "subtitulos",
+      "workflow"
+    ],
+    "thumbnail_url": ""
+  },
+  {
+    "id": "vid-003",
+    "title": "Automatizando descargas con yt-dlp",
+    "channel": "DevOps Español",
+    "summary": "Demostración práctica de yt-dlp para manejar lotes de URLs, definir formatos y extraer metadatos clave.",
+    "transcript": "Antes de comenzar asegúrate de tener instalada la versión correcta de yt-dlp. Usaremos una lista de reproducción como ejemplo para cubrir casos más complejos.",
+    "published_at": "2024-02-20T09:00:00Z",
+    "duration": 980,
+    "tags": [
+      "devops",
+      "automatizacion"
+    ],
+    "thumbnail_url": ""
+  },
+  {
+    "id": "vid-004",
+    "title": "Cómo evaluar prompts para resúmenes de video",
+    "channel": "Prompt Masters",
+    "summary": "Metodología para comparar prompts de forma sistemática y elegir los que producen resúmenes más útiles.",
+    "transcript": "La evaluación de prompts debe considerar fidelidad, cobertura y utilidad. Hoy vamos a crear una matriz que pondera cada dimensión y la aplicaremos a ejemplos reales.",
+    "published_at": "2022-11-11T14:45:00Z",
+    "duration": 1875,
+    "tags": [
+      "prompting",
+      "evaluacion"
+    ],
+    "thumbnail_url": ""
+  }
+]

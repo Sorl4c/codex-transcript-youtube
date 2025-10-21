@@ -1,0 +1,194 @@
+.video-table {
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-transparent);
+  backdrop-filter: blur(var(--blur-soft));
+  box-shadow: var(--shadow-md);
+  border: 1px solid color-mix(in srgb, var(--color-border) 68%, transparent);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.video-table__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.35rem 1.75rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 65%, transparent);
+  background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+}
+
+.video-table__header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.video-table__header-right {
+  display: flex;
+  align-items: center;
+}
+
+.video-table__title {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.video-table__counter {
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  background: color-mix(in srgb, var(--color-primary) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 35%, transparent);
+  color: var(--color-primary-emphasis);
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 680px;
+}
+
+.table thead {
+  background: color-mix(in srgb, var(--color-surface-muted) 86%, transparent);
+}
+
+.table th {
+  text-align: left;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  padding: 0.75rem 1.4rem;
+  font-weight: 600;
+}
+
+.table th button {
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--transition-default);
+}
+
+.table th button:hover,
+.table th button:focus-visible {
+  color: var(--color-text);
+}
+
+.table tbody tr {
+  position: relative;
+  border-bottom: 1px solid transparent;
+  transition:
+    background var(--transition-default),
+    transform var(--transition-snappy),
+    box-shadow var(--transition-default);
+}
+
+.table tbody tr:last-of-type {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  box-shadow: var(--shadow-ring);
+  transform: translateY(-1px);
+}
+
+.table tbody tr[data-active="true"] {
+  background: color-mix(in srgb, var(--color-primary) 18%, transparent);
+  box-shadow: var(--shadow-ring);
+}
+
+.table td {
+  padding: 1rem 1.4rem;
+  vertical-align: middle;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+}
+
+.table tbody tr:last-of-type td {
+  border-bottom: none;
+}
+
+.table td strong {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.table td small {
+  color: var(--color-text-muted);
+}
+
+.table__channel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 500;
+}
+
+.table__date {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.15rem 1.75rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 65%, transparent);
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+}
+
+.pagination__controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pagination button {
+  border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+  background: color-mix(in srgb, var(--color-surface-muted) 85%, transparent);
+  color: var(--color-text);
+  border-radius: var(--radius-md);
+  padding: 0.45rem 0.85rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition:
+    background var(--transition-default),
+    border var(--transition-default),
+    transform var(--transition-snappy);
+}
+
+.pagination button:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 60%, transparent);
+  background: color-mix(in srgb, var(--color-primary) 18%, transparent);
+  transform: translateY(-1px);
+}
+
+.pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.empty-state {
+  display: grid;
+  place-items: center;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--color-text-muted);
+  background: color-mix(in srgb, var(--color-surface-muted) 80%, transparent);
+}

@@ -3,8 +3,10 @@ Module for downloading VTT subtitles from YouTube videos using yt-dlp.
 """
 import os
 import sys
-import yt_dlp
+from datetime import datetime, timezone
 from typing import Optional, Tuple, Dict, Any
+
+import yt_dlp
 
 def get_available_languages(info: Dict[str, Any]) -> list:
     """Extrae y unifica la lista de idiomas de subtítulos disponibles.
@@ -25,6 +27,38 @@ def get_available_languages(info: Dict[str, Any]) -> list:
         available_langs.extend(info['automatic_captions'].keys())
     # Remove duplicates and 'live_chat'
     return sorted(list(set(lang for lang in available_langs if lang != 'live_chat')))
+
+def extract_publish_date(info: Dict[str, Any]) -> Optional[str]:
+    """Normaliza la fecha de publicación del vídeo a formato ISO (YYYY-MM-DD).
+
+    Args:
+        info: Diccionario de metadatos proporcionado por yt-dlp.
+
+    Returns:
+        Fecha en formato ISO o None si no se pudo determinar.
+    """
+    if not info:
+        return None
+
+    raw_date = info.get('upload_date')
+    if raw_date:
+        try:
+            dt = datetime.strptime(raw_date, "%Y%m%d")
+            return dt.date().isoformat()
+        except ValueError:
+            pass
+
+    # Fallback a campos basados en timestamps si están presentes
+    timestamp = info.get('release_timestamp') or info.get('timestamp')
+    if timestamp:
+        try:
+            dt = datetime.fromtimestamp(timestamp, tz=timezone.utc)
+            return dt.date().isoformat()
+        except (OSError, OverflowError, TypeError, ValueError):
+            return None
+
+    return None
+
 
 def download_vtt(url: str, lang: str = 'es') -> Tuple[Optional[str], Optional[str], Optional[Dict[str, Any]]]:
     """Descarga los subtítulos de un vídeo de YouTube en formato VTT.
@@ -124,8 +158,9 @@ def download_vtt(url: str, lang: str = 'es') -> Tuple[Optional[str], Optional[st
             video_metadata = {
                 'title': info.get('title', 'N/A'),
                 'channel': info.get('uploader', 'N/A'),
-                'upload_date': info.get('upload_date', 'N/A'), # Format YYYYMMDD
-                'url': url
+                'upload_date': info.get('upload_date', 'N/A'),  # Raw formato YYYYMMDD
+                'publish_date': extract_publish_date(info),
+                'url': url,
             }
             return vtt_content, lang_to_download, video_metadata
         else:

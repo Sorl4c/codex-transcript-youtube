@@ -1,0 +1,287 @@
+[
+  {
+    "content": "El Docker compose es una herramienta para definir y ejecutar aplicaciones Docker múltiples contenedores. Se utiliza un archivo YAML para configurar los servicios de la aplicación.",
+    "source_hash": "adb03ba25c268796c31de1ccc8fd5fb5",
+    "source_document": "document_fase1_chunk_001",
+    "chunking_strategy": "agentic",
+    "chunk_index": 0,
+    "char_start": 0,
+    "char_end": 99,
+    "semantic_title": "Chunk 001: El Docker compose es una herramienta para definir ...",
+    "semantic_summary": "Resumen del chunk 1: El Docker compose es una herramienta para definir y ejecutar aplicaciones Docker múltiples contenedo...",
+    "semantic_overlap": "",
+    "embedding_model": "all-MiniLM-L6-v2",
+    "additional_metadata": {
+      "fase": "fase_1",
+      "ingestion_timestamp": "2025-01-18T23:50:00Z",
+      "test_dataset": true,
+      "chunk_length": 179
+    }
+  },
+  {
+    "content": "Los embeddings son representaciones vectoriales de texto en un espacio multidimensional. Se utilizan para encontrar similitud semántica entre diferentes fragmentos de texto.",
+    "source_hash": "1b5b7ca185936105e541fe79e4f48c15",
+    "source_document": "document_fase1_chunk_002",
+    "chunking_strategy": "agentic",
+    "chunk_index": 1,
+    "char_start": 100,
+    "char_end": 199,
+    "semantic_title": "Chunk 002: Los embeddings son representaciones vectoriales de...",
+    "semantic_summary": "Resumen del chunk 2: Los embeddings son representaciones vectoriales de texto en un espacio multidimensional. Se utilizan...",
+    "semantic_overlap": "",
+    "embedding_model": "all-MiniLM-L6-v2",
+    "additional_metadata": {
+      "fase": "fase_1",
+      "ingestion_timestamp": "2025-01-18T23:50:00Z",
+      "test_dataset": true,
+      "chunk_length": 173
+    }
+  },
+  {
+    "content": "El sistema RAG (Retrieval-Augmented Generation) combina recuperación de información con generación de lenguaje para mejorar la precisión de las respuestas.",
+    "source_hash": "1b1600c5741745b009012d9aea3789da",
+    "source_document": "document_fase1_chunk_003",
+    "chunking_strategy": "agentic",
+    "chunk_index": 2,
+    "char_start": 200,
+    "char_end": 299,
+    "semantic_title": "Chunk 003: El sistema RAG (Retrieval-Augmented Generation) co...",
+    "semantic_summary": "Resumen del chunk 3: El sistema RAG (Retrieval-Augmented Generation) combina recuperación de información con generación d...",
+    "semantic_overlap": "",
+    "embedding_model": "all-MiniLM-L6-v2",
+    "additional_metadata": {
+      "fase": "fase_1",
+      "ingestion_timestamp": "2025-01-18T23:50:00Z",
+      "test_dataset": true,
+      "chunk_length": 155
+    }
+  },
+  {
+    "content": "La chunking estratégica es fundamental para el procesamiento efectivo de documentos largos. Permite mantener el contexto semántico mientras se divide el contenido.",
+    "source_hash": "7326d86fab88761f439e2f7c7afdfd94",
+    "source_document": "document_fase1_chunk_004",
+    "chunking_strategy": "agentic",
+    "chunk_index": 3,
+    "char_start": 300,
+    "char_end": 399,
+    "semantic_title": "Chunk 004: La chunking estratégica es fundamental para el pro...",
+    "semantic_summary": "Resumen del chunk 4: La chunking estratégica es fundamental para el procesamiento efectivo de documentos largos. Permite ...",
+    "semantic_overlap": "",
+    "embedding_model": "all-MiniLM-L6-v2",
+    "additional_metadata": {
+      "fase": "fase_1",
+      "ingestion_timestamp": "2025-01-18T23:50:00Z",
+      "test_dataset": true,
+      "chunk_length": 163
+    }
+  },
+  {
+    "content": "Los modelos de lenguaje como GPT y BERT han revolucionado el procesamiento de lenguaje natural. Permiten comprender y generar texto de manera más natural.",
+    "source_hash": "f1d8e3a87670f275379be0f9e922e7dd",
+    "source_document": "document_fase1_chunk_005",
+    "chunking_strategy": "agentic",
+    "chunk_index": 4,
+    "char_start": 400,
+    "char_end": 499,
+    "semantic_title": "Chunk 005: Los modelos de lenguaje como GPT y BERT han revolu...",
+    "semantic_summary": "Resumen del chunk 5: Los modelos de lenguaje como GPT y BERT han revolucionado el procesamiento de lenguaje natural. Perm...",
+    "semantic_overlap": "",
+    "embedding_model": "all-MiniLM-L6-v2",
+    "additional_metadata": {
+      "fase": "fase_1",
+      "ingestion_timestamp": "2025-01-18T23:50:00Z",
+      "test_dataset": true,
+      "chunk_length": 154
+    }
+  },
+  {
+    "content": "PostgreSQL con pgvector es una excelente opción para almacenamiento de vectores. Ofrece高性能 búsquedas de similitud y escalabilidad.",
+    "source_hash": "96b0b6e1685151e5492e94bbf0b0d7a7",
+    "source_document": "document_fase1_chunk_006",
+    "chunking_strategy": "agentic",
+    "chunk_index": 5,
+    "char_start": 500,
+    "char_end": 599,
+    "semantic_title": "Chunk 006: PostgreSQL con pgvector es una excelente opción pa...",
+    "semantic_summary": "Resumen del chunk 6: PostgreSQL con pgvector es una excelente opción para almacenamiento de vectores. Ofrece高性能 búsquedas...",
+    "semantic_overlap": "",
+    "embedding_model": "all-MiniLM-L6-v2",
+    "additional_metadata": {
+      "fase": "fase_1",
+      "ingestion_timestamp": "2025-01-18T23:50:00Z",
+      "test_dataset": true,
+      "chunk_length": 130
+    }
+  },
+  {
+    "content": "El streaming de datos permite procesar información en tiempo real. Es especialmente útil para aplicaciones que requieren respuestas inmediatas.",
+    "source_hash": "50f60dffe0ca7d15c608f51b76abd36d",
+    "source_document": "document_fase1_chunk_007",
+    "chunking_strategy": "agentic",
+    "chunk_index": 6,
+    "char_start": 600,
+    "char_end": 699,
+    "semantic_title": "Chunk 007: El streaming de datos permite procesar información...",
+    "semantic_summary": "Resumen del chunk 7: El streaming de datos permite procesar información en tiempo real. Es especialmente útil para aplica...",
+    "semantic_overlap": "",
+    "embedding_model": "all-MiniLM-L6-v2",
+    "additional_metadata": {
+      "fase": "fase_1",
+      "ingestion_timestamp": "2025-01-18T23:50:00Z",
+      "test_dataset": true,
+      "chunk_length": 143
+    }
+  },
+  {
+    "content": "Los microservicios son una aproximación al desarrollo de software donde una aplicación grande está construida como un conjunto de servicios pequeños.",
+    "source_hash": "a92de19e791d821ee36933fe7adbb902",
+    "source_document": "document_fase1_chunk_008",
+    "chunking_strategy": "agentic",
+    "chunk_index": 7,
+    "char_start": 700,
+    "char_end": 799,
+    "semantic_title": "Chunk 008: Los microservicios son una aproximación al desarro...",
+    "semantic_summary": "Resumen del chunk 8: Los microservicios son una aproximación al desarrollo de software donde una aplicación grande está c...",
+    "semantic_overlap": "",
+    "embedding_model": "all-MiniLM-L6-v2",
+    "additional_metadata": {
+      "fase": "fase_1",
+      "ingestion_timestamp": "2025-01-18T23:50:00Z",
+      "test_dataset": true,
+      "chunk_length": 149
+    }
+  },
+  {
+    "content": "La arquitectura de eventos permite que los componentes de un sistema se comuniquen a través de eventos. Esto mejora la desacoplación y escalabilidad.",
+    "source_hash": "99e700e6ec34523793c453af20d6d4d6",
+    "source_document": "document_fase1_chunk_009",
+    "chunking_strategy": "agentic",
+    "chunk_index": 8,
+    "char_start": 800,
+    "char_end": 899,
+    "semantic_title": "Chunk 009: La arquitectura de eventos permite que los compone...",
+    "semantic_summary": "Resumen del chunk 9: La arquitectura de eventos permite que los componentes de un sistema se comuniquen a través de event...",
+    "semantic_overlap": "",
+    "embedding_model": "all-MiniLM-L6-v2",
+    "additional_metadata": {
+      "fase": "fase_1",
+      "ingestion_timestamp": "2025-01-18T23:50:00Z",
+      "test_dataset": true,
+      "chunk_length": 149
+    }
+  },
+  {
+    "content": "El cache invalidation es un problema clásico en computación. Consiste en determinar cuándo y cómo invalidar datos cacheados que han cambiado.",
+    "source_hash": "6a2c9915aad134aa5ac657277084a16b",
+    "source_document": "document_fase1_chunk_010",
+    "chunking_strategy": "agentic",
+    "chunk_index": 9,
+    "char_start": 900,
+    "char_end": 999,
+    "semantic_title": "Chunk 010: El cache invalidation es un problema clásico en co...",
+    "semantic_summary": "Resumen del chunk 10: El cache invalidation es un problema clásico en computación. Consiste en determinar cuándo y cómo in...",
+    "semantic_overlap": "",
+    "embedding_model": "all-MiniLM-L6-v2",
+    "additional_metadata": {
+      "fase": "fase_1",
+      "ingestion_timestamp": "2025-01-18T23:50:00Z",
+      "test_dataset": true,
+      "chunk_length": 141
+    }
+  },
+  {
+    "content": "Los tests unitarios son fundamentales para asegurar la calidad del código. Permiten verificar que cada componente funciona correctamente de forma aislada.",
+    "source_hash": "63b4d31d1a7074d61f52f7323dc30980",
+    "source_document": "document_fase1_chunk_011",
+    "chunking_strategy": "agentic",
+    "chunk_index": 10,
+    "char_start": 1000,
+    "char_end": 1099,
+    "semantic_title": "Chunk 011: Los tests unitarios son fundamentales para asegura...",
+    "semantic_summary": "Resumen del chunk 11: Los tests unitarios son fundamentales para asegurar la calidad del código. Permiten verificar que ca...",
+    "semantic_overlap": "",
+    "embedding_model": "all-MiniLM-L6-v2",
+    "additional_metadata": {
+      "fase": "fase_1",
+      "ingestion_timestamp": "2025-01-18T23:50:00Z",
+      "test_dataset": true,
+      "chunk_length": 154
+    }
+  },
+  {
+    "content": "La integración continua es una práctica de desarrollo donde los desarrolladores integran código frecuentemente. Cada integración se verifica automáticamente.",
+    "source_hash": "0bb39d74e544dc3a3aac0fda8d5184a8",
+    "source_document": "document_fase1_chunk_012",
+    "chunking_strategy": "agentic",
+    "chunk_index": 11,
+    "char_start": 1100,
+    "char_end": 1199,
+    "semantic_title": "Chunk 012: La integración continua es una práctica de desarro...",
+    "semantic_summary": "Resumen del chunk 12: La integración continua es una práctica de desarrollo donde los desarrolladores integran código frec...",
+    "semantic_overlap": "",
+    "embedding_model": "all-MiniLM-L6-v2",
+    "additional_metadata": {
+      "fase": "fase_1",
+      "ingestion_timestamp": "2025-01-18T23:50:00Z",
+      "test_dataset": true,
+      "chunk_length": 157
+    }
+  },
+  {
+    "content": "El control de versiones con Git permite rastrear cambios en el código. Facilita la colaboración entre desarrolladores y el mantenimiento del proyecto.",
+    "source_hash": "7f648d92c2da5d43fba6789bf4f1456b",
+    "source_document": "document_fase1_chunk_013",
+    "chunking_strategy": "agentic",
+    "chunk_index": 12,
+    "char_start": 1200,
+    "char_end": 1299,
+    "semantic_title": "Chunk 013: El control de versiones con Git permite rastrear c...",
+    "semantic_summary": "Resumen del chunk 13: El control de versiones con Git permite rastrear cambios en el código. Facilita la colaboración entr...",
+    "semantic_overlap": "",
+    "embedding_model": "all-MiniLM-L6-v2",
+    "additional_metadata": {
+      "fase": "fase_1",
+      "ingestion_timestamp": "2025-01-18T23:50:00Z",
+      "test_dataset": true,
+      "chunk_length": 150
+    }
+  },
+  {
+    "content": "Las bases de datos vectoriales están diseñadas específicamente para almacenar y consultar vectores de alta dimensionalidad eficientemente.",
+    "source_hash": "48a4f734af5afd5691694c130222b166",
+    "source_document": "document_fase1_chunk_014",
+    "chunking_strategy": "agentic",
+    "chunk_index": 13,
+    "char_start": 1300,
+    "char_end": 1399,
+    "semantic_title": "Chunk 014: Las bases de datos vectoriales están diseñadas esp...",
+    "semantic_summary": "Resumen del chunk 14: Las bases de datos vectoriales están diseñadas específicamente para almacenar y consultar vectores d...",
+    "semantic_overlap": "",
+    "embedding_model": "all-MiniLM-L6-v2",
+    "additional_metadata": {
+      "fase": "fase_1",
+      "ingestion_timestamp": "2025-01-18T23:50:00Z",
+      "test_dataset": true,
+      "chunk_length": 138
+    }
+  },
+  {
+    "content": "El procesamiento de lenguaje natural (NLP) combina lingüística computacional e inteligencia artificial para procesar texto y voz.",
+    "source_hash": "1d2718662f978433f1f85216ccd41750",
+    "source_document": "document_fase1_chunk_015",
+    "chunking_strategy": "agentic",
+    "chunk_index": 14,
+    "char_start": 1400,
+    "char_end": 1499,
+    "semantic_title": "Chunk 015: El procesamiento de lenguaje natural (NLP) combina...",
+    "semantic_summary": "Resumen del chunk 15: El procesamiento de lenguaje natural (NLP) combina lingüística computacional e inteligencia artifici...",
+    "semantic_overlap": "",
+    "embedding_model": "all-MiniLM-L6-v2",
+    "additional_metadata": {
+      "fase": "fase_1",
+      "ingestion_timestamp": "2025-01-18T23:50:00Z",
+      "test_dataset": true,
+      "chunk_length": 129
+    }
+  }
+]

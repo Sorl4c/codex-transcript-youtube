@@ -106,13 +106,23 @@ class UnifiedApp(tk.Tk):
 
         self.model_var = tk.StringVar(value="Modelo Local")
         self.model_combo = ttk.Combobox(
-            model_selection_frame, 
-            textvariable=self.model_var, 
-            values=["Modelo Local", "Gemini API"], 
+            model_selection_frame,
+            textvariable=self.model_var,
+            values=["Modelo Local", "Gemini API"],
             state="readonly",
             width=15
         )
         self.model_combo.pack(fill=tk.X, pady=(0, 5))
+
+        # Opción para mantener marcas de tiempo
+        self.keep_timestamps_var = tk.BooleanVar(value=False)
+        keep_timestamps_check = ttk.Checkbutton(
+            model_selection_frame,
+            text="Mantener marcas de tiempo",
+            variable=self.keep_timestamps_var,
+            help="Si está marcado, las marcas de tiempo no se eliminarán"
+        )
+        keep_timestamps_check.pack(anchor="w", pady=2)
 
         # --- Botones de Acción ---
         button_frame = ttk.Frame(right_controls)
@@ -486,7 +496,9 @@ class UnifiedApp(tk.Tk):
 
                 # 3. Transcribir
                 self.update_queue.put({'type': 'update_status', 'temp_id': temp_id, 'status': 'Transcribiendo...'})
-                plain_text = parser.vtt_to_plain_text(vtt_content)
+                keep_timestamps = self.keep_timestamps_var.get()
+                remove_timestamps = not keep_timestamps
+                plain_text = parser.vtt_to_plain_text(vtt_content, remove_timestamps)
                 formatted_text = parser.format_transcription(plain_text, title=video_metadata['title'], url=url)
 
                 # 4. Resumir

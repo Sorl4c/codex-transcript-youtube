@@ -1,0 +1,1 @@
+Este es un documento de prueba sobre Docker compose y microservicios. Docker compose es una herramienta para definir y ejecutar aplicaciones Docker multi-contenedor.
